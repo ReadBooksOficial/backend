@@ -10,7 +10,7 @@
 
         {{-- {{$dados_livro}} --}}
 
-        {{-- @if(!isset($dados_livro))
+        @if(!isset($dados_livro))
 
             <form class="form-cadastrar-livro" action="/create" method="post">
                 @csrf
@@ -28,18 +28,18 @@
                 </div>
                 <button type="submit" class="btn btn-blue" style="width: 100%"> Cadastrar</button>
             </form>
-        @endif --}}
+        @endif
 
         {{-- CASO A API DO GOOGLE ACHE OS DADOS DO LIVRO --}}
-        {{-- @if(isset($dados_livro)) --}}
+        @if(isset($dados_livro))
         {{-- o  enctype="multipart/form-data" serve para salvar arquivos --}}
             <form class="form-cadastrar-livro" action="/createDois" method="post" enctype="multipart/form-data">
                 @csrf
                 <h1 class="text-center">Cadastre um Livro</h1>
                 <div class="mb-3">
                     <label for="nome_livro" class="form-label">Nome do Livro</label>
-                    {{-- <input onkeyup="buscarLivro()" type="text" class="form-control"> --}}
-                    <input type="text" class="campo-nome-livro form-control" id="nome_livro" name="nome_livro">
+                    <input type="text" class="form-control" value="{{$book_name}}">
+                    <input type="text" class="form-control d-none" id="nome_livro" name="nome_livro" value="{{$book_name}}">
 
                     @error('nome_livro')
                         <span class="invalid-feedback" role="alert">
@@ -47,26 +47,21 @@
                         </span>
                     @enderror
                 </div>
-                {{-- @php
+                @php
                     if($url_capas == "[]"){
                         $livroController = app(App\Http\Controllers\livroController::class);
                         $url_capas = $livroController->pegarCapaLivro($book_name);
                     }
-                @endphp --}}
+                @endphp
 
 
                 {{-- Caso tenha uma imagem do livro dentro do próprio site --}}
-                {{-- @if(isset($url_capas) && count($url_capas)) --}}
+                @if(isset($url_capas) && count($url_capas))
                     <div class="mb-4">
                         <label class="col-12 form-label">Capa do Livro</label>
-                        <input type="text" class="d-none" id="img_livro" name="img_livro">
-                        {{-- <img height="300px" width="200px" src="{{asset('img_livros/42.png')}}" class=""> --}}
+                        <input type="text" class="d-none" id="img_livro" name="img_livro" value="{{$url_capas[0]['img_livro']}}">
+                        <img height="300px" width="200px" src="{{$url_capas[0]['img_livro']}}" class="">
 
-                        <div class="livro" style="height: 300px; width: 200px">
-                            {{-- @if ($livro->img_livro == null)
-                                <h1>{{ $livro->nome_livro }}</h1>
-                            @endif --}}
-                        </div>
                         {{-- @for($i=0; $i<count($url_capas); $i++)
                             @if(isset($url_capas[$i]->volumeInfo->imageLinks))
                                 <img height="300px" width="200px" src="{{$url_capas[$i]->volumeInfo->imageLinks->smallThumbnail}}" class="">
@@ -75,11 +70,11 @@
                     </div>
 
                 {{-- Caso não tenha uma imagem do livro dentro do próprio site --}}
-                {{-- @else --}}
+                @else
 
 
                     {{-- Caso a api do google ache capa do livro --}}
-                    {{-- @if($url_capa != "")
+                    @if($url_capa != "")
                         <div class="mb-4">
                             <label class="col-12 form-label">Capa do Livro</label>
                             <input type="text" class="d-none" id="img_livro" name="img_livro" value="{{$url_capa}}">
@@ -89,9 +84,10 @@
                                 @if(isset($url_capas[$i]->volumeInfo->imageLinks))
                                     <img height="300px" width="200px" src="{{$url_capas[$i]->volumeInfo->imageLinks->smallThumbnail}}" class="">
                                 @endif
-                            @endfor
+                            @endfor --}}
                         </div>
 
+                    {{-- Caso a api do google não ache capa do livro --}}
                     @else
                         <div class="mb-4">
                             <label for="img_livro_usuario" data-label-image class="form-label">Capa do Livro
@@ -103,7 +99,7 @@
                             </label>
                         </div>
                     @endif
-                @endif --}}
+                @endif
 
                 <div class="mb-4">
                     <label for="data_inicio" class="form-label">Data de inicio da leitura</label>
@@ -112,7 +108,7 @@
                         Deixe esse campo em branco para o livro ser adicionado na lista de desejos. Preecnha esse campo se você já começou a ler esse livro
                     </div>
 
-                    @error('nome_livro')
+                    @error('data_inicio')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -120,10 +116,34 @@
 
                 </div>
 
-                <input type="text" class="d-none form-control" id="pagina_total" name="pagina_total" value="">
+                <div class="mb-4">
+                    <div class="form-group">
+                        <input class="form-check-input" type="checkbox" value="" id="tempo_leitura" checked>
+                        <label class="form-check-label" for="tempo_leitura">
+                        Calcular tempo de leitura
+                        </label>
+                    </div>
+                    <div id="passwordHelpBlock" class="form-text">
+                        Deixe esse campo em branco para colocar o tempo de leitura manualmente
+                    </div>
+                </div>
+
+                {{-- <div class="mb-4">
+                    <label for="contagem_automatica" class="form-label">Contar tempo de leitura automaticamente</label>
+                    <input id="contagem_automatica" name="contagem_automatica" checked type="checkbox" class="form-control">
+
+
+                    @error('contagem_automatica')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div> --}}
+
+                <input type="text" class="d-none form-control" id="pagina_total" name="pagina_total" value="{{$page_count}}">
                 <div class="mb-4">
                     <label for="descricao" class="form-label">Descrição do Livro</label>
-                    <textarea placeholder="Temas do livro ou sinopse" class="form-control @error('descricao_livro') is-invalid @enderror" id="descricao_livro" required name="descricao_livro" rows="1"></textarea>
+                    <textarea placeholder="Temas do livro ou sinopse" class="form-control @error('descricao_livro') is-invalid @enderror" id="descricao_livro" required name="descricao_livro" rows="1">{{$descricao}}</textarea>
 
                     @error('descricao_livro')
                             <span class="invalid-feedback" role="alert">
@@ -135,7 +155,7 @@
 
                 <button type="submit" style="width: 100%" class="btn btn-blue">Cadastrar</button>
             </form>
-        {{-- @endif --}}
+        @endif
     </div>
 
     <script>
@@ -147,39 +167,13 @@
 
         // Adiciona um ouvinte de eventos para ajustar a altura quando o conteúdo é modificado
         textarea.addEventListener('input', function () {
-        this.style.height = 'auto';
-        this.style.height = (this.scrollHeight + 5) + 'px';
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
         });
-    </script>
-
-
-    <script>
-        var xhr; // Variável para armazenar o objeto XMLHttpRequest
-
-
-        $('.campo-nome-livro').on('input', function(){
-            nome = this.value
-            $(".livro").css('background-image', ``)
-
-            if(!nome){
-                if (xhr) xhr.abort(); // Abortar qualquer requisição AJAX pendente
-                return;
-            }
-
-            if (xhr) xhr.abort();
-
-            xhr = $.ajax({
-                url: `/google-api/bookByName/${nome}`,
-                success: function(response){
-                    console.log(response);
-                    $(".livro").css('background-image', `url('${response.url_capa}')`)
-                },
-                error: function(error){
-                    console.log(error);
-                }
-            })
-        })
-    </script>
+      </script>
 
     <script src="{{asset('js\preview_image.js')}}"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{{asset('js\tempo_lido.js')}}"></script> --}}
+
 @endsection

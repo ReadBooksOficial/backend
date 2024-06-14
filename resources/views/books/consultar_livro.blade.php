@@ -48,7 +48,6 @@
                     <div class="col">
                         <h3>Tempo de leitura: {{$livro->tempo_lido }}</h3>
                         <h3>Páginas Lidas: {{$livro->paginas_lidas}} @if($livro->total_paginas) / {{$livro->total_paginas}} @endif</h3>
-                        <h3>Terminou: {{$livro->lido}}</h3>
 
                         @if($livro->data_inicio)
                             @php
@@ -63,6 +62,8 @@
                         @endphp
                             <h3>Data de término: {{$data_termino}}</h3>
                         @endif
+                        <h3 @if($livro->lido == 'sim' || $livro->lido == "Sim") class="alert-success" @else class="alert-danger" @endif style="border-radius: 5px; padding: 1px 5px">Terminou: {{$livro->lido}}</h3>
+
                     </div>
 
                     @if (auth()->check() && auth()->user()->id == $livro->id_usuario)

@@ -60,6 +60,18 @@
                 </div>
 
                 <div class="mb-4">
+                    <div class="form-group d-flex align-items-center gap-2">
+                        <input class="form-check-input" type="checkbox" value="" id="tempo_leitura" checked>
+                        <label class="form-check-label" for="tempo_leitura">
+                            Calcular tempo de leitura
+                        </label>
+                    </div>
+                    <div id="passwordHelpBlock" class="form-text">
+                        Deixe esse campo em branco para colocar o tempo de leitura manualmente
+                    </div>
+                </div>
+
+                <div class="mb-4 container-tempo-lido">
                     <label for="tempo_lido" class="form-label">Tempo lido</label>
                     <input type="text" class="form-control @error('tempo_lido') is-invalid @enderror" id="tempo_lido" name="tempo_lido" value="{{$livro->tempo_lido}}">
 
@@ -83,11 +95,11 @@
                         <label for="data_inicio" class="form-label">Data de inicio da leitura</label>
                         <input id="data_inicio" name="data_inicio" placeholder="06/06/2023" value="{{$data_inicio}}" type="date" class="form-control @error('data_inicio') is-invalid @enderror">
                         {{-- <input id="data_inicio" name="data_inicio" placeholder="06/06/2023" value="{{$livro->data_inicio}}" type="text" class="form-control @error('data_inicio') is-invalid @enderror"> --}}
-                        
-                        <div id="passwordHelpBlock" class="form-text">
+
+                        <div id="passwordHelpBlock" class="text-data-inicio form-text">
                             Deixe esse campo em branco para o livro ser adicionado na lista de desejos. Preecnha esse campo se você já começou a ler esse livro
                         </div>
-    
+
                         @error('data_inicio')
                             <span class="invalid-feedback" role="alert">
                                 {{ $message }}
@@ -97,7 +109,7 @@
                     <div class="col">
                         <label for="data_termino" class="form-label">Data de término</label>
                         <input id="data_termino" name="data_termino" placeholder="Termino da leitura" value="{{$data_termino}}" type="date" class="form-control @error('data_termino') is-invalid @enderror">
-    
+
                         @error('data_termino')
                             <span class="invalid-feedback" role="alert">
                                 {{ $message }}
@@ -125,10 +137,10 @@
     <script>
         // Obtém o elemento textarea
         var textarea = document.getElementById('descricao_livro');
-      
+
         // Define a altura inicial com base no conteúdo
         textarea.style.height = (textarea.scrollHeight) + 'px';
-      
+
         // Adiciona um ouvinte de eventos para ajustar a altura quando o conteúdo é modificado
         textarea.addEventListener('input', function () {
           this.style.height = 'auto';
@@ -137,5 +149,7 @@
       </script>
 
     <script src="{{asset('js\preview_image.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{{asset('js\tempo_lido.js')}}"></script>
 
 @endsection
