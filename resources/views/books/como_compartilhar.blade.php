@@ -11,16 +11,16 @@
 
             <p style="margin-top: 20px">Pronto, o link foi copiado e você pode enviar para quem quiser</p>
             <img class="celular" src="{{asset('img/compartilhar-especifico-modal.png?v=1')}}" style="height:600px; width:300px">
-            <img class="pc" src="{{asset('img/compartilhar-especifico-pc.png?v=1')}}" style="width:900px; height:500px">
+            <img class="pc" src="{{asset('img/compartilhar-especifico-modal-pc.png?v=1')}}" style="width:900px; height:500px">
 
             <h1 style="margin-top: 30px" class="nome-livro-lido">Compartilhar todos os livros</h1>
             <p>Basta ir até a página principal com a listagem dos seus livros e clicar o botão azul na parte inferior direita e ir em compartilhar</p>
             <img class="celular" src="{{asset('img/compartilhar-home.png?v=1')}}" style="height:600px; width:300px">
-            <img class="pc" src="{{asset('img/compartilhar-especifico-pc.png?v=1')}}" style="width:900px; height:500px">
+            <img class="pc" src="{{asset('img/compartilhar-home-pc.png?v=1')}}" style="width:900px; height:500px">
 
             <p style="margin-top: 20px">Pronto, o link foi copiado e você pode enviar para quem quiser</p>
             <img class="celular" src="{{asset('img/compartilhar-home-modal.png?v=1')}}" style="height:600px; width:300px">
-            <img class="pc" src="{{asset('img/compartilhar-especifico-pc.png?v=1')}}" style="width:900px; height:500px">
+            <img class="pc" src="{{asset('img/compartilhar-home-modal-pc.png?v=1')}}" style="width:900px; height:500px">
         </div>
     {{-- </div> --}}
 
