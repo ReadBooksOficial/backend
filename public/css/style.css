@@ -112,7 +112,7 @@ footer {
 
 
 .col-left-register {
-    padding: 0 300px;
+    padding: 0 200px;
 }
 
 
@@ -145,7 +145,7 @@ footer {
 }
 
 .col-right-login{
-    padding: 0 300px!important;
+    padding: 0 250px!important;
 }
 
 .col-right-login h1 {
@@ -242,7 +242,7 @@ label {
 .col-index {
     display: grid;
     place-items: center;
-    padding: 0 50px !important;
+    padding: 0 50px;
 }
 
 
@@ -554,7 +554,7 @@ img.img-escolher-capa {
         min-width: 100%!important;
     }
 
-    
+
     .col-livro {
         margin: 0 10px;
     }
@@ -592,7 +592,7 @@ img.img-escolher-capa {
         gap: 20px;
         padding-left: 30px;
     }
-    
+
     .col-livro {
         padding: 0 !important;
         min-width: 185px!important;
@@ -622,7 +622,7 @@ img.img-escolher-capa {
         gap: 5px;
         padding-left: 0;
     }
-    
+
     .col-livro {
         min-width: 155px!important;
         max-width: 155px!important;
@@ -657,7 +657,7 @@ img.img-escolher-capa {
         gap: 15px;
         padding-left: 10px;
     }
-    
+
     .col-livro {
         min-width: 140px!important;
         max-width: 140px!important;
@@ -714,7 +714,7 @@ img.img-escolher-capa {
         gap: 10px;
         padding-left: 30px;
     }
-    
+
     .col-livro {
         min-width: 130px!important;
         max-width: 130px!important;
@@ -737,13 +737,13 @@ img.img-escolher-capa {
         gap: 10px;
         padding-left: 30px;
     }
-    
+
     .col-livro {
         min-width: 30%!important;
         max-width: 30%!important;
         min-height: 250px;
     }
-    
+
 }
 
 @media (max-width: 510px) {
@@ -795,6 +795,7 @@ img.img-escolher-capa {
     .col-left-register, .col-right-login {
         padding: 0 40px!important;
         width: 100%!important;
+        margin-top: -200px!important;
     }
 
     .col-right-login{
@@ -810,7 +811,7 @@ img.img-escolher-capa {
         margin: 0 -10px;
         padding: 20px 30px;
         margin-bottom: 50px;
-    
+
     }
 
     .form-cadastrar-livro h1{

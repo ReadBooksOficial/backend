@@ -42,7 +42,7 @@
                 @if(isset($_GET['filtro']) && $_GET['filtro'])
                     <p class="text-center text-quantidade-livros">livros encontrados {{$quantidadeLivrosLidos}}</p>
                 @else
-                    <p class="text-center text-quantidade-livros">Terminou de ler {{$quantidadeLivros}} de {{$quantidadeLivrosLidos}} livros</p>
+                    <p class="text-center text-quantidade-livros">Terminou de ler {{$quantidadeLivrosLidos}} de {{$quantidadeLivros}} livros</p>
                     @if($quantidadeListaDesejo)
                         <p class="text-center text-quantidade-livros" style="margin-top: -10px">Lista de desejo: {{$quantidadeListaDesejo}}</p>
                         <p class="text-center text-quantidade-livros" style="margin-top: -10px">Total de livros: {{count($livros)}}</p>

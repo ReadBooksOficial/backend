@@ -4,9 +4,33 @@
 
 @section('content')
     <div class="container container-login">
-        <div class="col-5 col-left-login">
-            <h1>Bem Vindo</h1>
-            <p>Faça login e acesse seus livros</p>
+        <div class="col-5 col-left-login" style="overflow:hidden" >
+            <div class="div img-index" style="position: relative;">
+                <div class="col col-img-index">
+                    <img class="img-index" src="{{asset('img_index/percy - mar de monstros.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/percy - maldicao do tita.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/percy - o ultimo olimpiano.jpg')}}">
+                </div>
+                <div class="col col-img-index">
+                    <img class="img-index" src="{{asset('img_index/percy - a maldicao do tita 2.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/herry - a pedra filosofal.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/harry - a ordem de fenix.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/harry - enigma do principe.jpg')}}">
+                </div>
+
+                <div class="col col-img-index">
+                    <img class="img-index" src="{{asset('img_index/percy - e os olimpianos.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/percy - a batalha do labirinto.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/harry - prsioneiro de azkaban.jpg')}}">
+                </div>
+
+                <div class="col col-img-index">
+                    <img class="img-index" src="{{asset('img_index/harry - o calice de fogo.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/percy - ladrao de raios.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/harry - e a camara secreta.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/harry - as reliquias da morte.jpg')}}">
+                </div>
+            </div>
         </div>
         <div class="col-7 col-right-login">
             <!-- NOTIFICACAO DE CRIAR CONTA -->
@@ -26,7 +50,7 @@
                 </div>
             @endif
 
-            
+
 
             <h1>Login</h1>
 
@@ -75,7 +99,7 @@
                     </div>
                 </div>
             </div>
-            
+
                 <button type="submit" class="btn  btn-blue btn-login">
                     {{ __('Login') }}
                 </button>
@@ -100,7 +124,7 @@
 
     <script>
 
-        //BOTÃO PARA MOSTRAR SENHA    
+        //BOTÃO PARA MOSTRAR SENHA
 
         function showPassword() {//Botao de olho para mostrar e esconder a senha (pagina entrar)
 
@@ -125,6 +149,268 @@
         }
 
     </script>
+
+<style>
+    main{
+        max-height: 100vh!important;
+    }
+    nav{
+        z-index: 9!important;
+    }
+    .col-img-index{
+        position: absolute;
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+        z-index: 999;
+    }
+
+    .col-img-index:nth-child(1){
+        top: -315px;
+        right: 200px;
+    }
+
+    .col-img-index:nth-child(2){
+        top: -470px;
+        right: 0px
+    }
+
+    .col-img-index:nth-child(3){
+        top: -315px;
+        right: -200px
+    }
+
+    .col-img-index:nth-child(4){
+        top: -470px;
+        right: -400px;
+    }
+
+    .img-index{
+        /* height: 229.3; */
+        /* 229,3; */
+        height: 300px;
+        /* height: 351.15; */
+        border-radius: 7px;
+    }
+
+    .row-index, .container-index{
+        /* overflow: hidden !important; */
+        position: relative;
+    }
+
+
+
+    @media (max-width: 1175px) {
+        .img-index{
+            /* height: 229.3; */
+            /* 229,3; */
+            height: 250px;
+            /* height: 351.15; */
+        }
+
+
+        .col-img-index:nth-child(1){
+            top: -250px;
+        }
+
+        .col-img-index:nth-child(2){
+            top: -200px;
+        }
+
+        .col-img-index:nth-child(3){
+            top: -250px;
+        }
+
+        .col-img-index:nth-child(4){
+            top: -200px;
+            right: -500px
+        }
+    }
+
+    @media (max-width: 890px) {
+        .img-index{
+            height: 200px;
+        }
+        .col-img-index:nth-child(1){
+            display: grid;
+            right: 280px;
+            top: -50;
+        }
+
+        .col-img-index:nth-child(2){
+            top: -250px;
+            right: 100px
+        }
+
+        .col-img-index:nth-child(3){
+            right: -50px;
+            top: -150px;
+        }
+
+        .col-img-index:nth-child(4){
+            top: -250px;
+            right: -200px
+        }
+    }
+
+    @media (max-width: 790px) {
+        .col-img-index:nth-child(1){
+            display: none;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .col-index{
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+
+        .container {
+            max-width: 95% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .col-btn-home{
+            padding: 200px 20px 0 20px!important;
+        }
+
+        .col-img-index:nth-child(1){
+            display: grid;
+        }
+
+        .col-btn-home{
+            margin-top: -200px !important;
+            min-width: 100%!important;
+            height: 500px;
+        }
+
+        .col-img-index:nth-child(1){
+            top: 200px;
+            right: 400px
+        }
+
+        .col-img-index:nth-child(2){
+            top: 90px;
+            right: 245px
+        }
+
+        .col-img-index:nth-child(3){
+            top: 200px;
+            right: 90px;
+        }
+
+        .col-img-index:nth-child(4){
+            top: 90px;
+            right: -60px;
+        }
+
+        .main-index{
+            overflow: auto;
+        }
+    }
+
+    @media (max-width: 450px) {
+        .img-index{
+            height: 170px;
+        }
+
+        .col-img-index:nth-child(1){
+            top: 200px;
+            left: -40;
+        }
+
+        .col-img-index:nth-child(2){
+            top: 90px;
+            left: 90px;
+            right: auto;
+        }
+
+        .col-img-index:nth-child(3){
+            top: 200px;
+            right: 80px;
+        }
+
+        .col-img-index:nth-child(4){
+            top: 90px;
+            right: -40;
+        }
+    }
+
+    @media (max-width: 395px) {
+
+        .col-btn-home {
+            margin-top: 0px !important;
+            height: auto;
+        }
+
+        .col-img-index:nth-child(1){
+            top: 150px;
+            left: -50;
+        }
+
+        .col-img-index:nth-child(2){
+            top: 50px;
+            left: 70px;
+            right: auto;
+        }
+
+        .col-img-index:nth-child(3){
+            top: 150px;
+            right: 70px;
+        }
+
+        .col-img-index:nth-child(4){
+            top: 50;
+            right: -50;
+        }
+
+
+        .col-index {
+            padding: 0 10px !important;
+        }
+    }
+
+    @media (max-width: 365px) {
+        .img-index{
+            height: 150px;
+        }
+    }
+
+    @media (max-width: 340px) {
+        .img-index{
+            height: 120px;
+        }
+
+        .col-img-index:nth-child(1){
+            left: 0;
+        }
+
+        .col-img-index:nth-child(2){
+            left: 90px;
+        }
+
+        .col-img-index:nth-child(3){
+            right: 90px;
+        }
+
+        .col-img-index:nth-child(4){
+            right: 0;
+        }
+
+        @media (max-width: 320px) {
+            .col-img-index:nth-child(3){
+                display: none;
+            }
+        }
+    }
+</style>
 
 @endsection
 
