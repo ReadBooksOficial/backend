@@ -1,48 +1,28 @@
 @extends('layouts.main')
 @section('title', 'Livro - ' . $livro->nome_livro)
 @section('content')
-{{-- href="/excluir/{{$livro->id_livro}}" --}}
-{{-- <script>
-    function confirmDelete(delUrl) {
-        if (confirm("Deseja apagar o livro? Não é possivel recuperar.")) {
-            document.location = delUrl;
-        }
-    }
-</script> --}}
-    <div class="container container-livro">
-         <!-- NOTIFICACAO DE EDIÇÃO -->
-        <!-- MENSAGEM DE CONTA CRIADA-->
-         @if(session()->has('book-update-success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: -50px!important;margin-bottom: 50px!important;">
-                <strong>Livro editado com sucesso!</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
 
-        <!-- MENSAGEM DE CONTA NÃO CRIADA-->
-        @if(session()->has('conta-update-danger'))
-            <div class="alert alert-danger alert-dismissible fade show " role="alert" style="margin-top: -50px!important;margin-bottom: 50px!important;">
-                <strong>Não foi possível editar o livro.</strong> Tente novamente mais tarde.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+    <div class="container container-livro">
+        <!-- NOTIFICACAO -->
+        @include('components.message_danger')
+        @include('components.message_success')
 
         <div class="row">
             <div class="col-4">
-                <div class="div-img-livro-selecionado" @if ($livro->img_livro == null)style="background-image: url('../img/book_transparent.png');" @endif>
-                    @if ($livro->img_livro)
+                <div class="div-img-livro-selecionado" @if ($livro->img_livro != '../img/book_transparent.png')style="background-image: url('../img/book_transparent.png');" @endif>
+                    @if ($livro->img_livro != '../img/book_transparent.png')
                         <img src="{{ $livro->img_livro }}"  class="img-livro-selecionado">
                     @endif
 
-                    @if ($livro->img_livro == null)
-                        <h1>{{  $livro->nome_livro }}</h1>
+                    @if ($livro->img_livro == '../img/book_transparent.png')
+                        <h1>{{ $livro->nome_livro }}</h1>
                     @endif
                 </div>
             </div>
 
             <div class="col-8 col-info-livro">
                 <h1 class="nome-livro-lido">{{  $livro->nome_livro  }}</h1>
-                <p><textarea style="min-height: 4px!important;" disabled class="text-descricao" id="descricao">{{  $livro->descricao_livro  }}</textarea></p>
+                <p>{!!  $livro->descricao_livro  !!}</p>
 
                 <div class="row row-livro-lido">
                     <div class="col">
@@ -133,7 +113,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Link: <a href="https://readbook.x10.mx/compartilhar-um-livro/{{  $livro->id_livro  }}">https://readbook.x10.mx/compartilhar-um-livro/{{  $livro->id_livro  }}</a>.
+                Link: <a href="{{ env('APP_URL') }}/compartilhar-um-livro/{{  $livro->id_livro  }}">{{ env('APP_URL') }}/compartilhar-um-livro/{{  $livro->id_livro  }}</a>.
                 do livro "{{  $livro->nome_livro  }}
             </div>
             <div class="modal-footer" style="flex-wrap: nowrap">
@@ -147,7 +127,7 @@
 
 
 
-<input type="text" style="position: absolute; top: 0; z-index: -1;" id="link" value="https://readbook.x10.mx/compartilhar-um-livro/{{$livro->id_livro}}">
+<input type="text" style="position: absolute; top: 0; z-index: -1;" id="link" value="{{ env('APP_URL') }}/compartilhar-um-livro/{{$livro->id_livro}}">
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {

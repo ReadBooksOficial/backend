@@ -26,7 +26,7 @@ foreach ($livros as $livro) {
     if ($livro['data_inicio']) {
         // Converter a data para o formato desejado (você pode ajustar isso conforme necessário)
         $dataFormatada = date('M Y', strtotime($livro['data_inicio']));
-        
+
         // Verificar se o mês já está no array de labels
         if (!in_array($dataFormatada, $labels)) {
             $labels[] = $dataFormatada;
@@ -61,17 +61,17 @@ $livrosIniciados = json_encode(array_values($livrosIniciados));
             labels: <?php echo $labels; ?>,
             datasets: [
                 {
-                    label: 'Livros Lidos',
-                    data: <?php echo $livrosLidos; ?>,
-                    backgroundColor: 'rgba(75, 192, 192, 1)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                },
-                {
                     label: 'Livros Iniciados',
                     data: <?php echo $livrosIniciados; ?>,
                     backgroundColor: '#5bb4ff',
                     borderColor: '#5bb4ff ',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Livros Lidos',
+                    data: <?php echo $livrosLidos; ?>,
+                    backgroundColor: 'rgba(75, 192, 192, 1)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
                 }
             ]

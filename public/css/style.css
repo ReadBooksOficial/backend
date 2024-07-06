@@ -21,7 +21,10 @@ body::-webkit-scrollbar{
     width: 12px;               /* width of the entire scrollbar */
 }
 
-
+.livro h1{
+    font-size: 25px;
+    padding: 10px;
+}
 
 footer {
     background-color: #5bb4ff;
@@ -419,13 +422,9 @@ label {
 }
 
 
-
 th {
-
     min-width: 200px;
-
 }
-
 
 
 .form-cadastrar-livro {
@@ -437,7 +436,9 @@ th {
     margin-bottom: 100px;
 }
 
-
+.form-cadastrar-livro-google{
+    padding: 20px 20px;
+}
 
 div.img-escolher-capa {
     background: #ccc;
@@ -719,6 +720,10 @@ img.img-escolher-capa {
         min-width: 130px!important;
         max-width: 130px!important;
         min-height: 200px;
+    }
+
+    .modal-cadastrar-livro{
+        margin: 0!important;
     }
 
 }

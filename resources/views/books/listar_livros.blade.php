@@ -8,7 +8,7 @@
             @php
                 $text = "Meus livros"
             @endphp
-            <input type="text" style="position: absolute; top: 0; z-index: -1;" id="link" value="https://readbook.x10.mx/compartilhar-livro/{{auth()->user()->id}}">
+            <input type="text" style="position: absolute; top: 0; z-index: -1;" id="link" value="{{ env('APP_URL') }}/compartilhar-livro/{{auth()->user()->id}}">
 
         @else
             @php
@@ -19,23 +19,16 @@
 
         @if(isset($_GET['filtro']) && $_GET['filtro'])
                 @if($_GET['filtro'] == 'lidos')
-                    <h1  class="text-center titulo-livros">{{ $text }} lidos</h1>
+                    <h1  class="text-center titulo-livros">{{ $text }} - lidos</h1>
 
                 @elseif($_GET['filtro'] == 'nao_lidos')
-                    <h1  class="text-center titulo-livros">{{ $text }}</h1> <h2 class="text-center mb-3">Não finalizados</h2>
+                    <h1 class="text-center titulo-livros">{{ $text }} - não finalizados</h1>
 
                 @elseif($_GET['filtro'] == 'lista_desejo')
-                    <h1  class="text-center titulo-livros">{{ $text }}</h1> <h2 class="text-center mb-3">Lista de desejo</h2>
+                    <h1  class="text-center titulo-livros">{{ $text }} - lista de desejo</h1>
                 @endif
 
                 <p class="text-center text-quantidade-livros">livros encontrados {{$quantidadeLivrosLidos}}</p>
-
-                {{-- @if(isset($_GET['filtro']) && $_GET['filtro'])
-                    <p class="text-center text-quantidade-livros">livros encontrados {{$quantidadeLivrosLidos}}</p>
-                @else
-                    <p class="text-center text-quantidade-livros">Você terminou de ler {{$quantidadeLivrosLidos}} de {{$quantidadeLivros}} livros</p>
-                @endif --}}
-
         @else
             @if ($livros != "[]")
                 <h1  class="text-center titulo-livros">{{ $text }}</h1>
@@ -51,40 +44,9 @@
             @endif
         @endif
 
-
-        @if (empty($compartilhado))
-
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="">
-                <strong>Novidade. </strong> É possível compartilhar os livros que está lendo <a href="/como-compartilhar">Saiba Mais</a>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-
-        <!-- NOTIFICACAO DE CADASTRO -->
-        <?php
-         if(isset($_GET['cad'])){
-            if($_GET['cad'] == 'sucess'){ ?>
-                <!-- MENSAGEM DE CONTA CRIADA-->
-                <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: -50px!important;margin-bottom: 50px!important;">
-                    <strong>Livro Cadastrado!</strong> Confira todos os livros cadastrados.
-                    <button onclick="window.location.href = '/livros'" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-
-            <!-- MENSAGEM DE CONTA NÃO CRIADA-->
-            <?php }elseif($_GET['cad'] == 'danger'){ ?>
-                <div class="alert alert-danger alert-dismissible fade show " role="alert" style="margin-top: -50px!important;margin-bottom: 50px!important;">
-                    <strong>Livro não Cadastrado!</strong> Não foi possível cadastrar um livro.
-                    <button onclick="window.location.href = '/livros'" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php }
-        } ?>
-
-        {{-- BOTÃO ADICIONAR LIVRO --}}
-        {{-- <a class="btn-adicionar-livro" href="/criar" style="background: @if (auth()->check()) {{auth()->user()->primary_color}} @else #5bb4ff @endif!important;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
-            </svg>
-        </a> --}}
+        <!-- NOTIFICACAO -->
+        @include('components.message_danger')
+        @include('components.message_success')
 
 
         @if(empty($compartilhado))
@@ -101,28 +63,7 @@
             </div>
         @endif
 
-
-        <!-- NOTIFICACAO DE EXCLUSÃO -->
-        <?php
-         if(isset($_GET['exc'])){
-            if($_GET['exc'] == 'sucess'){ ?>
-                <!-- MENSAGEM DE CONTA CRIADA-->
-                <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: -50px!important;margin-bottom: 50px!important;">
-                    <strong>Livro Excluido com sucesso!</strong>
-                    <button onclick="window.location.href = '/livros'" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-
-            <!-- MENSAGEM DE CONTA NÃO CRIADA-->
-            <?php }elseif($_GET['exc'] == 'danger'){ ?>
-                <div class="alert alert-danger alert-dismissible fade show " role="alert" style="margin-top: -50px!important;margin-bottom: 50px!important;">
-                    <strong>Não foi possível excluir o livro.</strong> Tente novamente mais tarde.
-                    <button onclick="window.location.href = '/livros'" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php }
-        } ?>
-
         {{-- PESQUISA --}}
-
         @if (empty($compartilhado))
             @if (count($livros) && !isset($_GET['filtro']) || isset($_GET['filtro']))
                 <div class="row row-pesquisa-livro" style="margin-bottom: 100px">
@@ -136,7 +77,7 @@
                         </form>
                         <form action="{{ route('livros.filtrar') }}" method="get">
                             <select name="filtro" class="form-select mt-4" aria-label="Default select example" onchange="this.form.submit()">
-                                <option value="todos" {{ request('filtro') == 'todos' ? 'selected' : '' }}>Todos</option>
+                                <option value="todos" {{ request('filtro') == 'todos' ? 'selected' : '' }}>Meus Livros</option>
                                 <option value="lidos" {{ request('filtro') == 'lidos' ? 'selected' : '' }}>Lidos</option>
                                 <option value="nao_lidos" {{ request('filtro') == 'nao_lidos' ? 'selected' : '' }}>Não lidos</option>
                                 <option value="lista_desejo" {{ request('filtro') == 'lista_desejo' ? 'selected' : '' }}>Lista de desejo</option>
@@ -156,15 +97,15 @@
                 @foreach ($livros as $livro)
                     @php
                         if(empty($compartilhado))
-                            $link = "/livro?id=$livro->id_livro";
+                            $link = "/livro/$livro->id_livro";
                         else
-                            $link = "https://readbook.x10.mx/compartilhar-um-livro/$livro->id_livro";
+                            $link = "{{ env('APP_URL') }}/compartilhar-um-livro/$livro->id_livro";
                     @endphp
 
                     <div class="col col-livro">
                         <a class="link-livro" href="{{$link}}">
-                            <div class="livro"  @if ($livro->img_livro) style="background-image:url('{{ asset($livro->img_livro) }}');" @else style="background-image:url('../img/book_transparent.png');" @endif>
-                                @if ($livro->img_livro == null)
+                            <div class="livro"  @if ($livro->img_livro != '../img/book_transparent.png') style="background-image:url('{{ asset($livro->img_livro) }}');" @else style="background-image:url('../img/book_transparent.png');" @endif>
+                                @if ($livro->img_livro == '../img/book_transparent.png')
                                     <h1>{{ $livro->nome_livro }}</h1>
                                 @endif
                             </div>
@@ -186,7 +127,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Link: <a href="https://readbook.x10.mx/compartilhar-livro/{{auth()->user()->id}}">https://readbook.x10.mx/compartilhar-livro/{{auth()->user()->id}}</a>
+                        Link: <a href="{{ env('APP_URL') }}/compartilhar-livro/{{auth()->user()->id}}">{{ env('APP_URL') }}/compartilhar-livro/{{auth()->user()->id}}</a>
                         De todos os livros.
                     </div>
                     <div class="modal-footer" style="flex-wrap: nowrap">

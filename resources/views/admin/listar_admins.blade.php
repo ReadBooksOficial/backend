@@ -34,10 +34,10 @@
                     @foreach($admins as $admin)
                         <tr>
                             <td>{{  $admin->id  }} </td>
-                            <td><a href="/users/books/{{$admin->id}}">{{  $admin->name  }}</a></td>
+                            <td><a href="/compartilhar-livro/{{$admin->id}}">{{  $admin->name  }}</a></td>
                             <td>{{  $admin->email  }} </td>
                             <td>
-                                <a onclick="confirmDelete('/delete/user/{{$admin->id}}')" class="btn btn-danger">Excluir</a> 
+                                <a onclick="confirmDelete('/delete/user/{{$admin->id}}')" class="btn btn-danger">Excluir</a>
                             </td>
                         </tr>
                     @endforeach
@@ -47,4 +47,3 @@
     </div>
 @endsection
 
-                

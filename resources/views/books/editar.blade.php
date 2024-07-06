@@ -24,14 +24,17 @@
                     @enderror
                 </div>
 
-                <div class="mb-4">
-                    <label data-label-image class="form-label">Capa do Livro
-                        <input type="file" class="d-none" data-input-image id="img_livro_usuario" name="img_livro_usuario" value="{{$livro->img_livro}}" accept="image/*">
-                        <input class="d-none" id="img_livro" name="img_livro" type="text" value="{{$livro->img_livro}}">
-                        <div class="img-escolher-capa" style="background-image: url('{{asset($livro->img_livro)}}')">
-                            <img data-image-preview height="300px" width="200px" class="img-escolher-capa">
-                        </div>
-                    </label>
+                <div class="mb-4" style="position: relative">
+                        <label data-label-image class="form-label">Capa do Livro
+                            <input type="file" class="d-none" data-input-image id="img_livro_usuario" name="img_livro_usuario" value="{{$livro->img_livro}}" accept="image/*">
+                            <input class="d-none" id="img_livro" name="img_livro" type="text" value="{{$livro->img_livro}}">
+                            <div class="img-escolher-capa" style="background-image: url('{{asset($livro->img_livro)}}')">
+                                <img data-image-preview height="300px" width="200px" class="img-escolher-capa">
+                            </div>
+                            <img class="cursor-pointer" style="position: absolute; left: 150px; top: 40px" height="30px;" src="{{asset('img/edit.png')}}" alt="" srcset="">
+                        </label>
+
+
                 </div>
 
                 {{-- <div class="mb-4">

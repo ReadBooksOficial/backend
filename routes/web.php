@@ -42,6 +42,9 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 
+Route::get('/google-livro/{id}', [LivroController::class, 'googleLivro'])->name('google.livro');//deletar conta
+
+
 
 //USUARIO LOGADO
 Route::group(['middleware' => 'auth'], function () {
@@ -52,7 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/update-img', [UserController::class, 'updateImgAccount'])->name('account.update_img');//usuário logado apaga sua conta
 
     // LIVROS
-    Route::get('/livro', [LivroController::class, 'consultarLivro'])->name('livros.consulta');//deletar conta
+    Route::get('/livro/{id}', [LivroController::class, 'consultarLivro'])->name('livros.consulta');//deletar conta
     Route::get('/editar/{id}', [LivroController::class, 'editar'])->name('livros.editar');//deletar conta
     Route::post('/update', [LivroController::class, 'update']);//deletar conta
     Route::get('/excluir/{id}', [LivroController::class, 'delete'])->name('livros.apagar');//deletar conta
@@ -65,9 +68,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::post('/create', [LivroController::class, 'createLivro']);//deletar conta
-    Route::post('/createDois', [LivroController::class, 'createLivroDois'])->name('livros.cadastrar.dois');//deletar conta
+    Route::get('/create/outro-livro/{book_title}', [LivroController::class, 'createOutroLivro']);//deletar conta
+    // Route::post('/createDois', [LivroController::class, 'createLivroDois'])->name('livros.cadastrar.dois');//deletar conta
     Route::get('/resumo-leitura', [LivroController::class, 'resumo_leitura'])->name('livros.resumo');//deletar conta
 
+    Route::post('/adicionar-leitura', [LivroController::class, 'adicionarLeitura']);//Adiciona livro da api na leitura
 
 
     // SÓ ADMIN PODE ACESSAR

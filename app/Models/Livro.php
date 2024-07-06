@@ -12,9 +12,10 @@ class Livro extends Model
     protected $primaryKey = 'id_livro';
 
     protected $fillable = [
-        'nome_livro', 
-        'id_usuario', 
-        'img_livro', 
+        'nome_livro',
+        'id_livro_google',
+        'id_usuario',
+        'img_livro',
         'lido',
         'total_paginas',
         'tempo_lido',

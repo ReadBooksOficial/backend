@@ -9,10 +9,9 @@
     <div class="container">
 
             @if (count($livros))
-                <h1 class="text-center " style="font-size: 30px; margin-top: 20px">{{ $text }} com: </h1>
+                <h1 class="text-center " style="font-size: 30px; margin-top: 20px">Meus livros com: </h1>
                 <h2 class="text-center">"{{$_GET['livro']}}"</h2>
                 <p class="text-center text-quantidade-livros">livros encontrados: {{count($livros)}}</p>
-
             @else
                 <h2 class="text-center" style="margin-bottom: 50px">Nenhum livro encontrado com: "{{$_GET['livro']}}"</h2>
             @endif
@@ -29,7 +28,8 @@
                     </form>
                     <form action="{{ route('livros.filtrar') }}" method="get">
                         <select name="filtro" class="form-select mt-4" aria-label="Default select example" onchange="this.form.submit()">
-                            <option value="filtro" {{ request('filtro') == 'filtro' ? 'selected' : '' }}>Filtro</option>
+                            <option value="filtro" {{ request('filtro') == 'filtro' ? 'selected' : '' }}>Meus livros</option>
+                            <option value="outros" {{ request('filtro') == 'outros' ? 'selected' : '' }}>Outros livros</option>
                             <option value="todos" {{ request('filtro') == 'todos' ? 'selected' : '' }}>Todos</option>
                             <option value="lidos" {{ request('filtro') == 'lidos' ? 'selected' : '' }}>Lidos</option>
                             <option value="nao_lidos" {{ request('filtro') == 'nao_lidos' ? 'selected' : '' }}>Não lidos</option>
@@ -42,8 +42,11 @@
         <div class="row row-list-livros">
             @foreach ($livros as $livro)
                 <div class="col col-livro">
-                    <a href="/livro?id={{ $livro->id_livro }}">
-                        <div class="livro" style="background-image:url('{{ $livro->img_livro }}');">
+                    <a class="link-livro" href="/livro/{{ $livro->id_livro }}">
+                        <div class="livro"  @if ($livro->img_livro != '../img/book_transparent.png') style="background-image:url('{{ asset($livro->img_livro) }}');" @else style="background-image:url('../img/book_transparent.png');" @endif>
+                            @if ($livro->img_livro == '../img/book_transparent.png')
+                                <h1>{{ $livro->nome_livro }}</h1>
+                            @endif
                         </div>
                     </a>
                 </div>
