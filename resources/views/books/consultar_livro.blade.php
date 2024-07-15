@@ -7,14 +7,13 @@
         @include('components.message_danger')
         @include('components.message_success')
 
+
         <div class="row">
             <div class="col-4">
-                <div class="div-img-livro-selecionado" @if ($livro->img_livro != '../img/book_transparent.png')style="background-image: url('../img/book_transparent.png');" @endif>
+                <div class="div-img-livro-selecionado" @if ($livro->img_livro == '../img/book_transparent.png')style="background-image: url('../img/book_transparent.png');" @endif>
                     @if ($livro->img_livro != '../img/book_transparent.png')
-                        <img src="{{ $livro->img_livro }}"  class="img-livro-selecionado">
-                    @endif
-
-                    @if ($livro->img_livro == '../img/book_transparent.png')
+                        <img src="{{ asset("$livro->img_livro") }}"  class="img-livro-selecionado">
+                    @else
                         <h1>{{ $livro->nome_livro }}</h1>
                     @endif
                 </div>
@@ -27,7 +26,14 @@
                 <div class="row row-livro-lido">
                     <div class="col">
                         <h3>Tempo de leitura: {{$livro->tempo_lido }}</h3>
-                        <h3>Páginas Lidas: {{$livro->paginas_lidas}} @if($livro->total_paginas) / {{$livro->total_paginas}} @endif</h3>
+                        <h3>Páginas Lidas: {{$livro->paginas_lidas}}
+                            @if($livro->total_paginas)
+                                / {{$livro->total_paginas}}
+                                @if(($livro->paginas_lidas / $livro->total_paginas * 100 != 100) && ($livro->paginas_lidas / $livro->total_paginas * 100 != 0))
+                                    - {{ str_replace('.', ',', number_format(($livro->paginas_lidas / $livro->total_paginas * 100), 1)) }}%
+                                @endif
+                            @endif
+                        </h3>
 
                         @if($livro->data_inicio)
                             @php

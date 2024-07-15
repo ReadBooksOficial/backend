@@ -6,86 +6,50 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <div class="container">
-    <h1 style="text-align: center">Controle da sua leitura</h1>
-    <canvas id="myChart" class="caanva-livro-lido-mes"></canvas>
+    <h1 class="mt-5" style="text-align: center">Controle da sua leitura</h1>
+
+    <div class="row mt-5">
+        <div class="col">
+            <div id="chartContainer2" style="height: 370px; width: 100%;background: #A8A8A8"></div>
+        </div>
+        <div class="col">
+            <h2>Livros lidos: {{$countLidos}}</h2>
+            <h2>Não finalizados: {{$countNaoLidos}}</h2>
+            <h2>Lista de desejo: {{$countListaDesejo}}</h2>
+        </div>
+    </div>
 </div>
 
-<?php
-// Seus dados de livros
-$dadosLivros = $livros;
-
-// Decodificar o JSON para um array associativo
-$livros = json_decode($livros, true);
-
-$labels = [];
-$livrosLidos = [];
-$livrosIniciados = [];
-
-// Processar dados para o gráfico
-foreach ($livros as $livro) {
-    if ($livro['data_inicio']) {
-        // Converter a data para o formato desejado (você pode ajustar isso conforme necessário)
-        $dataFormatada = date('M Y', strtotime($livro['data_inicio']));
-
-        // Verificar se o mês já está no array de labels
-        if (!in_array($dataFormatada, $labels)) {
-            $labels[] = $dataFormatada;
-            $livrosLidos[$dataFormatada] = 0;
-            $livrosIniciados[$dataFormatada] = 0;
-        }
-
-        // Incrementar a quantidade de livros iniciados
-        $livrosIniciados[$dataFormatada]++;
-
-        // Verificar se o livro foi lido (nesse exemplo, consideramos qualquer livro com pelo menos uma página lida como lido)
-        if ($livro['paginas_lidas'] > 0) {
-            $livrosLidos[$dataFormatada]++;
-        }
-    }
-}
-
-// Converter dados para formato adequado para o JavaScript
-$labels = json_encode($labels);
-$livrosLidos = json_encode(array_values($livrosLidos));
-$livrosIniciados = json_encode(array_values($livrosIniciados));
-
-
-?>
+<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 
 <script>
-    // Use os dados do PHP para configurar o gráfico
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: <?php echo $labels; ?>,
-            datasets: [
-                {
-                    label: 'Livros Iniciados',
-                    data: <?php echo $livrosIniciados; ?>,
-                    backgroundColor: '#5bb4ff',
-                    borderColor: '#5bb4ff ',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Livros Lidos',
-                    data: <?php echo $livrosLidos; ?>,
-                    backgroundColor: 'rgba(75, 192, 192, 1)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-</script>
+    window.onload = function() {
+
+var chart = new CanvasJS.Chart("chartContainer2", {
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "Resumo"
+	},
+	data: [{
+		type: "pie",
+		startAngle: 25,
+		toolTipContent: "<b>{label}</b>: {y}%",
+		showInLegend: "true",
+		legendText: "{label}",
+		indexLabelFontSize: 16,
+		indexLabel: "{label} - {y}%",
+		dataPoints: [
+			{ y: {{$countLidos / count($livros) * 100}}, label: "Lidos" },
+			{ y: {{$countNaoLidos / count($livros) * 100}}, label: "Não finalizados" },
+			{ y: {{$countListaDesejo / count($livros) * 100}}, label: "Lista de desejo" },
+		]
+	}]
+});
+chart.render();
+
+}
+    </script>
+
 @endsection
-
-
-

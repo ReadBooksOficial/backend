@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Http;
 
 class LivroController extends Controller
 {
+    public $language = 'pt-BR';
 
     public function comoCompartilhar(){
         return view('books.como_compartilhar');
@@ -38,7 +39,7 @@ class LivroController extends Controller
 
         // img contem http (api)
         if (strpos($img_livro, 'books.google.com') != false || (file_exists($path) && $path))
-            return $img_livro;
+            return str_replace("zoom=5", "zoom=6", $img_livro);
 
         if(!file_exists($path) || !$path)
             return '../img/book_transparent.png';
@@ -50,7 +51,7 @@ class LivroController extends Controller
         if(!$user)
             return view('errors.404');
 
-        $livros = Livro::where('id_usuario', $user->id)->get(); //busca livro pelo usuario
+        $livros = Livro::where('id_usuario', $user->id)->orderBy('data_inicio', 'desc')->get(); //busca livro pelo usuario
         $quantidadeLivros = Livro::where('id_usuario', $user->id)->where('data_inicio', '!=', null)->count();
         $quantidadeListaDesejo = Livro::where('id_usuario', $user->id)->where('lido', 'não')->where('data_inicio', null)->count();
         $quantidadeLivrosLidos = Livro::where('lido', 'sim')->where('id_usuario', $user->id)->count();
@@ -117,7 +118,9 @@ class LivroController extends Controller
         //     $img = $livro->volumeInfo->imageLinks->thumbnail ?? '../img/book_transparent.png';
 
         // if($img == '../img/book_transparent.png' || $dimensions['width'] == 200)
-            $img = $livro->volumeInfo->imageLinks->smallThumbnail ?? '../img/book_transparent.png';
+        $img = $livro->volumeInfo->imageLinks->smallThumbnail ?? '../img/book_transparent.png';
+        // verifica se livro tem capa, se nao tive deixa padrao
+        $img = $this->verificarImagemLivro($livro->volumeInfo->imageLinks->smallThumbnail);
 
         return [$livro, $img];
     }
@@ -148,7 +151,11 @@ class LivroController extends Controller
     public function resumo_leitura(){
         $livros = Livro::where('id_usuario', auth()->user()->id)->get();
 
-        return view('books.resumo_leitura', compact('livros'));
+        $countLidos = Livro::where('lido', 'sim')->where('id_usuario', auth()->user()->id)->count();
+        $countNaoLidos = Livro::where('data_inicio', '!=' , null)->where('lido', 'não')->where('id_usuario', auth()->user()->id)->count();
+        $countListaDesejo = Livro::where('data_inicio', null)->where('lido', 'não')->where('id_usuario', auth()->user()->id)->count();
+
+        return view('books.resumo_leitura', compact('livros', 'countLidos', 'countNaoLidos', 'countListaDesejo'));
     }
 
    public function pegarCapaLivro($book_title){
@@ -197,12 +204,12 @@ class LivroController extends Controller
         $page_count = "";
 
         // Codifica o título do livro para ser usado como parâmetro na URL da API
-        $book_title_encoded = urlencode($book_title);
-        $language = 'pt'; // Defina o idioma para português
+        // $book_title_encoded = urlencode($book_title);
+        $book_title_encoded = str_replace(' ', '+', $book_title);
 
         // Faz a requisição HTTP para a API do Google Books e obtém os dados do livro em formato JSON
         //$url = 'https://www.googleapis.com/books/v1/volumes?q=' . $book_title_encoded;
-        $url = "https://www.googleapis.com/books/v1/volumes?q=$book_title_encoded&langRestrict=$language";
+        $url = "https://www.googleapis.com/books/v1/volumes?q=$book_title_encoded&langRestrict=$this->language";
 
         // return $url;
         $json_data = file_get_contents($url);
@@ -219,13 +226,15 @@ class LivroController extends Controller
         ]);
 
         $book_title = $request->nome1;
-        $book_title_encoded = urlencode($book_title);
-        $language = 'pt';
+        // $book_title_encoded = urlencode($book_title);
+        $book_title_encoded = str_replace(' ', '+', $book_title);
 
-        $url = "https://www.googleapis.com/books/v1/volumes?q=$book_title_encoded&langRestrict=$language";
+        $url = "https://www.googleapis.com/books/v1/volumes?q=$book_title_encoded&langRestrict=$this->language";
         $json_data = file_get_contents($url);
 
         $livros = json_decode($json_data);
+
+        // return $livros;
 
         return view("books.api.listar_livros", compact('livros', 'book_title'));
     }
