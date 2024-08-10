@@ -4,6 +4,6 @@
 
 @section('content')
     <section style="display: grid; justify-content: center;">
-        <img class="img-not-found" height="700" src="../img/page-not-found.jpg" alt="" srcset="">
+        <img class="img-not-found" height="700" src="{{asset('img/page-not-found.jpg')}}" alt="" srcset="">
     </section>
 @endsection

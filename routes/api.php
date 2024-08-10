@@ -28,3 +28,9 @@ Route::post('/user/register', [UserApiController::class, 'register']);
 Route::get('/user/books/{id}', [LivroApiController::class, 'getBooksByUserId']);
 
 Route::get('/google-books/by-name/{name}', [GoogleBookApiController::class, 'getBooksByName']);
+
+
+Route::fallback(function(){
+    return response()->json(['error' => 'Rota não encontrada.'], 404);
+});
+

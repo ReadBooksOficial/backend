@@ -11,7 +11,6 @@ class GoogleBookApiController extends Controller
     public $langRestrict = 'pt-BR';
     public LivroController $book_controller; //livro controller
 
-
     // retorna lista pelo nome
     public function getBooksByName($book_title){
         // Codifica o título do livro para ser usado como parâmetro na URL da API
