@@ -35,11 +35,15 @@ class NavigationController extends Controller
     //funcao que redireciona usuario para a conta
     public function conta()    {
         $user = auth()->user();
-        
+
         return view('conta.conta', ['user' => $user]);
     }
 
     public function pageNotFound(){
         return view('page_not_found');
+    }
+
+    public function politicaPrivacidade(){
+        return view('politica_privacidade');
     }
 }

@@ -8,10 +8,18 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\Api\GoogleBookApiController;
+
 
 class LivroController extends Controller
 {
     public $language = 'pt-BR';
+    private GoogleBookApiController $google_controller; //controle da api do google
+
+    
+    public function __construct(){
+        $this->google_controller = new GoogleBookApiController();
+    }
 
     public function comoCompartilhar(){
         return view('books.como_compartilhar');
@@ -95,34 +103,11 @@ class LivroController extends Controller
         return view("books.consultar_livro", compact('livro'));
     }
 
-    //busca livro pelo id
+    //busca livro do google pelo id
     public function googleLivro($id){
-        list($livro, $img) = $this->getGoogleBookById($id);
+        list($livro, $img) = $this->google_controller->getBookById($id); // controller da api do google
 
         return view("books.api.consultar_livro", compact('livro', 'img'));
-    }
-
-    public function getGoogleBookById($id){
-        $url = "https://www.googleapis.com/books/v1/volumes/$id";
-        $json_data = file_get_contents($url);
-
-        $livro = json_decode($json_data);
-
-        if ($livro === null)
-            die('Error decoding JSON data.');
-
-        // $img = $livro->volumeInfo->imageLinks->medium ?? '../img/book_transparent.png';
-
-
-        // if($img == '../img/book_transparent.png' || $dimensions['width'] > 1)
-        //     $img = $livro->volumeInfo->imageLinks->thumbnail ?? '../img/book_transparent.png';
-
-        // if($img == '../img/book_transparent.png' || $dimensions['width'] == 200)
-        $img = $livro->volumeInfo->imageLinks->smallThumbnail ?? '../img/book_transparent.png';
-        // verifica se livro tem capa, se nao tive deixa padrao
-        $img = $this->verificarImagemLivro($livro->volumeInfo->imageLinks->smallThumbnail);
-
-        return [$livro, $img];
     }
 
     public function createOutroLivro($book_title){
@@ -166,123 +151,17 @@ class LivroController extends Controller
         return $this->verificarImagemLivro($img->img_livro);
    }
 
-    //google api
-   public function bookByName($name){
-        $data = $this->getGoogleBookByName($name);
-
-        if (isset($data->items[0]->volumeInfo->imageLinks)) {
-            $book = $data->items[0]->volumeInfo;
-            if(isset($book->imageLinks->smallThumbnail)){
-                $url_capa = $book->imageLinks->smallThumbnail;
-            }
-
-            if(isset($book->title)){
-                $book_name = $book->title;
-            }
-
-            if(isset($book->description)){
-                $descricao = $book->description;
-            }
-
-            if(isset($book->pageCount)){
-                $page_count = $book->pageCount;
-            }
-
-        }
-        $capas_cadastradas = Livro::where('nome_livro', 'like', "%$book_title%")->get('img_livro'); //busca livro pelo usuario
-
-
-        return response()->json(['dados_livro' => $json_data, 'book_name' => $book_name, 'url_capa' => $url_capa, 'url_capas' => $capas_cadastradas, 'descricao' => $descricao, 'page_count' => $page_count]);
-   }
-
-   public function getGoogleBookByName($name){
-        $book_title = $name; // insira aqui o título do livro que você está procurando
-        $capas_cadastradas = ""; //capa dentro do próprio site
-        $book_name = $book_title;
-        $descricao = "";
-        $url_capa = "";
-        $page_count = "";
-
-        // Codifica o título do livro para ser usado como parâmetro na URL da API
-        // $book_title_encoded = urlencode($book_title);
-        $book_title_encoded = str_replace(' ', '+', $book_title);
-
-        // Faz a requisição HTTP para a API do Google Books e obtém os dados do livro em formato JSON
-        //$url = 'https://www.googleapis.com/books/v1/volumes?q=' . $book_title_encoded;
-        $url = "https://www.googleapis.com/books/v1/volumes?q=$book_title_encoded&langRestrict=$this->language";
-
-        // return $url;
-        $json_data = file_get_contents($url);
-
-        // Decodifica os dados JSON em um objeto PHP e obtém a URL da imagem da capa do primeiro livro encontrado (se houver)
-        return json_decode($json_data);
-   }
-
-    //cadastra livro
-    //verifica se há um livro com o nome na API de livros da Google para preecher autotatico
+    //Pesquisa pelo Livro na API do google e lista
     public function createLivro(Request $request){
         $dados = $request->validate([
             'nome1' => ['required', 'string']
         ]);
-
         $book_title = $request->nome1;
-        // $book_title_encoded = urlencode($book_title);
-        $book_title_encoded = str_replace(' ', '+', $book_title);
 
-        $url = "https://www.googleapis.com/books/v1/volumes?q=$book_title_encoded&langRestrict=$this->language";
-        $json_data = file_get_contents($url);
-
-        $livros = json_decode($json_data);
-
-        // return $livros;
+        $livros = $this->google_controller->getBooksByName($book_title);
 
         return view("books.api.listar_livros", compact('livros', 'book_title'));
     }
-
-    //salva livro no banco
-    // public function createLivroDois(Request $request){
-    //     $user = auth()->user();
-    //     try{
-    //         $dados = $request->validate([
-    //             'nome_livro' => ['required', 'string'],
-    //             'descricao_livro' => ['required', 'string']
-    //         ]);
-
-    //         $livro = Livro::create([
-    //             'img_livro' => $request->img_livro,
-    //             'id_usuario' => $user->id,
-    //             'nome_livro' => $request->nome_livro,
-    //             'descricao_livro' => $request->descricao_livro,
-    //             'lido' => 'não',
-    //             'tempo_lido' => '0 dias',
-    //             'paginas_lidas' => 0,
-    //             'total_paginas' => $request->pagina_total,
-    //             'data_inicio' => $request->data_inicio,
-    //             'data_termino' => $request->data_termino,
-    //         ]);
-
-    //         // CASO USUÁRIO ESCOLHA IMAGEM DO LIVRO
-    //         if ($request->hasFile('img_livro_usuario')) {
-    //             if ($request->file('img_livro_usuario')->isValid()) {
-    //                 $img = $request->img_livro_usuario;
-    //                 $imgName = $livro->id_livro . ".png";
-    //                 $path = public_path('img_livros');
-
-    //                 $request->img_livro_usuario->move($path, $imgName);
-
-    //                 Livro::where('id_livro', $livro->id_livro)->update([
-    //                     'img_livro' => '../img_livros/' . $imgName,
-    //                 ]);
-
-    //             }
-    //         }
-
-    //         return redirect('livros?cad=sucess');
-    //     }
-    //     catch(Exeption $e){
-    //         return redirect('livros?cad=danger');
-    //     }
-    // }
 
     //view para editar livro
     public function editar($id){

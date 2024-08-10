@@ -20,6 +20,7 @@ use App\Http\Controllers\ApiController;
 
 
 
+Route::get('/politica-privacidade', [NavigationController::class, 'politicaPrivacidade']);
 Route::get('/compartilhar-livro/{user_id}', [LivroController::class, 'compartilharLivros'])->name('livros.compartilhar');
 Route::get('/compartilhar-um-livro/{user_livro}', [LivroController::class, 'compartilharUmLivro'])->name('livros.compartilhar_um_livro');
 Route::get('/livros/filtrar', [LivroController::class, 'filtrar'])->name('livros.filtrar');
@@ -94,7 +95,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 //API REACT
-Route::get('/api/kjjgdlksabdgjhasudgafsvcdghcasdadffvd/books/{id_user}', [ApiController::class, 'return_book_iduser']);
+Route::get('/api/kjjgdlksabdgjhasudgafsvcdghcasdadffvd/books/{id_user}', [ApiController::class, 'getBooksByUserId']);
 Route::get('/google-api/bookByName/{name}', [LivroController::class, 'bookByName']);
 Route::get('/api/kjjgdlksabdgjhasudgafsvcdghcasdadffvd/login/{email}/{password}', [ApiController::class, 'login']);
 Route::get('/api/kjjgdlksabdgjhasudgafsvcdghcasdadffvd/notifications/{id_user}', [ApiController::class, 'return_notifications_user']);

@@ -28,12 +28,10 @@ class UserController extends Controller
                 return redirect()->route('login')->with('conta-create-success', 'Conta criada com sucesso');
             }
             return redirect()->route('login')->with('conta-create-danger', 'Conta criada com erro');
-        
+
         }catch(Exeption $e){
             return redirect()->route('login')->with('conta-create-danger', 'Conta criada com erro');
         }
-
-
         // return redirect()->route('login');
     }
 
@@ -69,7 +67,7 @@ class UserController extends Controller
     }
 
     //Veriica se usuário logado é admin
-    public function isAdmin(){            
+    public function isAdmin(){
         $user = auth()->user();
 
         if(auth()->check()){
@@ -122,15 +120,15 @@ class UserController extends Controller
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
             ]);
 
-            
+
             $user = auth()->user();
             $erro = 0;
-    
+
             $dados = $request->only(['name', 'email', 'password']);
             $dados['password'] = Hash::make($dados['password']);
-    
+
             User::where('id', $request->id)->update($dados);
-            
+
             // return view("conta.conta", ['user' => $user, 'erro' => $erro]);
             return redirect()->route('conta')->with('conta-update-success', 'Conta criada com sucesso');
         }
