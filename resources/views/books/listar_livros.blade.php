@@ -99,7 +99,7 @@
                         if(empty($compartilhado))
                             $link = "/livro/$livro->id_livro";
                         else
-                            $link = env('APP_URL') . "compartilhar-um-livro/$livro->id_livro";
+                            $link = env('APP_URL') . "/compartilhar-um-livro/$livro->id_livro";
                     @endphp
 
                     <div class="col col-livro">
