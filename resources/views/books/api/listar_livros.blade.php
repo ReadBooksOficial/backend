@@ -33,28 +33,41 @@
                 </a>
             </div>
 
-            @if (empty($livros->items) && !isset($_GET['filtro']))
-            @else
-                @foreach ($livros->items as $livro)
-                    @php
-                        $livro_info = $livro->volumeInfo;
-                        $livro_img = $livro_info->imageLinks->thumbnail ?? '../img/book_transparent.png';
-                        $livro_img = $livro_info->imageLinks->smallThumbnail ?? '../img/book_transparent.png';
-                        $livro_nome = $livro_info->title ?? 'Sem Título';
-                    @endphp
-
+            @if (!empty($livros))
+                @foreach ($livros as $livro)
                     <div class="col col-livro">
-                        <a class="link-livro" href="/google-livro/{{$livro->id}}">
-                            <div class="livro" style="background-image:url('{{ asset($livro_img) }}');">
-                                @if ($livro_img == '../img/book_transparent.png')
-                                    <h1>{{ $livro_nome }}</h1>
+                        <a class="link-livro" href="/google-livro/{{$livro['id']}}">
+                            <div class="livro" style="background-image:url('{{ asset($livro['thumbnail']) }}');">
+                                @if ($livro['thumbnail'] == '../img/book_transparent.png')
+                                    <h1>{{ $livro['title']}}</h1>
                                 @endif
                             </div>
                         </a>
                     </div>
                 @endforeach
             @endif
-        </div>
+
+            {{-- @if (empty($livros) && !isset($_GET['filtro']))
+                <!-- Caso não haja livros e o filtro não esteja definido -->
+                @else
+                    @foreach ($livros->docs as $livro) <!-- A Open Library retorna a lista de livros em 'docs' -->
+                        @php
+                            $livro_img = $livro->cover_i ?? '../img/book_transparent.png'; // Se não houver imagem, usa uma imagem padrão
+                            $livro_nome = $livro->title ?? 'Sem Título';
+                        @endphp
+
+                        <div class="col col-livro">
+                            <a class="link-livro" href="/openlibrary-livro/">
+                                <div class="livro" style="background-image:url('https://covers.openlibrary.org/b/id/{{ $livro_img }}-L.jpg');">
+                                    @if ($livro_img == '../img/book_transparent.png')
+                                        <h1>{{ $livro_nome }}</h1>
+                                    @endif
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                @endif --}}
+
 
 
     @if(auth()->check())
