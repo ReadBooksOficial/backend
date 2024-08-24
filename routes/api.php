@@ -27,6 +27,9 @@ Route::post('/user/register', [UserApiController::class, 'register']);
 
 Route::get('/user/books/{id}', [LivroApiController::class, 'getBooksByUserId']);
 
+Route::get('/book/{id}', [LivroApiController::class, 'getBookById']);
+Route::delete('/book/{id}', [LivroApiController::class, 'delete']);
+
 Route::get('/google-books/by-name/{name}', [GoogleBookApiController::class, 'getBooksByName']);
 
 

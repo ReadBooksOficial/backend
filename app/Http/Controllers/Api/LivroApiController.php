@@ -33,6 +33,26 @@ class LivroApiController extends Controller
 
     }
 
+    public function getBookById($id){
+        $book = Livro::where('id_livro', $id)->first();
+
+        // verifica se livro tem capa, se nao tive deixa padrao
+        $book->img_livro = $this->verifyImgBook($book->img_livro);
+
+        return response()->json([
+            'book' => $book,
+        ], 200);//busca livro pelo id
+    }
+
+    public function delete($id){
+        $book = Livro::where('id_livro', $id)->delete();
+
+        return response()->json([
+            'message' => "Livro Apagado",
+        ], 200);//busca livro pelo id
+
+    }
+
     // verifica se livro tem capa, se nao tive retorna padrao
     public function verifyImgBook($img_livro){
         $path = str_replace('../', "", $img_livro);

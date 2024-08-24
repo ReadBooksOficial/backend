@@ -21,7 +21,10 @@
                     <div class="col">
                         <p style="line-height: 30px">
                             <b>Autores:</b> {{implode(", ", $livro->volumeInfo->authors) }}<br>
-                            <b>Páginas:</b>  {{$livro->volumeInfo->pageCount}} <br>
+                            @if(isset($livro->volumeInfo->pageCount))
+                                <b>Páginas:</b>  {{$livro->volumeInfo->pageCount}} <br>
+                            @endif
+                            
                             <b>Data de publicação:</b>  {{ Carbon\Carbon::parse($livro->volumeInfo->publishedDate)->format('d/m/Y') }} <br>
                             {{-- <b>Lingua:</b>  {{$livro->volumeInfo->language}}<br> --}}
 

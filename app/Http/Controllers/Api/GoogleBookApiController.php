@@ -92,8 +92,6 @@ class GoogleBookApiController extends Controller
         if ($livro === null)
             die('Error decoding JSON data.');
         
-        $img = $livro->volumeInfo->imageLinks->smallThumbnail ?? '../img/book_transparent.png';
-        
         $img = $this->book_controller->verificarImagemLivro($livro->volumeInfo->imageLinks->smallThumbnail);// verifica se livro tem capa, se nao tive deixa padrao
 
         return [$livro, $img];
