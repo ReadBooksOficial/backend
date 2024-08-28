@@ -23,14 +23,16 @@ use App\Http\Controllers\Api\GoogleBookApiController;
 // });
 
 Route::post('/login', [UserApiController::class, 'login']);
-Route::post('/user/register', [UserApiController::class, 'register']);
-
+Route::post('/user', [UserApiController::class, 'register']);
+Route::put('/user', [UserApiController::class, 'update'])->middleware('auth:sanctum');
 Route::get('/user/books/{id}', [LivroApiController::class, 'getBooksByUserId']);
 
 Route::get('/book/{id}', [LivroApiController::class, 'getBookById']);
-Route::delete('/book/{id}', [LivroApiController::class, 'delete']);
+Route::delete('/book/{id}', [LivroApiController::class, 'delete'])->middleware('auth:sanctum');
 
 Route::get('/google-books/by-name/{name}', [GoogleBookApiController::class, 'getBooksByName']);
+Route::get('/google-books/{id}', [GoogleBookApiController::class, 'getBookById']);
+Route::get('/google-books/add-to-read/{id}', [GoogleBookApiController::class, 'addToRead'])->middleware('auth:sanctum');
 
 
 Route::fallback(function(){

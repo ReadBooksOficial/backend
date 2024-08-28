@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UserApiController extends Controller
 {
@@ -17,10 +18,11 @@ class UserApiController extends Controller
             $credentials = $request->only('email', 'password');
 
             if (Auth::attempt($credentials)) {
-                $user = User::where('email', $request->email)->first();
+                $user = Auth::user();
 
                 // Autenticação bem-sucedida, gera e retorna um token JWT
-                $token = auth()->user()->createToken('ReadBookAppToken')->accessToken;
+                $token = auth()->user()->createToken('ReadBookAppToken')->plainTextToken;
+                // $token = auth()->user()->createToken('ReadBookAppToken')->accessToken;
 
                 return response()->json([
                     'token' => $token,
@@ -45,7 +47,7 @@ class UserApiController extends Controller
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8', 'confirmed']
+                'password' => ['required', 'string', 'min:8']
             ]);
 
             $dados = $request->only(['name', 'email', 'password']);
@@ -67,19 +69,18 @@ class UserApiController extends Controller
     public function update(Request $request){
         try{
 
+            $user = $request->user();
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->id())],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user)],
+                'password' => ['required', 'string', 'min:8'],
             ]);
-
-            $user = auth()->user();
-            $erro = 0;
 
             $dados = $request->only(['name', 'email', 'password']);
             $dados['password'] = Hash::make($dados['password']);
 
             User::where('id', $request->id)->update($dados);
+            $user = User::where('id', $request->id)->first();
 
             return response()->json(['user' => [ 'name' => $user->name,'email' => $user->email,'id' => $user->id,],], 200);
         }
