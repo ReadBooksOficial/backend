@@ -206,7 +206,7 @@ label {
     background: #5bb4ff!important;
     width: 100%;
     color: #fff!important;
-    margin: 50px 0;
+    margin: 50px 0 10px 0;
 }
 
 .btn-login:hover{
@@ -297,6 +297,12 @@ label {
 
 }
 
+.link{
+    text-decoration: 2px underline #5bb4ff;
+    color: #5bb4ff;
+    background-color: transparent;
+    border: 0;
+}
 
 
 .btn-fazer-login {
@@ -568,6 +574,10 @@ img.img-escolher-capa {
     width: 45%;
 }
 
+.link-criar-conta{
+    text-align: center;
+}
+
 .container-conta{
     margin-top: 50px;
 }
@@ -675,7 +685,8 @@ img.img-escolher-capa {
     }
 
     .col-left-register{
-        padding-top: 100px!important;
+        padding: 50px!important;
+        padding-top: 150px!important;
     }
 
     .container-login{
@@ -759,6 +770,10 @@ img.img-escolher-capa {
         margin: 0!important;
     }
 
+    .form-register{
+        padding-bottom: 100px;
+    }
+
 }
 
 @media (max-width: 570px) {
@@ -800,6 +815,10 @@ img.img-escolher-capa {
 
     .col-left-login, .col-right-register{
         display: none;
+        max-height: 0px!important;
+    }
+    .col-right-login{
+        margin-top: -200px!important;
     }
 
     .btn-livro{
@@ -831,9 +850,10 @@ img.img-escolher-capa {
     }
 
     .col-left-register, .col-right-login {
-        padding: 0 40px!important;
+        padding: 0 25px!important;
+        /* padding-top: 120px !important; */
         width: 100%!important;
-        margin-top: -200px!important;
+        /* margin-top: -200px!important; */
     }
 
     .col-right-login{

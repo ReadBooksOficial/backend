@@ -76,7 +76,7 @@
     
                         <div class="col">
                             <input placeholder="Email ou nome de usuário" id="email" type="login" class="input-login form-control @error('login') is-invalid @enderror" name="login" value="{{ old('login') }}" autocomplete="login" autofocus>
-    
+
                             @error('login')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

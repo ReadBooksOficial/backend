@@ -1,80 +1,127 @@
 @extends('layouts.main')
 
-
-
 @section('content')
-
     <div class="container container-login">
-
         <div class="col-7 col-left-register">
-            <h1>Criar Conta</h1>
-                <form method="POST" action="{{ route('register') }}">
-                    @csrf
-                    {{-- NOME --}}
-                    <div class="form-group row mb-3">
-                        <div class="col">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nome') }}</label>
-                            <input id="name" type="text" class="form-border-bottom-blue form-control form-control-login @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+            <h2 class="titulo-login">Criar Conta</h2>
+            <form class="form-register row" method="POST" action="{{ route('register') }}">
+                @csrf
+
+                {{-- Nome --}}
+                <div class="col-md-6 col-sm-6 mb-3">
+                    <label for="name" class="text-md-right">{{ __('Nome') }}</label>
+
+                    <div class="col">
+                        <input id="name" type="text" class="input-login form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
+
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                {{-- Nome de usuário --}}
+                <div class="col-md-6 col-sm-6 mb-3">
+                    <label for="user_name" class="text-md-right">{{ __('Nome de usuário') }}</label>
+
+                    <div class="input-group">
+                        <span class="input-group-text" style="border: 0;">@</span>
+
+                        <input id="user_name" type="text" class="input-login form-control @error('user_name') is-invalid @enderror" name="user_name" value="{{ old('user_name') }}" autocomplete="off">
+
+                        @error('user_name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div id="passwordHelp" class="form-text">Deve começar com letra e conter apenas letras, números e sublinhados (_)</div>
+                </div>
+
+                {{-- Email --}}
+                <div class="col-md-12  mb-3">
+                    <label for="email" class="text-md-right">{{ __('Email') }}</label>
+
+                    <div class="col">
+                        <input id="email" type="email" class="input-login form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email">
+
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                {{-- Senha --}}
+                <div class="col-md-6 mb-3">
+                    <label for="password" class="col-md-4 text-md-right">{{ __('Senha') }}</label>
+
+                    <div class="col" style="position: relative">
+                        <input id="password" type="password" class="input-login form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" name="password" autocomplete="current-password">
+                        {{-- IMAGEM DE VER SENHA --}}
+                        <img class="view-password" id="view-password" src="{{asset('img/eye.svg')}}" onclick="showPassword()" srcset="">
                     </div>
 
-                    {{-- EMAIL --}}
-                    <div class="form-group row mb-3">
-                        <div class="col">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
-                            <input id="email" type="text" class="form-border-bottom-blue form-control form-control-login @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email">
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
+                    @error('password')
+                        <span class="invalid-feedback" role="alert" style="display: block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    <div id="passwordHelp" class="form-text">Sua senha deve conter no mínimo 8 caracteres.</div>
+                </div>
 
-                    {{-- SENHA --}}
-                    <div class="form-group row mb-3">
-                        <div class="col-">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Senha') }}</label>
-                            <div style="position: relative;">
-                                <input id="password" type="password" class="form-border-bottom-blue form-control form-control-login @error('password') is-invalid @enderror" value="{{ old('password') }}" name="password" autocomplete="new-password">
-                                {{-- IMAGEM DE VER SENHA --}}
-                                <img class="view-password" id="view-password" src="{{asset('img/eye.svg')}}" onclick="showPassword()" srcset="">
-                            </div>
-                            @error('password')
-                                <span class="invalid-feedback" role="alert" style="display: block!important">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
+                {{-- Confirmar Senha --}}
+                <div class="col-md-6 mb-3">
+                    <label for="password-confirm" class="text-md-right">{{ __('Confirmar Senha') }}</label>
 
-                    {{-- CONFIRMAR SENHA --}}
-                    <div class="form-group row mb-3">
-                        <div class="col">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar Senha') }}</label>
-
-                            <div style="position: relative;">
-                                <input id="password-confirm" type="password" class="form-border-bottom-blue form-control form-control-login" value="{{ old('password') }}" name="password_confirmation" autocomplete="new-password">
-                                {{-- IMAGEM DE VER SENHA --}}
-                                <img class="view-password" id="view-password-confirm" src="{{asset('img/eye.svg')}}" onclick="showPasswordConfirm()" srcset="">
-                            </div>
-                        </div>
+                    <div class="col" style="position: relative">
+                        <input id="password-confirm" type="password" class="input-login form-control" name="password_confirmation" value="{{ old('password_confirmation') }}" autocomplete="new-password">
+                        {{-- IMAGEM DE VER SENHA --}}
+                        <img class="view-password" id="view-password-confirm" src="{{asset('img/eye.svg')}}" onclick="showPasswordConfirm()" srcset="">
                     </div>
+                </div>
 
-                    <button type="submit" class="btn btn-register  btn-blue">
-                        {{ __('Criar Conta') }}
-                    </button>
-                    <div class="row" style="margin-top: 15px!important; text-align: center;">
-                        <div class="col">
-                            <a href="/login">Já tem conta? Faça login</a>
-                        </div>
+
+
+                <div class="col mb-3 mt-3">
+                    <input class="form-check-input" type="checkbox" {{ old('termos') ? 'checked' : '' }} name="termos"  id="termos">
+
+                    <label class="form-check-label" for="termos">
+                        Concordo com os
+                        <input class="link" type="button" data-bs-toggle="modal" data-bs-target="#modal-termos-de-uso" value="termos de uso"/> e as
+                        <input class="link" type="button" data-bs-toggle="modal" data-bs-target="#modal-politicas-de-privacidade" value="diretrizes"/>
+                        do Paçoca
+                    </label>
+
+                    @error('termos')
+                        <span class="invalid-feedback" role="alert" style="display: block">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+
+                {{-- Criar Conta --}}
+                <div class="form-group mt-5">
+                    <div class="col link-criar-conta">
+                        <button type="submit" class="btn btn-login">
+                            {{ __('Criar Conta') }}
+                        </button>
+
+                        <a class="link-criar-conta" href="{{route('login')}}">Já tem uma conta? Faça Login</a>
+
+                        @if (Route::has('password.request'))
+                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                {{ __('Esqueci minha senha') }}
+                            </a>
+                        @endif
                     </div>
-                </form>
+                </div>
+
+            </form>
             </div>
 
         <div class="col-5 col-right-register div-text-register" style="overflow: hidden;">
@@ -137,10 +184,45 @@
     }
 </script>
 
+<!-- MODAL DE TERMOS DE USO -->
+<div class="modal fade" style="overflow: hidden" id="modal-termos-de-uso" tabindex="-1" aria-labelledby="modal-termos-de-uso" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-termos-de-uso">Termos de uso</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="max-height: 80vh!important; overflow: auto">
+            @include('components.termos-uso')
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" data-bs-dismiss="modal" id="btnCheck" class="btn btn-blue">Aceitar</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+{{-- MODAL DE POLITICAS SE PRIVACIDADE --}}
+<div class="modal fade" style="overflow: hidden" id="modal-politicas-de-privacidade" tabindex="-1" aria-labelledby="modal-politicas-de-privacidade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-politicas-de-privacidade">Diretrizes</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="max-height: 80vh!important; overflow: auto">
+            @include('components.diretrizes')
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" data-bs-dismiss="modal" id="btnCheck" class="btn btn-blue">Aceitar</button>
+        </div>
+        </div>
+    </div>
+</div>
+
 <style>
-    main{
-        max-height: 100vh!important;
-    }
     nav{
         z-index: 9!important;
     }

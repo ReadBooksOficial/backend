@@ -16,15 +16,30 @@ class UserController extends Controller
     public function store(Request $request){
         try{
             $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8', 'confirmed']
+                'name' => ['required', 'string', 'max:50'],
+                'user_name' => [
+                    'required',
+                    'string',
+                    'max:20',
+                    Rule::unique('pacoca.users', 'user_name'),
+                    'regex:/^[a-zA-Z][a-zA-Z0-9_]*$/'
+                ],
+                'email' => ['required', 'string', 'email', 'max:50', Rule::unique('pacoca.users', 'email')],
+                'password' => ['required', 'string', 'min:8', 'max:50', 'confirmed'],
+                'password_confirmation' => ['required', 'string', 'max:50', 'min:8'],
+                'termos' => ['required'],
             ]);
+    
 
-            $dados = $request->only(['name', 'email', 'password']);
+            $dados = $request->only(['name', 'user_name', 'email', 'phone', 'password', 'site', 'biography', 'sexo', 'birth_date']);
             $dados['password'] = Hash::make($dados['password']);
+            $dados_login = $request->only(['email', 'password']);
+
 
             $user = User::create($dados);
+            Auth::login($user);
+            return redirect('/');
+
             if($user){
                 return redirect()->route('login')->with('conta-create-success', 'Conta criada com sucesso');
             }
@@ -87,23 +102,28 @@ class UserController extends Controller
     //Funcao para listar administradores
     public function listAdmin(){
         //listar usuário que são administrador
-        $usuariosAdmin = User::join('admins', 'users.id', '=', 'admins.idUsuario')
-            ->select('users.id', 'users.name', 'users.email', 'users.password')
-            ->get();
+        // $usuariosAdmin = User::join('admins', 'users.id', '=', 'admins.idUsuario')
+        //     ->select('users.id', 'users.name', 'users.email', 'users.password')
+        //     ->get();
+        $users = User::select('id', 'name', 'email', 'password')->where("adm", 1)->limit(5)
+        ->get();
 
-        return view("admin.listar_admins", ['admins' => $usuariosAdmin]);
+        return view("admin.listar_admins", ['admins' => $users]);
     }
 
     //Funcao para listar usuário que não são administradores
     public function listUser(){
         //listar usuário que não são administrador
-        $usuariosNaoAdmin = User::whereNotIn('id', function ($query) {
-            $query->select('idUsuario')->from('admins');
-        })
-        ->select('id', 'name', 'email', 'password')
+        // $usuariosNaoAdmin = User::whereNotIn('id', function ($query) {
+        //     $query->select('idUsuario')->from('admins');
+        // })
+        // ->select('id', 'name', 'email', 'password')
+        // ->get();
+
+        $users = User::select('id', 'name', 'email', 'password')->limit(5)
         ->get();
 
-        return view("admin.listar_usuarios", ['users' => $usuariosNaoAdmin]);
+        return view("admin.listar_usuarios", ['users' => $users]);
     }
 
     //apagar usuário
@@ -116,34 +136,35 @@ class UserController extends Controller
         }
     }
 
+    // AGORA ATUALIZA PELO SITE DO PAÇOCA
     //atualizar usuário
-    public function update(Request $request){
-        try{
+    // public function update(Request $request){
+    //     try{
 
-            $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->id())],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
-            ]);
+    //         $request->validate([
+    //             'name' => ['required', 'string', 'max:255'],
+    //             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->id())],
+    //             'password' => ['required', 'string', 'min:8', 'confirmed'],
+    //         ]);
 
 
-            $user = auth()->user();
-            $erro = 0;
+    //         $user = auth()->user();
+    //         $erro = 0;
 
-            $dados = $request->only(['name', 'email', 'password']);
-            $dados['password'] = Hash::make($dados['password']);
+    //         $dados = $request->only(['name', 'email', 'password']);
+    //         $dados['password'] = Hash::make($dados['password']);
 
-            User::where('id', $request->id)->update($dados);
+    //         User::where('id', $request->id)->update($dados);
 
-            // return view("conta.conta", ['user' => $user, 'erro' => $erro]);
-            return redirect()->route('conta')->with('conta-update-success', 'Conta criada com sucesso');
-        }
-        catch(Exeption $e){
-            $erro = 1;
-            // return view("conta.conta", ['livro' => $livro, 'erro' => $erro]);
-            return redirect()->route('conta')->with('conta-update-danger', 'Conta criada com sucesso');
-        }
-    }
+    //         // return view("conta.conta", ['user' => $user, 'erro' => $erro]);
+    //         return redirect()->route('conta')->with('conta-update-success', 'Conta criada com sucesso');
+    //     }
+    //     catch(Exeption $e){
+    //         $erro = 1;
+    //         // return view("conta.conta", ['livro' => $livro, 'erro' => $erro]);
+    //         return redirect()->route('conta')->with('conta-update-danger', 'Conta criada com sucesso');
+    //     }
+    // }
 
     public function chooseColor(Request $request){
         $user = User::find(auth()->user()->id);
