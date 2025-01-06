@@ -44,6 +44,29 @@ footer {
 }
 
 
+h2.titulo-login, h2.titulo-register{
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 40px !important;
+    /* margin-top: -100px; */
+}
+
+.input-login{
+    background: #F7F8F9 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 0 0 0!important;
+    border: 0!important;
+    border-radius: 8px !important;
+    font-size: 20px !important;
+    /* background: #F7F8F9 !important; */
+    height: 55px;
+}
+.input-login.is-invalid{
+    /* border-color: #dc3545!important; */
+    border: 1px solid #dc3545!important;
+}
+
+
 
 .btn-adicionar-livro {
     position: fixed;
@@ -178,13 +201,23 @@ label {
 
 
 
-.btn-login,
-.btn-register {
 
-    margin-top: 20px;
-
+.btn-login{
+    background: #5bb4ff!important;
     width: 100%;
+    color: #fff!important;
+    margin: 50px 0;
+}
 
+.btn-login:hover{
+    border: 1px solid #5bb4ff!important;
+    color: #5bb4ff!important;
+    background: #ffffff00!important;
+}
+
+.btn-register {
+    margin-top: 20px;
+    width: 100%;
 }
 
 

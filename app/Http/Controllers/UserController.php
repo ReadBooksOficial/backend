@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
@@ -38,16 +39,16 @@ class UserController extends Controller
     //Funcao que faz login
     public function login(Request $request){
         $dados = $request->validate([
-            'email' => ['required'],
+            'login' => ['required'],
             'password' => ['required']
         ]);
     
         // Verificar se o campo fornecido é um email ou um nome de usuário
-        $fieldType = filter_var($dados['email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
+        $fieldType = filter_var($dados['login'], FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
     
         // Ajustar os dados para autenticação
         $credentials = [
-            $fieldType => $dados['email'], // Usa o tipo de campo detectado
+            $fieldType => $dados['login'], // Usa o tipo de campo detectado
             'password' => $dados['password'],
         ];
     
@@ -57,7 +58,7 @@ class UserController extends Controller
         }
     
         return back()->withErrors([
-            'email' => 'O email e/ou senha estão inválidos'
+            'password' => 'O email e/ou senha estão inválidos'
         ])->withInput();
     }
 
