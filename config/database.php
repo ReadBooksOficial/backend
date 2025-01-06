@@ -63,6 +63,21 @@ return [
             ]) : [],
         ],
 
+        // Conexão com o banco de dados do sistema A
+        'pacoca' => [
+            'driver' => 'mysql',
+            'host' => env('DB_PACOCA_HOST', '127.0.0.1'),
+            'port' => env('DB_PACOCA_PORT', '3306'),
+            'database' => env('DB_PACOCA_DATABASE', 'pacoca'),
+            'username' => env('DB_PACOCA_USERNAME', 'root'),
+            'password' => env('DB_PACOCA_PASSWORD', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
         // 'pgsql' => [
         //     'driver' => 'pgsql',
         //     'url' => env('DATABASE_URL'),

@@ -12,6 +12,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $connection = 'pacoca'; // Define a conexão do sistema A
+    protected $table = 'users';         // Define a tabela de usuários do sistema A
+
     /**
      * The attributes that are mass assignable.
      *

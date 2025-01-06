@@ -38,22 +38,27 @@ class UserController extends Controller
     //Funcao que faz login
     public function login(Request $request){
         $dados = $request->validate([
-            'email' => ['required', 'email'],
+            'email' => ['required'],
             'password' => ['required']
         ]);
-
-        //$admin = Admin::where('idUsuario', $dados->id)->get();
-
-        if (Auth::attempt($dados, $request->filled('remember'))) {
+    
+        // Verificar se o campo fornecido é um email ou um nome de usuário
+        $fieldType = filter_var($dados['email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
+    
+        // Ajustar os dados para autenticação
+        $credentials = [
+            $fieldType => $dados['email'], // Usa o tipo de campo detectado
+            'password' => $dados['password'],
+        ];
+    
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
             return redirect()->intended('');
         }
-
-
+    
         return back()->withErrors([
-            'password' => 'O email e/ou senha estão inválidos'
-        ])
-        ->withInput();
+            'email' => 'O email e/ou senha estão inválidos'
+        ])->withInput();
     }
 
     ///Funcao que sai da conta logada

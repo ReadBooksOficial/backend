@@ -4,7 +4,8 @@
   $isAdmin =  $userController->isAdmin();
 @endphp
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="width: 100%; background: @if (auth()->check()) {{auth()->user()->primary_color}} @else #5bb4ff @endif!important;">
+{{-- <nav class="navbar navbar-expand-lg navbar-dark" style="width: 100%; background: @if (auth()->check()) {{auth()->user()->primary_color}} @else #5bb4ff @endif!important;"> --}}
+<nav class="navbar navbar-expand-lg navbar-dark" style="width: 100%; background: #5bb4ff!important;">
     <div class="container-fluid">
       <a class="navbar-brand" href="/"><img src="{{asset('img/estante_icon.png')}}" height="50" class="log-menu"> Read Book</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -134,7 +135,8 @@
 </div>
 
 {{-- MOBILE --}}
-    <div class="offcanvas text-bg-dark offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background: @if (auth()->check()) {{auth()->user()->primary_color}} @else #5bb4ff @endif!important; max-width: 80%!important; border-radius: 15px 0 0 15px">
+    {{-- <div class="offcanvas text-bg-dark offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background: @if (auth()->check()) {{auth()->user()->primary_color}} @else #5bb4ff @endif!important; max-width: 80%!important; border-radius: 15px 0 0 15px"> --}}
+    <div class="offcanvas text-bg-dark offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background: #5bb4ff!important; max-width: 80%!important; border-radius: 15px 0 0 15px">
 
         <div class="offcanvas-header">
 
