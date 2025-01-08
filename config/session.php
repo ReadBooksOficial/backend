@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'table' => 'pacoca11.sessions',
+    'table' => env("DB_PACOCA_DATABASE") . '.sessions',
 
     /*
     |--------------------------------------------------------------------------
