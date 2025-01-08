@@ -112,13 +112,13 @@
 
                     <li class="nav-item">
 
-                    <a class="nav-link" aria-current="page" href="/register"><Button class="btn btn-criar-conta">Criar Conta</Button></a>
+                    {{-- <a class="nav-link" aria-current="page" href="/register"><Button class="btn btn-criar-conta">Criar Conta</Button></a> --}}
 
                     </li>
 
                     <li class="nav-item">
 
-                    <a class="nav-link" aria-current="page" href="/login"><Button class="btn btn-fazer-login">Fazer Login</Button></a>
+                    {{-- <a class="nav-link" aria-current="page" href="/login"><Button class="btn btn-fazer-login">Fazer Login</Button></a> --}}
 
                     </li>
 
