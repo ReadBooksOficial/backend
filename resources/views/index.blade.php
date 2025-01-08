@@ -10,10 +10,10 @@
                     <h1 class="text-white text-center">Read Book</h1>
                     <p class="text-white">Cadastre os livros que você leu ou está lendo para manter um controle de todas as informações de todos os seus livros.</p>
 
-                    {{-- <div class="div-btn-home">
+                    <div class="div-btn-home">
                         <a href="/register" class="btn-home btn btn-outline-light">Criar Conta</a>
                         <a href="/login" class="btn-home btn btn-light" style="margin-left: 20px">Fazer Login</a>
-                    </div> --}}
+                    </div>
                 </div>
 
                 <div class="col col-index">

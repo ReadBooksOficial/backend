@@ -1,6 +1,5 @@
 @extends('layouts.main')
-
-
+@section('title', 'Read Book - Login')
 
 @section('content')
     <div class="container container-login">
