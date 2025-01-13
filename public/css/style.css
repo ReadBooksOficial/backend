@@ -634,7 +634,7 @@ img.img-escolher-capa {
 
     .row-list-livros{
         gap: 20px;
-        padding-left: 30px;
+        /* padding-left: 30px; */
     }
 
     .col-livro {
@@ -664,7 +664,6 @@ img.img-escolher-capa {
 
     .row-list-livros{
         gap: 5px;
-        padding-left: 0;
     }
 
     .col-livro {
@@ -700,7 +699,7 @@ img.img-escolher-capa {
 
     .row-list-livros{
         gap: 15px;
-        padding-left: 10px;
+        /* padding-left: 10px; */
     }
 
     .col-livro {
@@ -757,7 +756,6 @@ img.img-escolher-capa {
 
     .row-list-livros{
         gap: 10px;
-        padding-left: 30px;
     }
 
     .col-livro {
@@ -788,7 +786,6 @@ img.img-escolher-capa {
 
     .row-list-livros{
         gap: 10px;
-        padding-left: 30px;
     }
 
     .col-livro {
@@ -909,9 +906,9 @@ img.img-escolher-capa {
 @media (max-width: 455px) {
     .row-list-livros{
         gap: 5px;
-        margin-left: -10px!important;
-        margin-right: -45px!important;
-        padding-left: 0;
+        /* margin-left: -10px!important;
+        margin-right: -45px!important; */
+        /* padding-left: 0; */
     }
 
     .col-livro {
