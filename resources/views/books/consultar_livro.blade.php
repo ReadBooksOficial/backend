@@ -52,7 +52,8 @@
 
                     </div>
 
-                    @if (auth()->check() && auth()->user()->id == $livro->id_usuario)
+                    {{-- @if (auth()->check() && auth()->user()->id == $livro->id_usuario) --}}
+                    @can("edit-book", $livro)
                         <div class="col col-livro-lido">
                             <div class="col-12" style="display: flex; justify-content: space-between;">
                                 <a href="/editar/{{$livro->id_livro}}" class="btn-livro btn btn-outline-primary">Editar</a>
@@ -64,7 +65,8 @@
                                 Compartilhar
                             </a>
                         </div>
-                    @endif
+                    @endcan
+                    {{-- @endif --}}
                 </div>
             </div>
         </div>
@@ -119,7 +121,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Link: <a href="{{ env('APP_URL') }}/compartilhar-um-livro/{{  $livro->id_livro  }}">{{ env('APP_URL') }}/compartilhar-um-livro/{{  $livro->id_livro  }}</a>.
+                Link: <a href="{{ config("app.url") }}/compartilhar-um-livro/{{  $livro->id_livro  }}">{{ config("app.url") }}/compartilhar-um-livro/{{  $livro->id_livro  }}</a>.
                 do livro "{{  $livro->nome_livro  }}
             </div>
             <div class="modal-footer" style="flex-wrap: nowrap">
@@ -133,7 +135,7 @@
 
 
 
-<input type="text" style="position: absolute; top: 0; z-index: -1;" id="link" value="{{ env('APP_URL') }}/compartilhar-um-livro/{{$livro->id_livro}}">
+<input type="text" style="position: absolute; top: 0; z-index: -1;" id="link" value="{{ config("app.url") }}/compartilhar-um-livro/{{$livro->id_livro}}">
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {

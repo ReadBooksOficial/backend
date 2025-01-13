@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Api\GoogleBookApiController;
 
 
@@ -91,9 +92,15 @@ class LivroController extends Controller
     public function consultarLivro($id){
         $user = auth()->user(); //verifica qual usuario esta logado
 
+        $book = Livro::where('id_livro', $id)->first();
+        if (!isset($book) || Gate::denies('edit-book', $book)) {
+            abort(403, 'Acesso não autorizado');
+        }
+        
         $livro = Livro::where('id_livro', $id)
-        ->where('id_usuario', $user->id )
+        // ->where('id_usuario', $user->id )
         ->first();
+
 
         if(!isset($livro) && $livro != "[]")
             return view("errors/404");
@@ -171,7 +178,7 @@ class LivroController extends Controller
         $user = auth()->user(); //verifica qual usuario esta logado
 
         $livro = Livro::where('id_livro',  $id)
-        ->where('id_usuario', $user->id )
+        // ->where('id_usuario', $user->id )
         ->get()
         ->first();
 
@@ -205,18 +212,24 @@ class LivroController extends Controller
                 return back()->withErrors(['paginas_lidas' => 'A número de páginas que você leu não pode ser maior que a quantidade total de páginas'])->withInput();
             }
 
+            $book = Livro::where('id_livro', $request->id_livro)->first();
+            if (!isset($book) || Gate::denies('edit-book', $book)) {
+                abort(403, 'Acesso não autorizado');
+            }
+
             $livro = Livro::where('id_livro', $request->id_livro)
-            ->update([
-                'nome_livro' => $request->nome_livro,
-                'img_livro' => $request->img_livro,
-                'lido' => $lido,
-                'total_paginas' => $request->total_paginas,
-                'tempo_lido' => $request->tempo_lido,
-                'paginas_lidas' => $request->paginas_lidas,
-                'descricao_livro' => $request->descricao_livro,
-                'data_inicio' => $request->data_inicio,
-                'data_termino' => $request->data_termino,
-            ]);
+                ->update([
+                    'nome_livro' => $request->nome_livro,
+                    'img_livro' => $request->img_livro,
+                    'lido' => $lido,
+                    'total_paginas' => $request->total_paginas,
+                    'tempo_lido' => $request->tempo_lido,
+                    'paginas_lidas' => $request->paginas_lidas,
+                    'descricao_livro' => $request->descricao_livro,
+                    'data_inicio' => $request->data_inicio,
+                    'data_termino' => $request->data_termino,
+                ]);
+                
 
             // CASO USUÁRIO ESCOLHA IMAGEM DO LIVRO
             if ($request->hasFile('img_livro_usuario')) {
@@ -234,20 +247,25 @@ class LivroController extends Controller
                 }
             }
 
-            $livros = Livro::where('id_livro', $request->id_livro)->get();
-            $livro = $livros[0];
+            // $livros = Livro::where('id_livro', $request->id_livro)->get();
+            // $livro = $livros[0];
 
-            return redirect("/livro/ $request->id_livro")->with('success', 'Livro editado com sucesso');
+            return redirect("/livro/$request->id_livro")->with('success', 'Livro editado com sucesso');
 
         }
         catch(Exeption $e){
-            return redirect("/livro/ $request->id_livro")->with('danger', 'Não foi possível editar livro');
+            return redirect("/livro/$request->id_livro")->with('danger', 'Não foi possível editar livro');
         }
     }
 
     //apaga livro
     public function delete($id){
         try{
+            $book = Livro::where('id_livro', $id)->first();
+            if (!isset($book) || Gate::denies('edit-book', $book)) {
+                abort(403, 'Acesso não autorizado');
+            }
+
             Livro::where('id_livro',  $id)->delete();
             $img_livro = 'img_livros/' . $id . '.png';
 

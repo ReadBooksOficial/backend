@@ -29,5 +29,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('is-admin', function ($user) {
             return $user->adm == 1;
         });
+
+        Gate::define('edit-book', function ($user, $book) {
+            if($user->adm) return true;
+        });
     }
 }

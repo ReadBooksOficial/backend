@@ -57,7 +57,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            Link: <a href="{{ env('APP_URL') }}/compartilhar-livro/{{auth()->user()->id}}">{{ env('APP_URL') }}/compartilhar-livro/{{auth()->user()->id}}</a>
+                            Link: <a href="{{ config("app.url") }}/compartilhar-livro/{{auth()->user()->id}}">{{ config("app.url") }}/compartilhar-livro/{{auth()->user()->id}}</a>
                             De todos os livros.
                         </div>
                         <div class="modal-footer" style="flex-wrap: nowrap">
@@ -155,6 +155,8 @@
             </div>
         @endif
     </div>
+
+<input type="text" style="position: absolute; top: 0; z-index: -1;" id="link" value="{{ config("app.url") }}/compartilhar-um-livro/{{$livro->id_livro}}">
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {

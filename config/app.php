@@ -16,7 +16,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-    'pacoca_url' => env('PACOCA_URL', 'http://127.0.0.1:8081'),
+    'pacoca_url' => env('PACOCA_URL', 'https://pacoca.site'),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://readbooks.site/'),
 
     'asset_url' => env('ASSET_URL'),
 

@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/livros', [LivroController::class, 'listarLivros'])->name('livros.list');//deletar conta
     Route::get('/criar', [NavigationController::class, 'criarLivro'])->name('livros.cadastrar');//deletar conta
     Route::get('/conta', [NavigationController::class, 'conta'])->name('conta.view');//deletar conta
-    Route::post('/update-user', [UserController::class, 'update'])->name('conta.editar');//deletar conta
+    // Route::post('/update-user', [UserController::class, 'update'])->name('conta.editar');//deletar conta
     Route::get('/pesquisa', [LivroController::class, 'pesquisarLivro'])->name('livro.pesquisa');//deletar conta
 
 
@@ -83,7 +83,6 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::get('/create-admin', [NavigationController::class, 'create_admin'])->name('admin.create');//VIEW CRIAR ADMIN
         // Route::post('/create-admin', [AdminController::class, 'createAdmin'])->name('admin.create');//CRIAR ADMIN
         Route::get('/users/books/{id}', [LivroController::class, 'listarlivrosUsuario'])->name('admin.list_books_user');//CRIAR ADMIN
-
 
         Route::post('/switch-to-administrator/{id}', [AdminController::class, 'switch_to_administrator'])->name('admin.switch_to_administrator');//MUDAR CADASTRO PARA ADMIN
         Route::post('/switch-to-student/{id}', [AdminController::class, 'switch_to_student'])->name('admin.switch_to_student');//MUDAR CADASTRO PARA USUARIO COMUM
