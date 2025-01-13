@@ -20,13 +20,18 @@
                 <div class="mt-4 row row-livro-lido">
                     <div class="col">
                         <p style="line-height: 30px">
-                            <b>Autores:</b> {{implode(", ", $livro->volumeInfo->authors) }}<br>
-                            @if(isset($livro->volumeInfo->pageCount))
-                                <b>Páginas:</b>  {{$livro->volumeInfo->pageCount}} <br>
-                            @endif
+                            @if(isset($livro->volumeInfo->authors) && is_array($livro->volumeInfo->authors))
+                            <b>Autores:</b> {{ implode(", ", $livro->volumeInfo->authors) }}<br>
+                        @endif
+                        
+                        @if(isset($livro->volumeInfo->pageCount))
+                            <b>Páginas:</b> {{$livro->volumeInfo->pageCount}}<br>
+                        @endif
+                        
                             
+                        @if(isset($livro->volumeInfo->publishedDate))
                             <b>Data de publicação:</b>  {{ Carbon\Carbon::parse($livro->volumeInfo->publishedDate)->format('d/m/Y') }} <br>
-                            {{-- <b>Lingua:</b>  {{$livro->volumeInfo->language}}<br> --}}
+                        @endif
 
                             @if(isset($livro->saleInfo->buyLink))
                                 <b>Preview: </b><a target="_BLANK" href="{{$livro->volumeInfo->previewLink}}">Google livros - {{  $livro->volumeInfo->title  }}</a><br>
@@ -47,7 +52,7 @@
                             <div class="col-12" style="display: flex; justify-content: space-between;">
                                 <form class="w-100" method="POST" action="/adicionar-leitura">
                                     @csrf
-                                    <input type="hidden" name="descricao_livro" id="descricao_livro" value="{{isset($livro->volumeInfo->description) ? $livro->volumeInfo->description : "Autor: $livro->volumeInfo->authors"}}">
+                                    <input type="hidden" name="descricao_livro" id="descricao_livro" value="{{isset($livro->volumeInfo->description) ? $livro->volumeInfo->description : ""}}">
                                     <input type="hidden" name="nome_livro" id="nome_livro" value="{{isset($livro->volumeInfo->title) ? $livro->volumeInfo->title : "Autor: $livro->volumeInfo->authors"}}">
                                     <input type="hidden" name="id_livro_google" id="id_livro_google" value="{{isset($livro->id) ? $livro->id : 0}}">
                                     <input type="hidden" name="pagina_total" id="pagina_total" value="{{isset($livro->volumeInfo->pageCount) ? $livro->volumeInfo->pageCount : 0}}">

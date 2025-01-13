@@ -156,7 +156,9 @@
         @endif
     </div>
 
-<input type="text" style="position: absolute; top: 0; z-index: -1;" id="link" value="{{ config("app.url") }}/compartilhar-um-livro/{{$livro->id_livro}}">
+@if(isset($livro?->id_livro))
+    <input type="text" style="position: absolute; top: 0; z-index: -1;" id="link" value="{{ config("app.url") }}/compartilhar-um-livro/{{$livro?->id_livro}}">
+@endif
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
