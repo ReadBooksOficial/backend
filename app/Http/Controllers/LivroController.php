@@ -148,6 +148,9 @@ class LivroController extends Controller
         return;
 
         $img = Livro::where('nome_livro', 'like', "%" . "$book_title" . "%")->get('img_livro')->first();
+
+        if(!$img)
+            return;
         return $this->verificarImagemLivro($img->img_livro);
    }
 
