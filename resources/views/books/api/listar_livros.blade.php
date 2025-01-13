@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Pagina principal')
+@section('title', 'Read Books - Livros')
 
 @section('content')
     <div class="container">

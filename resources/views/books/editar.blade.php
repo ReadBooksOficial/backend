@@ -2,8 +2,6 @@
 
 @section('title', 'Editar - ' . $livro->nome_livro)
 
-
-
 @section('content')
     <div class="container">
         {{-- o  enctype="multipart/form-data" serve para salvar arquivos --}}

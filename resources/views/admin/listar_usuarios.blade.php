@@ -1,5 +1,5 @@
 @extends('layouts.main')
-
+@section('title', 'Read Books - Usuários')
 
 
 <script>

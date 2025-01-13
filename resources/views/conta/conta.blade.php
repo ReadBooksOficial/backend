@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@section('title', 'Read Books - Conta')
 
 @section('content')
 

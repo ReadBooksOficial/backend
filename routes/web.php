@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LivroController;
 use App\Http\Controllers\ApiController;
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,15 +46,13 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::get('/google-livro/{id}', [LivroController::class, 'googleLivro'])->name('google.livro');//deletar conta
 
-
-
 //USUARIO LOGADO
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');//sair da conta
 
-    Route::post('/delete-account/{id}', [UserController::class, 'deleteAccount'])->name('user.delete');//deletar conta
-    Route::get('/edit', [NavigationController::class, 'edit'])->name('account.edit');//usuário logado apaga sua conta
-    Route::post('/update-img', [UserController::class, 'updateImgAccount'])->name('account.update_img');//usuário logado apaga sua conta
+    // Route::post('/delete-account/{id}', [UserController::class, 'deleteAccount'])->name('user.delete');//deletar conta
+    // Route::get('/edit', [NavigationController::class, 'edit'])->name('account.edit');//usuário logado apaga sua conta
+    // Route::post('/update-img', [UserController::class, 'updateImgAccount'])->name('account.update_img');//usuário logado apaga sua conta
 
     // LIVROS
     Route::get('/livro/{id}', [LivroController::class, 'consultarLivro'])->name('livros.consulta');//deletar conta
@@ -77,7 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     // SÓ ADMIN PODE ACESSAR
-    // Route::middleware('admin')->group(function () {
+    Route::middleware('can:is-admin')->group(function () {
         //listagem de usuário
         Route::get('/admins', [UserController::class, 'listAdmin'])->name('admin.list_admins');//LISTAR ADMINS
         Route::get('/users', [UserController::class, 'listUser'])->name('admin.list_students');//LISTAR ALUNOS
@@ -89,7 +88,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/switch-to-administrator/{id}', [AdminController::class, 'switch_to_administrator'])->name('admin.switch_to_administrator');//MUDAR CADASTRO PARA ADMIN
         Route::post('/switch-to-student/{id}', [AdminController::class, 'switch_to_student'])->name('admin.switch_to_student');//MUDAR CADASTRO PARA USUARIO COMUM
 
-    // });
+    });
 });
 
 

@@ -19,7 +19,6 @@ return [
     */
 
     'driver' => env('SESSION_DRIVER', 'file'),
-    'connection' => 'pacoca',
 
     /*
     |--------------------------------------------------------------------------
@@ -73,7 +72,7 @@ return [
     |
     */
 
-    'connection' => env('SESSION_CONNECTION'),
+    'connection' => 'pacoca',
 
     /*
     |--------------------------------------------------------------------------

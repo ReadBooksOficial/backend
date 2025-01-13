@@ -1,8 +1,5 @@
 @extends('layouts.main')
-
-@section('title', 'Pagina principal')
-
-
+@section('title', 'Read Books - Pesquisa')
 
 @section('content')
 

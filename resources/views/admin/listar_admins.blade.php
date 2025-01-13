@@ -1,22 +1,14 @@
 @extends('layouts.main')
-
-
+@section('title', 'Read Books - ADMs')
 
 <script>
-
     const confirmDelete = (url)=>{
-
         if(confirm("Deseja apagar a conta? Não é possivel recuperar.")){
-
    				document.location = url;
-
         }
-
-
-
     }
-
 </script>
+
 @section('content')
     <div class="container">
         <h1 class="titulo-listar">Administradores</h1>

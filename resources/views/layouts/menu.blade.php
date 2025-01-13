@@ -7,7 +7,7 @@
 {{-- <nav class="navbar navbar-expand-lg navbar-dark" style="width: 100%; background: @if (auth()->check()) {{auth()->user()->primary_color}} @else #5bb4ff @endif!important;"> --}}
 <nav class="navbar navbar-expand-lg navbar-dark" style="width: 100%; background: #5bb4ff!important;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/"><img src="{{asset('img/estante_icon.png')}}" height="50" class="log-menu"> Read Book</a>
+      <a class="navbar-brand" href="/"><img src="{{asset('img/estante_icon.png')}}" height="50" class="log-menu"> Read Books</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
@@ -140,7 +140,7 @@
 
         <div class="offcanvas-header">
 
-        <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel">Read Book</h5>
+        <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel">Read Books</h5>
 
         <button type="buttoan" style="background: 0; border: 0" data-bs-dismiss="offcanvas" aria-label="Close">
           <img src="{{asset('img/close.png')}}" height="30px" alt="" srcset="">
