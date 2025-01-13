@@ -89,7 +89,7 @@
         @endif
 
 
-        <div class="row-list-livros">
+        <div class="row row-list-livros" style="margin: 0!important">
             @if ($livros == "[]" && !isset($_GET['filtro']))
                 <h1 class="text-center">Você não tem nenhum livro cadastrado</h1>
                 <a class="btn mt-5" href="/criar" style="background: @if (auth()->check() && auth()->user()->primary_color) {{auth()->user()->primary_color}} @else #5bb4ff @endif!important; color: #fff">Clique aqui para cadastrar</a>
