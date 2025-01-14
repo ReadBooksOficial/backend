@@ -118,8 +118,7 @@ class LivroController extends Controller
     }
 
     public function createOutroLivro($book_title){
-        $img = $this->pegarCapaLivro($book_title);
-        return view("books.criar_livro", compact('book_title', 'img'));
+        return view("books.criar_livro", compact('book_title'));
     }
 
     //pesquisa livro por nome

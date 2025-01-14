@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('edit-book', function ($user, $book) {
-            if($user->adm) return true;
+            return $user->adm || $book->id_usuario == $user->id;
         });
     }
 }
