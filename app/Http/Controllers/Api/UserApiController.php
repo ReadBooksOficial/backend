@@ -17,6 +17,15 @@ class UserApiController extends Controller
         try {
             $credentials = $request->only('email', 'password');
 
+            // Verificar se o campo fornecido é um email ou um nome de usuário
+            $fieldType = filter_var($credentials['email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
+        
+            // Ajustar os dados para autenticação
+            $credentials = [
+                $fieldType => $credentials['email'], // Usa o tipo de campo detectado
+                'password' => $credentials['password'],
+            ];
+
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
 
@@ -40,6 +49,7 @@ class UserApiController extends Controller
             return response()->json(['message' => $e->getMessage()], 500);
         }
     }
+    
 
     //Funcao que cadastra Usuário
     public function register(Request $request){
