@@ -31,6 +31,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="col-7 col-right-login">
             <form class="form-login" method="POST" action="{{ route('login') }}">
                 {{-- MENSAGEM DE CONTA CRIADA --}}
