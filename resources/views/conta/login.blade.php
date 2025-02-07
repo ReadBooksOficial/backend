@@ -34,6 +34,8 @@
         
         <div class="col-7 col-right-login">
             <form class="form-login" method="POST" action="{{ route('login') }}">
+                @csrf
+                
                 {{-- MENSAGEM DE CONTA CRIADA --}}
                 @if(session()->has('success'))
                     <div class="alert alert-success alert-dismissible alert-account-create fade show" role="alert">
@@ -68,8 +70,6 @@
     
     
                 <h2 class="titulo-login">login</h2>
-                    @csrf
-    
                     {{-- Email --}}
                     <div class="form-group mt-5">
                         {{-- <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label> --}}
