@@ -16,7 +16,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-    'pacoca_url' => env('PACOCA_URL', 'https://pacoca.site'),
+    'pacoca_url' => env('PACOCA_URL', 'https://pacoca.net'),
 
     /*
     |--------------------------------------------------------------------------
