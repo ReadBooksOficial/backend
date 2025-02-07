@@ -59,14 +59,14 @@
     }
 
     nav{
-        z-index: 9!important;
+        z-index: 2!important;
     }
     .col-img-index{
         position: absolute;
         gap: 10px;
         display: flex;
         flex-direction: column;
-        z-index: 1;
+        z-index: 5;
     }
 
     .col-img-index:nth-child(1){
