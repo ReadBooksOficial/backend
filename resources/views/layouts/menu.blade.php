@@ -79,7 +79,17 @@
               Conta
             </a>
           </li>
-        @endif
+          
+          @else
+            <li style="margin-left: 30px!important" class="nav-item">
+              <a class=" btn btn-light" href="/login">
+                {{-- <img class="logo-home-menu-cel" height="50px" src="{{asset('img/home.png')}}" alt="" srcset=""> --}}
+                {{-- <img class="logo-home-menu-cel" height="30px" src="{{asset('img/home_white_24dp.svg')}}" alt="" srcset=""> --}}
+                Login
+              </a>
+            </li>
+          
+          @endif
       </ul>
 
           @if (auth()->check()) {{-- CASO ESTEJA LOGADO--}}

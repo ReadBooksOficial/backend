@@ -66,7 +66,7 @@
         gap: 10px;
         display: flex;
         flex-direction: column;
-        z-index: 999;
+        z-index: 1;
     }
 
     .col-img-index:nth-child(1){
