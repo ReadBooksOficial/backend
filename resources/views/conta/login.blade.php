@@ -33,7 +33,7 @@
         </div>
         
         <div class="col-7 col-right-login">
-            <form class="form-login" method="POST" action="{{ route('login') }}">
+            <form class="form-login" method="POST" action="/login">
                 @csrf
                 
                 {{-- MENSAGEM DE CONTA CRIADA --}}
