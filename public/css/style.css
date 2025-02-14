@@ -794,6 +794,11 @@ img.img-escolher-capa {
         min-height: 250px;
     }
 
+    .row-controle-leitura .col{
+        flex-wrap: wrap;
+        min-width: 100%;
+    }
+
 }
 
 @media (max-width: 510px) {

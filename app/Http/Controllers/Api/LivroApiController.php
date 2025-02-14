@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Livro;
+use App\Models\User;
+
 
 class LivroApiController extends Controller
 {
@@ -30,6 +32,24 @@ class LivroApiController extends Controller
             'countWishList' => $countWishList,
             'totalBooks' => $totalBooks
         ], 200);//busca livro pelo usuario
+
+    }
+
+    public function getBooksByUserIdToPacoca(Request $request){
+        $user = User::where("user_name", $request->user_name)->first();
+        if(!$user) return response()->json(["message" => "Usuário não encontrado"], 404);
+        $id_user = $user->id;
+
+        $books = Livro::where('id_usuario', $id_user)->orderBy('data_inicio', 'desc')->where("show_in_pacoca", true)->get(); //busca livro pelo usuario
+        $totalBooks = Livro::where('id_usuario', $id_user)->where('data_inicio', '!=', null)->count();
+        $countWishList = Livro::where('id_usuario', $id_user)->where('lido', 'não')->where('data_inicio', null)->count();
+        $countBooksRead = Livro::where('lido', 'sim')->where('id_usuario', $id_user)->count();
+
+        // verifica se livro tem capa, se nao tive deixa padrao
+        foreach ($books as $book)
+            $book->img_livro = $this->verifyImgBook($book->img_livro);
+
+        return response()->json(['books' => $books]);//busca livro pelo usuario
 
     }
 

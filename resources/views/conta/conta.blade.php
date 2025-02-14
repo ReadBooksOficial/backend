@@ -30,7 +30,7 @@
                     <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 
                     <div class="col">
-                        <input disabled placeholder="Email ou nome de usuário" id="email" type="login" class="input-login form-control @error('login') is-invalid @enderror" name="login" value="{{ auth()->user()->name }}" autocomplete="login" autofocus>
+                        <input disabled placeholder="Email ou nome de usuário" id="email" type="login" class="input-login form-control @error('login') is-invalid @enderror" name="login" value="{{ auth()->user()->email }}" autocomplete="login" autofocus>
                     </div>
 
                     @error('email')

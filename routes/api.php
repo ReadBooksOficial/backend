@@ -27,6 +27,8 @@ Route::post('/user', [UserApiController::class, 'register']);
 Route::put('/user', [UserApiController::class, 'update'])->middleware('auth:sanctum');
 Route::get('/user/books/{id}', [LivroApiController::class, 'getBooksByUserId']);
 
+Route::get('/users/pacoca/{user_name}', [LivroApiController::class, 'getBooksByUserIdToPacoca']);
+
 Route::get('/book/{id}', [LivroApiController::class, 'getBookById']);
 Route::delete('/book/{id}', [LivroApiController::class, 'delete'])->middleware('auth:sanctum');
 

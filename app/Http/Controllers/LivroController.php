@@ -227,6 +227,7 @@ class LivroController extends Controller
                     'descricao_livro' => $request->descricao_livro,
                     'data_inicio' => $request->data_inicio,
                     'data_termino' => $request->data_termino,
+                    'show_in_pacoca' => $request->has("show_in_pacoca"),
                 ]);
                 
 
