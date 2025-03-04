@@ -139,6 +139,7 @@ class LivroController extends Controller
         return view("books.pesquisar_livro", compact('livros', 'text'));
     }
 
+
     public function resumo_leitura(){
         $livros = Livro::where('id_usuario', auth()->user()->id)->get();
 
@@ -275,7 +276,7 @@ class LivroController extends Controller
 
             return redirect('/livros')->with('success', 'Livro excluido com sucesso');
         }
-        catch(Exeption $e){
+        catch(\Exception $e){
             return redirect('/livros')->with('danger', 'Erro ao excluir livro');
         }
     }

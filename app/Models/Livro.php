@@ -21,6 +21,8 @@ class Livro extends Model
         'tempo_lido',
         'paginas_lidas',
         'descricao_livro',
-        'data_inicio'
+        'data_inicio',
+        'data_termino',
+        'show_in_pacoca'
     ];
 }

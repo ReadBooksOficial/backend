@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\DB;
 
 class UserApiController extends Controller
 {
@@ -27,20 +29,39 @@ class UserApiController extends Controller
             ];
 
             if (Auth::attempt($credentials)) {
-                $user = Auth::user();
+                $user = auth()->user();
+                $token = JWTAuth::fromUser($user); // Gera o token JWT  
 
-                // Autenticação bem-sucedida, gera e retorna um token JWT
-                $token = auth()->user()->createToken('ReadBookAppToken')->plainTextToken;
-                // $token = auth()->user()->createToken('ReadBookAppToken')->accessToken;
+                $ip = request()->ip();
+                $ip = json_decode(file_get_contents("https://api64.ipify.org?format=json"), true)['ip'];
+                $location = json_decode(file_get_contents("http://ip-api.com/json/$ip"), true);
+
+                
+               // Armazena o token no banco de dados
+                DB::table('pacoca.user_tokens')->insert([
+                    'user_id' => $user->id,
+                    'token' => $token,
+                    'ip_address' => $ip,
+                    'country' => $location['country'] ?? null,
+                    'region_name' => $location['regionName'] ?? null,
+                    'city' => $location['city'] ?? null,
+                    'user_agent' => request()->header('User-Agent'),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
 
                 return response()->json([
                     'token' => $token,
+                    'token_type' => 'Bearer',
                     'user' => [
-                        'name' => $user->name,
-                        'email' => $user->email,
                         'id' => $user->id,
-                    ],
-                ], 200);
+                        'user_name' => $user->user_name,
+                        'name' => $user->name,
+                        'img_account' => $user->img_account,
+                        'token' => $token,
+                        'email' => $user->email,
+                    ]
+                ]);
             } else {
                 // Autenticação falhou
                 return response()->json(['message' => 'Email e/ou senha invalidos'], 401);

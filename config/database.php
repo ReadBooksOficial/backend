@@ -68,7 +68,7 @@ return [
             'driver' => 'mysql',
             'host' => env('DB_PACOCA_HOST', '127.0.0.1'),
             'port' => env('DB_PACOCA_PORT', '3306'),
-            'database' => env('DB_PACOCA_DATABASE', 'pacoca11'),
+            'database' => env('DB_PACOCA_DATABASE', 'pacoca'),
             'username' => env('DB_PACOCA_USERNAME', 'root'),
             'password' => env('DB_PACOCA_PASSWORD', ''),
             'charset' => 'utf8mb4',
