@@ -30,16 +30,16 @@ Route::get('/users/pacoca/{user_name}', [LivroApiController::class, 'getBooksByU
 
 Route::group(['prefix' => 'books'], function(){
     Route::get('/by-user-id/{id}', [LivroApiController::class, 'getBooksByUserId']);
-    Route::get('/by-name/{name}', [LivroApiController::class, 'getBooksByName'])->middleware('auth:api');
-    Route::get('/{id}', [LivroApiController::class, 'getBookById'])->middleware('auth:api');
-    Route::delete('/{id}', [LivroApiController::class, 'delete'])->middleware('auth:api');
-    Route::patch('/{id}', [LivroApiController::class, 'update'])->middleware('auth:api');
+    Route::get('/by-name/{name}', [LivroApiController::class, 'getBooksByName'])->middleware('auth:api', 'check_user_token');
+    Route::get('/{id}', [LivroApiController::class, 'getBookById'])->middleware('auth:api', 'check_user_token');
+    Route::delete('/{id}', [LivroApiController::class, 'delete'])->middleware('auth:api', 'check_user_token');
+    Route::patch('/{id}', [LivroApiController::class, 'update'])->middleware('auth:api', 'check_user_token');
 });
 
 Route::group(['prefix' => 'google-books'], function(){
     Route::get('/by-name/{name}', [GoogleBookApiController::class, 'getBooksByName']);
     Route::get('/{id}', [GoogleBookApiController::class, 'getBookById']);
-    Route::get('/add-to-read/{id}', [GoogleBookApiController::class, 'addToRead'])->middleware('auth:api');
+    Route::get('/add-to-read/{id}', [GoogleBookApiController::class, 'addToRead'])->middleware('auth:api', 'check_user_token');
 });
 
 Route::get('/', function(){
