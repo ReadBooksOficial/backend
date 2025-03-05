@@ -24,7 +24,7 @@ use App\Http\Controllers\Api\GoogleBookApiController;
 
 Route::post('/login', [UserApiController::class, 'login']);
 Route::post('/user', [UserApiController::class, 'register']);
-Route::put('/user', [UserApiController::class, 'update'])->middleware('auth:api');
+// Route::put('/user', [UserApiController::class, 'update'])->middleware('auth:api');
 
 Route::get('/users/pacoca/{user_name}', [LivroApiController::class, 'getBooksByUserIdToPacoca']);
 

@@ -9,18 +9,7 @@ class Notification extends Model
 {
     use HasFactory;
 
-    protected $table = "my_notifications";
-
-    protected $primaryKey = 'id_my_notification';
-
-    protected $fillable = [
-        'id_user', 
-        'text_notification', 
-        'link', 
-        'text_link',
-        'type_notification',
-        'old_version_app',
-        'new_version_app',
-        'excludable',
-    ];
+    protected $connection = 'pacoca';
+    protected $table = 'notifications';
+    protected $fillable = ['id_user', 'img_notification', 'text', 'link1', 'link2', 'read', 'opened', 'user_from', 'type'];
 }
