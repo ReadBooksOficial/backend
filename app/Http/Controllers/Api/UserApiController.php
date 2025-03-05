@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserToken;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -39,17 +40,14 @@ class UserApiController extends Controller
                 $location = json_decode(file_get_contents("http://ip-api.com/json/$ip"), true);
 
                 
-               // Armazena o token no banco de dados
-                DB::table('pacoca.user_tokens')->insert([
+                UserToken::create([
                     'user_id' => $user->id,
                     'token' => $token,
                     'ip_address' => $ip,
                     'country' => $location['country'] ?? null,
                     'region_name' => $location['regionName'] ?? null,
                     'city' => $location['city'] ?? null,
-                    'user_agent' => request()->header('User-Agent'),
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                    'user_agent' => request()->header('User-Agent')
                 ]);
 
                 return response()->json([
