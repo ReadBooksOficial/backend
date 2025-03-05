@@ -66,7 +66,7 @@ class UserApiController extends Controller
                 ]);
             } else {
                 // Autenticação falhou
-                return response()->json(['message' => 'Email e/ou senha invalidos'], 401);
+                return response()->json(['message' => 'Email e/ou senha invalidos'], status: 422);
             }
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
