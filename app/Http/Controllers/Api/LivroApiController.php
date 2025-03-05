@@ -77,14 +77,14 @@ class LivroApiController extends Controller
 
     public function getBookById($id)
     {
-        $book = Livro::where('id_livro', $id)->first();
+        try {
+            $book = Livro::where('id_livro', $id)->first();
+            $book->img_livro = $this->verifyImgBook($book->img_livro);// verifica se livro tem capa, se nao tive deixa padrao
 
-        // verifica se livro tem capa, se nao tive deixa padrao
-        $book->img_livro = $this->verifyImgBook($book->img_livro);
-
-        return response()->json([
-            'book' => $book,
-        ], 200);//busca livro pelo id
+            return response()->json(['book' => $book], 200);//busca livro pelo id
+        } catch (\Exception $e) {
+            return response()->json(['message'=> $e->getMessage()],500);
+        }
     }
 
     public function delete($id)
