@@ -8,7 +8,7 @@
 <div class="container">
     <h1 class="mt-5" style="text-align: center">Controle da sua leitura</h1>
 
-    <div class="row mt-5">
+    <div class="row mt-5 row-controle-leitura">
         <div class="col">
             <div id="chartContainer2" style="height: 370px; width: 100%;background: #A8A8A8"></div>
         </div>

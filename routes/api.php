@@ -24,15 +24,27 @@ use App\Http\Controllers\Api\GoogleBookApiController;
 
 Route::post('/login', [UserApiController::class, 'login']);
 Route::post('/user', [UserApiController::class, 'register']);
-Route::put('/user', [UserApiController::class, 'update'])->middleware('auth:sanctum');
-Route::get('/user/books/{id}', [LivroApiController::class, 'getBooksByUserId']);
+// Route::put('/user', [UserApiController::class, 'update'])->middleware('auth:api');
 
-Route::get('/book/{id}', [LivroApiController::class, 'getBookById']);
-Route::delete('/book/{id}', [LivroApiController::class, 'delete'])->middleware('auth:sanctum');
+Route::get('/users/pacoca/{user_name}', [LivroApiController::class, 'getBooksByUserIdToPacoca']);
 
-Route::get('/google-books/by-name/{name}', [GoogleBookApiController::class, 'getBooksByName']);
-Route::get('/google-books/{id}', [GoogleBookApiController::class, 'getBookById']);
-Route::get('/google-books/add-to-read/{id}', [GoogleBookApiController::class, 'addToRead'])->middleware('auth:sanctum');
+Route::group(['prefix' => 'books'], function(){
+    Route::get('/by-user-id/{id}', [LivroApiController::class, 'getBooksByUserId']);
+    Route::get('/by-name/{name}', [LivroApiController::class, 'getBooksByName'])->middleware('auth:api', 'check_user_token');
+    Route::get('/{id}', [LivroApiController::class, 'getBookById'])->middleware('auth:api', 'check_user_token');
+    Route::delete('/{id}', [LivroApiController::class, 'delete'])->middleware('auth:api', 'check_user_token');
+    Route::patch('/{id}', [LivroApiController::class, 'update'])->middleware('auth:api', 'check_user_token');
+});
+
+Route::group(['prefix' => 'google-books'], function(){
+    Route::get('/by-name/{name}', [GoogleBookApiController::class, 'getBooksByName']);
+    Route::get('/{id}', [GoogleBookApiController::class, 'getBookById']);
+    Route::get('/add-to-read/{id}', [GoogleBookApiController::class, 'addToRead'])->middleware('auth:api', 'check_user_token');
+});
+
+Route::get('/', function(){
+    return response()->json("Ola Mundo",200);
+});
 
 
 Route::fallback(function(){

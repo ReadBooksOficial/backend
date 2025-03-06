@@ -181,13 +181,15 @@ return [
 
     'attributes' => [
         'email' => 'email',
+        'user_name' => 'nome de usuário',
         'password' => 'senha',
         'name' => 'nome',
         'nome_livro' => 'nome do livro',
         'nome1' => 'nome do livro',
         'description' => 'descrição',
         'img' => 'imagem',
-        'phone' => 'telefone'
+        'phone' => 'telefone',
+        'password_confirmation' => 'confirmação de senha'
     ],
 
 ];

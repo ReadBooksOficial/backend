@@ -72,6 +72,18 @@
                     </div>
                 </div>
 
+                <div class="mb-4">
+                    <div class="form-group d-flex align-items-center gap-2">
+                        <input class="form-check-input" type="checkbox" name="show_in_pacoca" value="" id="show_in_pacoca" {{ $livro->show_in_pacoca ? "checked" : "" }} >
+                        <label class="form-check-label" for="show_in_pacoca">
+                            Mostrar no Paçoca
+                        </label>
+                    </div>
+                    <div id="passwordHelpBlock" class="form-text">
+                        Deixe esse campo em branco para não mostrar o livro no seu perfil do <a href="{{config("app.pacoca_url")}}">Paçoca</a>
+                    </div>
+                </div>
+
                 <div class="mb-4 container-tempo-lido">
                     <label for="tempo_lido" class="form-label">Tempo lido</label>
                     <input type="text" class="form-control @error('tempo_lido') is-invalid @enderror" id="tempo_lido" name="tempo_lido" value="{{$livro->tempo_lido}}">
