@@ -1,0 +1,15 @@
+[
+    {
+      "relation": [
+        "delegate_permission/common.handle_all_urls",
+        "delegate_permission/common.get_login_creds"
+      ],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.joaoenrique13.readbooks",
+        "sha256_cert_fingerprints": [
+          "22:92:52:8A:1D:0A:9A:A5:F5:74:D0:42:66:EA:E5:A7:2B:E5:F4:8D:05:4D:83:FD:81:AF:5B:34:F5:90:A4:E1"
+        ]
+      }
+    }
+  ]
