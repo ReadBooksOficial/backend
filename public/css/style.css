@@ -16,9 +16,23 @@ body::-webkit-scrollbar-thumb{
     border: 3px solid #fff;  /* creates padding around scroll thumb */
 }
 
+.container-resumo{
+    padding: 0 300px 100px 300px!important;
+}
+
 /* BARRA DE ROLAGEM */
 body::-webkit-scrollbar{
     width: 12px;               /* width of the entire scrollbar */
+}
+
+.col-text-resumo{
+    /* margin-left: 100px; */
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.titulo-controle-leitura{
+    margin-bottom: 10px;
 }
 
 .livro h1{
@@ -671,6 +685,23 @@ img.img-escolher-capa {
         max-width: 155px!important;
         min-height: 250px;
         margin-bottom: 20px;
+    }
+
+    .row-controle-leitura .col{
+        order: 2;
+    }
+    div.col.col-text-resumo{
+        margin-left: 0;
+        margin-bottom: 50px;
+        order: 1;
+    }
+    
+    .titulo-controle-leitura{
+        margin-bottom: 1px;
+    }
+
+    .container-resumo{
+        padding: 0 0px 100px 0px!important;
     }
 }
 

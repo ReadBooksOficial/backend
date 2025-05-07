@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Api\GoogleBookApiController;
-
+use Carbon\Carbon;
 
 class LivroController extends Controller
 {
@@ -140,14 +140,45 @@ class LivroController extends Controller
     }
 
 
-    public function resumo_leitura(){
+    // public function resumo_leitura(){
+    //     $livros = Livro::where('id_usuario', auth()->user()->id)->get();
+
+    //     $countLidos = Livro::where('lido', 'sim')->where('id_usuario', auth()->user()->id)->count();
+    //     $countNaoLidos = Livro::where('data_inicio', '!=' , null)->where('lido', 'não')->where('id_usuario', auth()->user()->id)->count();
+    //     $countListaDesejo = Livro::where('data_inicio', null)->where('lido', 'não')->where('id_usuario', auth()->user()->id)->count();
+
+    //     return view('books.resumo_leitura', compact('livros', 'countLidos', 'countNaoLidos', 'countListaDesejo'));
+    // }
+
+    public function resumo_leitura() {
+        $userId = auth()->user()->id;
         $livros = Livro::where('id_usuario', auth()->user()->id)->get();
 
-        $countLidos = Livro::where('lido', 'sim')->where('id_usuario', auth()->user()->id)->count();
-        $countNaoLidos = Livro::where('data_inicio', '!=' , null)->where('lido', 'não')->where('id_usuario', auth()->user()->id)->count();
-        $countListaDesejo = Livro::where('data_inicio', null)->where('lido', 'não')->where('id_usuario', auth()->user()->id)->count();
+        // Contagem de livros por status
+        $countLidos = Livro::where('lido', 'sim')->where('id_usuario', $userId)->count();
+        $countNaoLidos = Livro::where('data_inicio', '!=', null)->where('lido', 'não')->where('id_usuario', $userId)->count();
+        $countListaDesejo = Livro::where('data_inicio', null)->where('lido', 'não')->where('id_usuario', $userId)->count();
 
-        return view('books.resumo_leitura', compact('livros', 'countLidos', 'countNaoLidos', 'countListaDesejo'));
+        // Obter os últimos 5 meses dinamicamente
+        $meses = [];
+        $dadosMeses = [];
+        for ($i = 4; $i >= 0; $i--) {
+            $mes = Carbon::now()->subMonths($i)->format('m');  // Obter o mês atual e os 4 anteriores
+            $nomeMes = Carbon::now()->subMonths($i)->format('M');  // Nome do mês (Jan, Feb, etc.)
+
+            $meses[] = $nomeMes;
+
+            // Consultar quantos livros foram lidos no mês específico
+            $livrosPorMes = Livro::where('lido', 'sim')
+                ->where('id_usuario', $userId)
+                ->whereMonth('data_termino', '=', $mes)  // Filtra pelo mês
+                ->count();
+
+            $dadosMeses[$nomeMes] = $livrosPorMes;
+        }
+
+        // Retornando a view com os dados
+        return view('books.resumo_leitura', compact("livros", 'countLidos', 'countNaoLidos', 'countListaDesejo', 'dadosMeses', 'meses'));
     }
 
    public function pegarCapaLivro($book_title){
