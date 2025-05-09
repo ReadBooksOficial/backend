@@ -109,6 +109,7 @@ class LivroApiController extends Controller
     public function verifyImgBook($img_livro)
     {
         $path = str_replace('../', "", $img_livro);
+        $img_livro = str_replace('http://books.google.com', "https://books.google.com", $path);
 
         // img contem http (api)
         if (strpos($img_livro, 'books.google.com') != false)

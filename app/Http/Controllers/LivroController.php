@@ -45,6 +45,7 @@ class LivroController extends Controller
     // verifica se livro tem capa, se nao tive retorna padrao
     public function verificarImagemLivro($img_livro){
         $path = str_replace('../', "", $img_livro);
+        $img_livro = str_replace('http://books.google.com', "https://books.google.com", $path);
 
         // img contem http (api)
         if (strpos($img_livro, 'books.google.com') != false || (file_exists($path) && $path))
