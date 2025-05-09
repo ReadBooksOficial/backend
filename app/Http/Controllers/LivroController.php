@@ -232,7 +232,6 @@ class LivroController extends Controller
                 'paginas_lidas' => ['required'],
                 'tempo_lido' => ['required'],
                 // 'data_inicio' => ['required'],
-                'descricao_livro' => ['required'],
             ]);
 
             if($request->total_paginas == $request->paginas_lidas){
@@ -285,7 +284,7 @@ class LivroController extends Controller
             return redirect("/livro/$request->id_livro")->with('success', 'Livro editado com sucesso');
 
         }
-        catch(Exeption $e){
+        catch(\Exception $e){
             return redirect("/livro/$request->id_livro")->with('danger', 'Não foi possível editar livro');
         }
     }
@@ -383,7 +382,7 @@ class LivroController extends Controller
 
             return redirect("/livro/$livro->id_livro")->with('success', 'Livro cadastrado');
         }
-        catch(Exeption $e){
+        catch(\Exception $e){
             return back()->with('danger', 'Erro ao cadastrar livro');
         }
     }
