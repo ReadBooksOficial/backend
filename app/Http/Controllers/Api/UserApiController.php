@@ -175,7 +175,7 @@ class UserApiController extends Controller
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Erro interno do servidor.'], 500);
+            return response()->json(['message' => $e->getMessage()], 500);
         }
     }
 
