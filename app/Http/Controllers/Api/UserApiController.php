@@ -75,101 +75,107 @@ class UserApiController extends Controller
     //Funcao que cadastra Usuário
     public function register(Request $request)
     {
-        $rules = [
-            'name' => ['required', 'string', 'max:50'],
-            'user_name' => [
-                'required',
-                'string',
-                'max:20',
-                'unique:pacoca.users',
-                'regex:/^[a-zA-Z0-9_-]+$/'
-            ],
-
-            'email' => ['required', 'string', 'email', 'max:50', 'unique:pacoca.users'],
-            'password' => ['required', 'string', 'min:8', 'max:50', 'confirmed'],
-            'password_confirmation' => ['required', 'string', 'max:50', 'min:8'],
-            // 'terms' => ['required'],
-        ];
-        
-        
-        $messages = [
-            'phone.regex' => 'O número de telefone deve estar em um formato válido.',
-            'birth_date.required' => 'A data de nascimento é obrigatória.',
-            'birth_date.date' => 'A data de nascimento deve ser uma data válida.',
-            'user_name.regex' => 'O nome de usuário não pode conter os seguintes caracteres: ? # & % / : ; = \' " { } [ ] \\ | +',
-        ];
-        
-        $request->validate($rules, $messages);
-        
-        // Verificar palavras ofensivas
-        $offensiveFields = [
-            'phone' => 'O telefone não pode conter palavras ofensivas.',
-            'sexo' => 'O sexo não pode conter palavras ofensivas.',
-            'name' => 'O nome não pode conter palavras ofensivas.',
-            'user_name' => 'O nome de usuário não pode conter palavras ofensivas.',
-            'biography' => 'A biografia não pode conter palavras ofensivas.',
-            'site' => 'O link não pode conter palavras ofensivas.',
-        ];
-        $errors = [];
-        foreach ($offensiveFields as $field => $message) {
-            if ((new TextController)->hasOffensiveWords($request->$field)) {
-                $errors[$field] = [$message]; // Formato esperado pelo frontend
-            }
-        }
-        if (!empty($errors)) {
-            return response()->json(['errors' => $errors], 422);
-        }
-        
-        $dados = $request->only(['name', 'user_name', 'email', 'phone', 'password', 'site', 'biography', 'sexo', 'birth_date']);
-        $dados['password'] = Hash::make($dados['password']);
-        $user = User::create($dados);
-        
-        $notificationController = new NotificationController();
-        $notificationController->setNotificationType($user->id, '../img/pacoca-com-braco-rounded.png', 'Seja bem vindo ao Paçoca, sua nova rede social', '/@pacoca', '/@pacoca', 'other');
-        
-        
-        $credentials = $request->only(['email', 'password']);
-        // Ajuste para permitir login por email ou username
-        $fieldType = filter_var($credentials['email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
-        
-        if (!Auth::attempt([$fieldType => $credentials['email'], 'password' => $credentials['password']], true)) {
-            throw ValidationException::withMessages([
-                'login' => __('auth.failed'),
-            ]);
-        }
-        
-        $user = auth()->user();
-        $token = JWTAuth::fromUser($user); // Gera o token JWT
-        
-        // return response()->json(["message" => "Conta criada!", "book" => "aaa"], 201);
-        
         try {
-            // $user->sendEmailVerificationNotification();
-            return response()->json([
-                'message' => "Conta criada. Um link de verificação de email foi enviado para eu email",
-                'access_token' => $token,
-                'token_type' => 'Bearer',
-                'user' => [
-                    'id' => $user->id,
-                    'user_name' => $user->user_name,
-                    'name' => $user->name,
-                    'img_account' => $user->img_account,
-                    'token' => $token,
-                ]
-            ]);
+            $rules = [
+                'name' => ['required', 'string', 'max:50'],
+                'user_name' => [
+                    'required',
+                    'string',
+                    'max:20',
+                    'unique:pacoca.users',
+                    'regex:/^[a-zA-Z0-9_-]+$/'
+                ],
+    
+                'email' => ['required', 'string', 'email', 'max:50', 'unique:pacoca.users'],
+                'password' => ['required', 'string', 'min:8', 'max:50', 'confirmed'],
+                'password_confirmation' => ['required', 'string', 'max:50', 'min:8'],
+                // 'terms' => ['required'],
+            ];
+            
+            
+            $messages = [
+                'phone.regex' => 'O número de telefone deve estar em um formato válido.',
+                'birth_date.required' => 'A data de nascimento é obrigatória.',
+                'birth_date.date' => 'A data de nascimento deve ser uma data válida.',
+                'user_name.regex' => 'O nome de usuário não pode conter os seguintes caracteres: ? # & % / : ; = \' " { } [ ] \\ | +',
+            ];
+            
+            $request->validate($rules, $messages);
+            
+            // Verificar palavras ofensivas
+            $offensiveFields = [
+                'phone' => 'O telefone não pode conter palavras ofensivas.',
+                'sexo' => 'O sexo não pode conter palavras ofensivas.',
+                'name' => 'O nome não pode conter palavras ofensivas.',
+                'user_name' => 'O nome de usuário não pode conter palavras ofensivas.',
+                'biography' => 'A biografia não pode conter palavras ofensivas.',
+                'site' => 'O link não pode conter palavras ofensivas.',
+            ];
+            $errors = [];
+            foreach ($offensiveFields as $field => $message) {
+                if ((new TextController)->hasOffensiveWords($request->$field)) {
+                    $errors[$field] = [$message]; // Formato esperado pelo frontend
+                }
+            }
+            if (!empty($errors)) {
+                return response()->json(['errors' => $errors], 422);
+            }
+            
+            $dados = $request->only(['name', 'user_name', 'email', 'phone', 'password', 'site', 'biography', 'sexo', 'birth_date']);
+            $dados['password'] = Hash::make($dados['password']);
+            $user = User::create($dados);
+            
+            $notificationController = new NotificationController();
+            $notificationController->setNotificationType($user->id, '../img/pacoca-com-braco-rounded.png', 'Seja bem vindo ao Paçoca, sua nova rede social', '/@pacoca', '/@pacoca', 'other');
+            
+            
+            $credentials = $request->only(['email', 'password']);
+            // Ajuste para permitir login por email ou username
+            $fieldType = filter_var($credentials['email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
+            
+            if (!Auth::attempt([$fieldType => $credentials['email'], 'password' => $credentials['password']], true)) {
+                throw ValidationException::withMessages([
+                    'login' => __('auth.failed'),
+                ]);
+            }
+            
+            $user = auth()->user();
+            $token = JWTAuth::fromUser($user); // Gera o token JWT
+            
+            // return response()->json(["message" => "Conta criada!", "book" => "aaa"], 201);
+            
+            try {
+                // $user->sendEmailVerificationNotification();
+                return response()->json([
+                    'message' => "Conta criada. Um link de verificação de email foi enviado para eu email",
+                    'access_token' => $token,
+                    'token_type' => 'Bearer',
+                    'user' => [
+                        'id' => $user->id,
+                        'user_name' => $user->user_name,
+                        'name' => $user->name,
+                        'img_account' => $user->img_account,
+                        'token' => $token,
+                    ]
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'message' => "Conta criada.",
+                    'access_token' => $token,
+                    'token_type' => 'Bearer',
+                    'user' => [
+                        'id' => $user->id,
+                        'user_name' => $user->user_name,
+                        'name' => $user->name,
+                        'img_account' => $user->img_account,
+                        'token' => $token,
+                    ]
+                ]);
+            }
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => "Conta criada.",
-                'access_token' => $token,
-                'token_type' => 'Bearer',
-                'user' => [
-                    'id' => $user->id,
-                    'user_name' => $user->user_name,
-                    'name' => $user->name,
-                    'img_account' => $user->img_account,
-                    'token' => $token,
-                ]
-            ]);
+            return response()->json(['message' => 'Erro interno do servidor.'], 500);
         }
     }
 
