@@ -133,8 +133,6 @@ class UserApiController extends Controller
         $fieldType = filter_var($credentials['email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
         
         if (!Auth::attempt([$fieldType => $credentials['email'], 'password' => $credentials['password']], true)) {
-            RateLimiter::hit($this->throttleKey());
-            
             throw ValidationException::withMessages([
                 'login' => __('auth.failed'),
             ]);
