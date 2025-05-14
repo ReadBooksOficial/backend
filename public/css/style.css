@@ -839,9 +839,9 @@ img.img-escolher-capa {
     }
 
     .col-livro {
-        min-width: 30%!important;
-        max-width: 30%!important;
-        min-height: 250px;
+        min-width: calc(33.33% - 10px)!important;
+        max-width: calc(33.33% - 10px)!important;
+        min-height: 270px;
     }
 
     .row-controle-leitura .col{
@@ -961,12 +961,22 @@ img.img-escolher-capa {
 @media (max-width: 455px) {
     .row-list-livros{
         gap: 5px;
-        /* margin-left: -10px!important;
-        margin-right: -45px!important; */
-        /* padding-left: 0; */
     }
 
     .col-livro {
-        min-height: 190px;
+        min-width: calc(33.33% - 5px)!important;
+        max-width: calc(33.33% - 5px)!important;
+        min-height: 200px;
+    }
+}
+
+@media (max-width: 410px) {
+    .row-list-livros{
+        gap: 7px;
+    }
+    .col-livro {
+        min-width: calc(33.33% - 5px)!important;
+        max-width: calc(33.33% - 5px)!important;
+        min-height: 185px;
     }
 }
