@@ -129,8 +129,8 @@ h2.titulo-login, h2.titulo-register{
     min-height: 100vh;
     margin-top: -150px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
     flex-direction: column;
     width: 40%!important;
 }
@@ -144,8 +144,8 @@ h2.titulo-login, h2.titulo-register{
     margin-top: -150px;
     margin-right: -110px !important;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
     flex-direction: column;
 }
 
@@ -280,7 +280,7 @@ label {
 }
 
 .row-index, .container-index {
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     display: flex;
 }
@@ -294,21 +294,22 @@ label {
     place-items: center;
     padding: 0 50px;
 }
-
-
-
 .col-index h1 {
-
     font-size: 90px;
-
+}
+.col-index p {
+    font-size: 17px;
 }
 
-
-
-.col-index p {
-
+.col-index-mobile {
+    /* display: grid; */
+    padding: 10px 10px;
+}
+.col-index-mobile h1 {
+    font-size: 90px;
+}
+.col-index-mobile p {
     font-size: 20px;
-
 }
 
 .link{
@@ -713,6 +714,11 @@ img.img-escolher-capa {
     .container-resumo{
         padding: 0 0px 100px 0px!important;
     }
+
+    .col-index h1{
+        font-size: 20px;
+        text-align: left!important;
+    }
 }
 
 @media (max-width: 750px) {
@@ -876,7 +882,7 @@ img.img-escolher-capa {
         margin-top: 10px;
     }
 
-    .col-index h1{
+    .col-index-mobile h1{
         font-size: 50px;
     }
 

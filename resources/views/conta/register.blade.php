@@ -130,6 +130,8 @@
             <p>Faça login e acesse seus livros</p> --}}
             <div class="div img-index" style="position: relative;">
                 <div class="col col-img-index">
+                    <img class="img-index" src="{{asset('img_index/1984.webp')}}">
+                    <img class="img-index" src="{{asset('img_index/percy - o ultimo olimpiano.jpg')}}">
                     <img class="img-index" src="{{asset('img_index/percy - mar de monstros.jpg')}}">
                     <img class="img-index" src="{{asset('img_index/percy - maldicao do tita.jpg')}}">
                     <img class="img-index" src="{{asset('img_index/percy - o ultimo olimpiano.jpg')}}">
@@ -139,11 +141,14 @@
                     <img class="img-index" src="{{asset('img_index/herry - a pedra filosofal.jpg')}}">
                     <img class="img-index" src="{{asset('img_index/harry - a ordem de fenix.jpg')}}">
                     <img class="img-index" src="{{asset('img_index/harry - enigma do principe.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/assim que acaba.jpeg')}}">
                 </div>
 
                 <div class="col col-img-index">
                     <img class="img-index" src="{{asset('img_index/percy - e os olimpianos.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/biblioteca da meia noite.jpg')}}">
                     <img class="img-index" src="{{asset('img_index/percy - a batalha do labirinto.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/diario de anne frank.jpg')}}">
                     <img class="img-index" src="{{asset('img_index/harry - prsioneiro de azkaban.jpg')}}">
                 </div>
 
@@ -152,6 +157,15 @@
                     <img class="img-index" src="{{asset('img_index/percy - ladrao de raios.jpg')}}">
                     <img class="img-index" src="{{asset('img_index/harry - e a camara secreta.jpg')}}">
                     <img class="img-index" src="{{asset('img_index/harry - as reliquias da morte.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/biblioteca da meia noite.jpg')}}">
+                </div>
+
+                <div class="col col-img-index">
+                    <img class="img-index" src="{{asset('img_index/1984.webp')}}">
+                    <img class="img-index" src="{{asset('img_index/percy - mar de monstros.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/percy - maldicao do tita.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/percy - o ultimo olimpiano.jpg')}}">
+                    <img class="img-index" src="{{asset('img_index/percy - mar de monstros.jpg')}}">
                 </div>
             </div>
     </div>
@@ -228,39 +242,37 @@
         z-index: 9!important;
     }
     .col-img-index{
-        position: absolute;
-        gap: 10px;
+        /* position: absolute; */
+        gap: 5px;
         display: flex;
         flex-direction: column;
-        z-index: 999;
+        z-index: 5;
     }
 
     .col-img-index:nth-child(1){
-        top: -315px;
-        right: 200px;
+        margin-top: 0px;
     }
 
     .col-img-index:nth-child(2){
-        top: -470px;
-        right: 0px
+        margin-top: 40px;
     }
 
     .col-img-index:nth-child(3){
-        top: -315px;
-        right: -200px
+        margin-top: 0px;
     }
 
     .col-img-index:nth-child(4){
-        top: -470px;
-        right: -400px;
+        margin-top: 40px;
+    }
+    .col-img-index:nth-child(5){
+        margin-top: 0px;
     }
 
     .img-index{
-        /* height: 229.3; */
-        /* 229,3; */
-        height: 300px;
+        height: 200px;
         border-radius: 7px;
-        /* height: 351.15; */
+        display: flex;
+        gap: 5px;
     }
 
     .row-index, .container-index{
