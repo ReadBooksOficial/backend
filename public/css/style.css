@@ -435,6 +435,16 @@ label {
     min-height: 310px;
 }
 
+.nav-link{
+    display: flex;
+    align-items: center;
+}
+
+.nav-link .feather{
+    width: 23px;
+    height: 23px;
+    margin-right: 5px;
+}
 
 .link-livro {
     text-decoration: none;
@@ -754,7 +764,10 @@ img.img-escolher-capa {
         font-size: 20px;
         display: flex!important;
         align-items: center;
-        margin-bottom: 20px;
+    }
+
+    .nav-link .lucide{
+        margin-right: 20px;
     }
 
     .dropdown-item{

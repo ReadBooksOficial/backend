@@ -57,8 +57,14 @@
                     </svg>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a id="btnCopiar" data-bs-toggle="modal" data-bs-target="#compartilhar-livro" class="dropdown-item" id="btnCopiar" href="#">Compartilhar</a></li>
-                    <li><a class="dropdown-item" href="/criar">Adicionar livro</a></li>
+                    <li><a id="btnCopiar" data-bs-toggle="modal" data-bs-target="#compartilhar-livro" class="dropdown-item" id="btnCopiar" href="#">
+                         <i style="height: 20px" data-lucide="share-2"></i>
+                         Compartilhar
+                        </a></li>
+                    <li><a class="dropdown-item" href="/criar">
+                         <i style="height: 20px" data-lucide="circle-plus"></i>
+                        Adicionar livro
+                    </a></li>
                 </ul>
             </div>
         @endif

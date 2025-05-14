@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
                 <h1 class="text-center" style="margin-bottom: 20px; font-size: 40px">Conta</h1>
-                <p>Atualize as informações da sua conta pelo Paçoca: <a href="{{config("app.pacoca_url")}}" target="_blank" rel="noopener noreferrer">{{config("app.pacoca_url")}}</a></p>
+                <p>Atualize as informações da sua conta pelo central de contas: <a href="{{config("app.pacoca_url")}}/conta" target="_blank" rel="noopener noreferrer">{{config("app.pacoca_url")}}/conta</a></p>
 
                 {{-- NOME --}}
                 <div class="form-group row mb-3">

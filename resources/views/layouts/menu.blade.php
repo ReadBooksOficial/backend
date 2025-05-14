@@ -13,47 +13,45 @@
       </button>
 
       <ul class="navbar-nav navbar-nav-pc me-auto mb-2 mb-lg-0" style="align-items: center;">
+        @if (auth()->check() || (!auth()->check() && !Route::currentRouteName() == 'index')) {{-- CASO ESTEJA LOGADO OU SEJA A PAGINA INICIAL --}}
         <li style="margin-left: 30px!important" class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">
             {{-- <img class="logo-home-menu-cel" height="50px" src="{{asset('img/home.png')}}" alt="" srcset=""> --}}
-            <img class="logo-home-menu-cel" height="30px" src="{{asset('img/home_white_24dp.svg')}}" alt="" srcset="">
+            {{-- <img class="logo-home-menu-cel" height="30px" src="{{asset('img/home_white_24dp.svg')}}" alt="" srcset=""> --}}
+            <i data-lucide="home"></i>
             Home
           </a>
         </li>
+      @endif
 
 
         @if (auth()->check()) {{-- CASO ESTEJA LOGADO--}}
           <li style="margin-left: 30px!important" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img class="logo-books-menu-cel" height="30px" src="{{asset('img/book.svg')}}" alt="" srcset="">
+              {{-- <img class="logo-books-menu-cel" height="25px" src="{{asset('img/book.svg')}}" alt="" srcset=""> --}}
+              <i data-lucide="book-open"></i>
               Livros
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
-                <a class="dropdown-item" href="/livros">
-                  <img class="logo-books-menu-cel" height="30px" src="{{asset('img/book_black.svg')}}" alt="" srcset="">
-                  Meus livros
-                </a>
-              </li>
-              <li>
                 <a class="dropdown-item" href="/criar">
-                  <img class="logo-books-menu-cel" height="30px" src="{{asset('img/add_black.svg')}}" alt="" srcset="">
-                  Cadastrar livro
+                  <i data-lucide="circle-plus"></i>
+                  Novo livro
                 </a>
               </li>
               <li>
                 <a class="dropdown-item" href="/resumo-leitura">
-                  <img class="logo-books-menu-cel" height="30px" src="{{asset('img/grafico.png')}}" alt="" srcset="">
+                  <i data-lucide="layout-dashboard"></i>
                   Resumo da Leitura
                 </a>
               </li>
             </ul>
           </li>
 
-          @if ($isAdmin)
+          {{-- @if ($isAdmin)
             <li style="margin-left: 30px!important;" class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                 <img class="logo-books-menu-cel" height="30px" src="{{asset('img/admin.svg')}}" alt="" srcset="">
+                 <i data-lucide="shield-ellipsis"></i>
                 Gerenciar
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -71,23 +69,54 @@
                 </li>
               </ul>
             </li>
-          @endif
+          @endif --}}
 
-          <li style="margin-left: 30px!important" class="nav-item">
+          <li style="margin-left: 30px!important;" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                 <i data-lucide="circle-user"></i>
+                {{ explode(" ", auth()->user()->name)[0] }}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item" href="/conta">
+                    <i data-lucide="user"></i>
+                    Conta
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/logout">
+                    <i data-lucide="log-out"></i>
+                    Sair
+                  </a>
+                </li>
+              </ul>
+          </li>
+
+          {{-- <li style="margin-left: 30px!important" class="nav-item">
             <a class="nav-link" aria-current="page" href="/conta">
               <img class="logo-books-menu-cel" height="30px" src="{{asset('img/person.svg')}}" alt="" srcset="">
-              Conta
+              {{ explode(" ", auth()->user()->name)[0] }}
             </a>
-          </li>
+          </li> --}}
           
           @else
-            <li style="margin-left: 30px!important" class="nav-item">
-              <a class=" btn btn-light" href="/login">
-                {{-- <img class="logo-home-menu-cel" height="50px" src="{{asset('img/home.png')}}" alt="" srcset=""> --}}
-                {{-- <img class="logo-home-menu-cel" height="30px" src="{{asset('img/home_white_24dp.svg')}}" alt="" srcset=""> --}}
+
+          @if (Route::currentRouteName() != 'index') 
+            <ul class="navbar-nav navbar-nav-pc me-auto mb-2 mb-lg-0" style="align-items: center;">
+              <li style="margin-left: 30px!important" class="nav-item">
+              <a class="nav-link active" href="/login">
+                <i data-lucide="log-in"></i>
                 Login
               </a>
             </li>
+            <ul class="navbar-nav navbar-nav-pc me-auto mb-2 mb-lg-0" style="align-items: center;">
+              <li style="margin-left: 30px!important" class="nav-item">
+              <a class="nav-link active" href="/register">
+                <i data-lucide="user-plus"></i>
+                Criar conta
+              </a>
+            </li>
+          @endif
           
           @endif
       </ul>
@@ -175,41 +204,57 @@
 
              <li class="nav-item dropdown">
 
-               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{-- <img class="logo-books-menu-cel" height="41px" src="{{asset('img/books.png')}}" alt="" srcset=""> --}}
-                <img class="logo-books-menu-cel" height="30px" src="{{asset('img/book.svg')}}" alt="" srcset="">
-                Livros
-               </a>
+              <li>
+                <a class="nav-link" href="/livros" style="color: #fff">
+                  <i data-lucide="home"></i>
+                  Home
+                </a>
+              </li>
 
-               <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background: #00000029; border:0">
-
+             
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                  <a class="dropdown-item" href="/livros" style="color: #fff">
-                    <img class="logo-books-menu-cel" height="30px" src="{{asset('img/book.svg')}}" alt="" srcset="">
-                    Meus livros
+                  <a class="dropdown-item" href="/conta">
+                    <i data-lucide="user"></i>
+                    Conta
                   </a>
                 </li>
+                <li>
+                  <a class="dropdown-item" href="/logout">
+                    <i data-lucide="log-out"></i>
+                    Sair
+                  </a>
+                </li>
+              </ul>
+          </li>
 
+               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{-- <img class="logo-books-menu-cel" height="41px" src="{{asset('img/books.png')}}" alt="" srcset=""> --}}
+                <i data-lucide="book-open"></i>
+                Livros
+               </a>
+               
+
+               <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background: #00000029; border:0">
                  <li>
                   <a class="dropdown-item" href="/criar" style="color: #fff">
                     {{-- <img class="logo-books-menu-cel" height="41px" src="{{asset('img/add.png')}}" alt="" srcset=""> --}}
-                    <img class="logo-books-menu-cel" height="30px" src="{{asset('img/add.svg')}}" alt="" srcset="">
-                    Cadastrar livro
+                    <i data-lucide="circle-plus"></i>
+                    Novo livro
                   </a>
                 </li>
                 <li>
                   <a class="dropdown-item" href="/resumo-leitura" style="color: #fff">
-                    <img class="logo-books-menu-cel" height="30px" src="{{asset('img/grafico_white.png')}}" alt="" srcset="">
+                    <i data-lucide="layout-dashboard"></i>
                     Resumo da Leitura
                   </a>
                 </li>
                </ul>
              </li>
 
-             @if ($isAdmin)
+             {{-- @if ($isAdmin)
                <li class="nav-item dropdown">
                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  {{-- <img class="logo-books-menu-cel" height="41px" src="{{asset('img/admin.png')}}" alt="" srcset=""> --}}
                   <img class="logo-books-menu-cel" height="30px" src="{{asset('img/admin.svg')}}" alt="" srcset="">
                    Gerenciar
                  </a>
@@ -217,7 +262,6 @@
                  <ul class="dropdown-menu menu-mobile" aria-labelledby="navbarDropdown" style="background: #00000029; border:0">
                    <li>
                     <a class="dropdown-item" href="/admins" style="color: #fff">
-                      {{-- <img class="logo-books-menu-cel" height="40px" src="{{asset('img/admin-list.png')}}" alt="" srcset=""> --}}
                     <img class="logo-books-menu-cel" height="30px" src="{{asset('img/list.svg')}}" alt="" srcset="">
                       Administradores
                     </a>
@@ -225,22 +269,34 @@
 
                    <li>
                     <a class="dropdown-item" href="/users" style="color: #fff">
-                      {{-- <img class="logo-books-menu-cel" height="40px" src="{{asset('img/user-list.png')}}" alt="" srcset=""> --}}
                       <img class="logo-books-menu-cel" height="30px" src="{{asset('img/list.svg')}}" alt="" srcset="">
                       Usuários
                     </a>
                   </li>
                  </ul>
                </li>
-             @endif
+             @endif --}}
 
-             <li class="nav-item">
-               <a class="nav-link" aria-current="page" href="/conta">
-                {{-- <img class="logo-books-menu-cel" height="41px" src="{{asset('img/account.png')}}" alt="" srcset=""> --}}
-                <img class="logo-books-menu-cel" height="30px" src="{{asset('img/person.svg')}}" alt="" srcset="">
-                Conta
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i data-lucide="circle-user"></i>
+                {{ explode(" ", auth()->user()->name)[0] }}
               </a>
-             </li>
+              <ul  style="background: #00000029; border:0" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a style="color: #fff" class="dropdown-item" href="/conta">
+                    <i data-lucide="user"></i>
+                    Conta
+                  </a>
+                </li>
+                <li>
+                  <a style="color: #fff" class="dropdown-item" href="/logout">
+                    <i data-lucide="log-out"></i>
+                    Sair
+                  </a>
+                </li>
+              </ul>
+            </li>
              @endif
            </ul>
 
