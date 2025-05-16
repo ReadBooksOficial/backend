@@ -2,7 +2,7 @@
 @section('title', 'Read Books - Livros')
 
 @section('content')
-    <div class="container">
+    <div class="container container-livros">
 
         @if (empty($compartilhado))
             @php

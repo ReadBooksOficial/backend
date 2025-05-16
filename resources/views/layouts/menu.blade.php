@@ -92,6 +92,17 @@
               </ul>
           </li>
 
+          <span style="cursor: pointer; margin-left: 30px;" onClick="toggleDarkMode()" id="darkModeToggle" className="cursor-pointer link-menu-right dropdown-item d-flex align-items-center justify-content-start">
+             <div class="mode-dark">
+               <i style="color: #fff" data-lucide="sun"></i>
+                <span>Dark</span>
+             </div>
+              <div class="mode-light">
+                <i style="color: #fff" data-lucide="moon"></i>
+                <span>Light</span>
+              </div>
+           </span>
+
           {{-- <li style="margin-left: 30px!important" class="nav-item">
             <a class="nav-link" aria-current="page" href="/conta">
               <img class="logo-books-menu-cel" height="30px" src="{{asset('img/person.svg')}}" alt="" srcset="">
@@ -117,6 +128,18 @@
               </a>
             </li>
           @endif
+
+           <span style="cursor: pointer; margin-left: 20px;" onClick="toggleDarkMode()" id="darkModeToggle" className="cursor-pointer link-menu-right dropdown-item d-flex align-items-center justify-content-start">
+             <div class="mode-dark">
+               <i style="color: #fff" data-lucide="sun"></i>
+                <span>Dark</span>
+             </div>
+              <div class="mode-light">
+                <i style="color: #fff" data-lucide="moon"></i>
+                <span>Light</span>
+              </div>
+           </span>
+      </span>
           
           @endif
       </ul>
@@ -297,6 +320,22 @@
                 </li>
               </ul>
             </li>
+            <li>
+                <a class="nav-link" href="#" style="color: #fff">
+                  <span style="cursor: pointer; margin-top: 0px;" onClick="toggleDarkMode()" id="darkModeToggle" className="cursor-pointer link-menu-right dropdown-item d-flex align-items-center justify-content-start">
+                    <div  class="mode-dark">
+                      <i style="color: #fff" data-lucide="sun"></i>
+                          <span style="margin-left: -7px">Dark</span>
+                      </div>
+                        <div  class="mode-light">
+                          <i style="color: #fff" data-lucide="moon"></i>
+                          <span style="margin-left: -7px">Light</span>
+                        </div>
+                  </span>
+                </a>
+              </li>
+
+              
              @endif
            </ul>
 
@@ -312,13 +351,31 @@
 
                @else{{-- CASO NÃO ESTEJA LOGADO--}}
                  <div class="d-flex">
-                   <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0">
-                     <li class="nav-item">
-                      <a class="nav-link" aria-current="page" href="/register"><Button class="btn btn-criar-conta">Criar Conta</Button></a>
-                     </li>
-                     <li class="nav-item">
-                       <a class="nav-link" aria-current="page" href="/login"><Button class="btn btn-fazer-login">Fazer Login</Button></a>
-                     </li>
+                   <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0" style="width: 100%">
+                    <a class="nav-link" href="#" style="color: #fff">
+                        <span style="cursor: pointer; margin-top: -20px;" onClick="toggleDarkMode()" id="darkModeToggle" className="cursor-pointer link-menu-right dropdown-item d-flex align-items-center justify-content-start">
+                          <div  class="mode-dark">
+                            <i style="color: #fff" data-lucide="sun"></i>
+                                <span style="margin-left: -7px">Dark</span>
+                            </div>
+                              <div  class="mode-light">
+                                <i style="color: #fff" data-lucide="moon"></i>
+                                <span style="margin-left: -7px">Light</span>
+                              </div>
+                        </span>
+                      </a>
+                    </li>
+
+                     <div style="display: flex;">
+                      <li class="nav-item" style="width: 50%">
+                        <a class="nav-link" aria-current="page" href="/register"><Button class="btn btn-criar-conta">Criar Conta</Button></a>
+                      </li>
+                      <li class="nav-item" style="width: 50%">
+                        <a class="nav-link" aria-current="page" href="/login"><Button class="btn btn-criar-conta">Fazer Login</Button></a>
+                      </li>
+                     </div>
+                     <li>
+                      
                    </ul>
                  </div>
                @endif
@@ -327,3 +384,31 @@
   </div>
 </nav>
 
+<script>
+  function toggleDarkMode() {
+    const savedMode = localStorage.getItem('dark-mode');
+    const isDarkMode = savedMode == "true";
+    localStorage.setItem('dark-mode', JSON.stringify(!isDarkMode));
+
+    // Adiciona ou remove a classe 'dark' no root
+    if (isDarkMode) {
+        document.documentElement.classList.add('light'); // Remove a classe 'dark'
+        document.documentElement.classList.remove('dark'); // Remove a classe 'dark'
+        document.querySelectorAll(".mode-dark").forEach((el) => {
+            el.style.display = "block";
+        });
+        document.querySelectorAll(".mode-light").forEach((el) => {
+            el.style.display = "none";
+        });
+    } else {
+        document.documentElement.classList.add('dark'); // Adiciona a classe 'dark'
+        document.documentElement.classList.remove('light'); // Adiciona a classe 'dark'
+        document.querySelectorAll(".mode-dark").forEach((el) => {
+            el.style.display = "none";
+        });
+        document.querySelectorAll(".mode-light").forEach((el) => {
+            el.style.display = "block";
+        });
+    }
+  }
+</script>

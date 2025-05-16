@@ -1,9 +1,9 @@
 :root{
     --primary-blue: #5bb4ff;
     --primary-blue-shadow: #5bb4ff80;
-    --background-post: #fff;
+    --background-login: #fff;
     --background-feed: #F4F2EE;
-    --background-dark: #F5F5F5;
+    --background-search: #fff;
     --post-boxshadow-color: #cecece90;
     --background-light: #fff;
     --color-text-post: #000;
@@ -12,7 +12,7 @@
     --background-item: #F5F5F5;
     --small-menu-top: #fff;
     --background-input-search: #5bb4ff;
-    --background-input: #F7F8F9 !important;
+    --background-input: #F7F8F9!important;
     --textarea-color-text: #000000c4;
     --textarea-background-color: #fff;
     --textarea-borer-color: #dee2e6;
@@ -49,13 +49,13 @@
 .dark{
     --azul-principal: #5bb4ff;
     --background-feed: #0c0c0c;
-    --background-post: #000;
+    --background-login: #0c0c0c;
     --post-border-color: #000;
     --post-boxshadow-color: #000;
     --background-input: #27232390 !important;
     --background-dropdown: #000;
     --color-input: #fff !important;
-    --background-dark: #000;
+    --background-search: #0c0c0c;
     --background-light: #fff;
     --color-text-post: rgba(255, 255, 255);
     --background-item: #0c0c0c;

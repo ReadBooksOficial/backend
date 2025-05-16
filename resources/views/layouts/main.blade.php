@@ -25,6 +25,19 @@
 <body>
 
 <script>
+        const savedMode = localStorage.getItem('dark-mode');
+        const isDarkMode = savedMode == "true";
+        localStorage.setItem('dark-mode', JSON.stringify(isDarkMode));
+
+        // Adiciona ou remove a classe 'dark' no root
+        if (isDarkMode) {
+            document.documentElement.classList.add('dark'); // Adiciona a classe 'dark'
+            document.documentElement.classList.remove('light'); // Adiciona a classe 'dark'
+        } else {
+            document.documentElement.classList.add('light'); // Remove a classe 'dark'
+            document.documentElement.classList.remove('dark'); // Remove a classe 'dark'
+        }
+
         function ShowLoading() {
           document.querySelector('.loading').style.display = "block"
             // Adicione o código da sua função aqui

@@ -1,3 +1,15 @@
+*{
+    color: var(--color-text-post);
+}
+
+nav.navbar *, a.download-btn div{
+    color: #fff!important;
+}
+
+body{
+    background-color: var(--background-login)!important;
+}
+
 main{
     min-height: 100vh;
 }
@@ -65,8 +77,14 @@ h2.titulo-login, h2.titulo-register{
     /* margin-top: -100px; */
 }
 
+.input-group-text{
+    background: var(--background-input) !important;
+    color: var(--color-input)!important;
+}
+
 .input-login{
-    background: #F7F8F9 !important;
+    background: var(--background-input) !important;
+    color: var(--color-input)!important;
     border-radius: 8px !important;
     box-shadow: 0 0 0 0!important;
     border: 0!important;
@@ -109,7 +127,7 @@ h2.titulo-login, h2.titulo-register{
     padding: 0 !important;
     margin: 0 !important;
     overflow: hidden;
-
+    background: var(--background-login);
 }
 
 
@@ -197,9 +215,11 @@ h2.titulo-login, h2.titulo-register{
 
 
 label {
-
     font-size: 20px !important;
+}
 
+.dropdown-menu{
+    background-color: var(--background-login)!important;
 }
 
 .form-control-login {
@@ -207,6 +227,15 @@ label {
     border-radius: 4px !important;
     font-size: 20px !important;
     background: #c3c3c350 !important;
+}
+
+.form-control, select {
+    color: var(--color-input)!important;
+    background-color: var(--background-input) !important;
+}
+
+.form-control#livro{
+    background-color: var(--background-search) !important;
 }
 
 .col-input-login{
@@ -322,11 +351,9 @@ label {
 
 
 .btn-fazer-login {
-
     border: 1px solid #fff !important;
-
     background: #fff !important;
-
+    color: #000!important;
 }
 
 .text-descricao{
@@ -602,6 +629,22 @@ img.img-escolher-capa {
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
+}
+
+.dark .mode-dark{
+    display: none;
+}
+
+.light .mode-light{
+    display: none;
+}
+
+.mode-dark span{
+    color: #fff!important;
+}
+
+.mode-light span{
+    color: #fff!important;
 }
 
 .div-btn-home-pc .btn-home{
