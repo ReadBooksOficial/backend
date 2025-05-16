@@ -1,0 +1,107 @@
+:root{
+    --primary-blue: #5bb4ff;
+    --primary-blue-shadow: #5bb4ff80;
+    --background-post: #fff;
+    --background-feed: #F4F2EE;
+    --background-dark: #F5F5F5;
+    --post-boxshadow-color: #cecece90;
+    --background-light: #fff;
+    --color-text-post: #000;
+    --container-screen: var(--background-feed);
+    --color-input: #000 !important;
+    --background-item: #F5F5F5;
+    --small-menu-top: #fff;
+    --background-input-search: #5bb4ff;
+    --background-input: #F7F8F9 !important;
+    --textarea-color-text: #000000c4;
+    --textarea-background-color: #fff;
+    --textarea-borer-color: #dee2e6;
+
+    --input-border-color: #dee2e6;
+
+    --modal-background-color: #fff;
+    --shadow-see-more-color: rgb(255 255 255 / 85%);
+    --see-more-color: rgb(255 255 255);
+
+    --screen-background-color: #fff;
+
+    --svg-icons-color: #000;
+
+    --menu-icons-color: rgba(255, 255, 255, 0.55);
+    --menu-icons-active-color: rgba(255, 255, 255, 255);
+    --filter-invert-color: 0;
+    --background-menu-right: #fff;
+    --background-dropdown: #fff;
+    --background-404: #fff;
+    --background-root: #fff;
+    --shadow-color-dropdown: rgba(0,0,0,.12);
+    --dropdown-hover-background: #68686812;
+    --btn-light-background: #f8f9fa;
+    --background-notification-open: #F5F5F5;
+    --btn-light-color: #000;
+    --background-modal: #3434345e;
+    --card-game: #fff;
+
+    --input-color-text: #000;
+}
+
+
+.dark{
+    --azul-principal: #5bb4ff;
+    --background-feed: #0c0c0c;
+    --background-post: #000;
+    --post-border-color: #000;
+    --post-boxshadow-color: #000;
+    --background-input: #27232390 !important;
+    --background-dropdown: #000;
+    --color-input: #fff !important;
+    --background-dark: #000;
+    --background-light: #fff;
+    --color-text-post: rgba(255, 255, 255);
+    --background-item: #0c0c0c;
+    --container-screen: #0c0c0c;
+    --small-menu-top: #000;
+    --background-input-search: #5bb4ff;
+
+    --textarea-color-text: #ffffffa8;
+    --textarea-background-color: #000;
+    --textarea-borer-color: #dee2e6;
+
+    --input-border-color: #cecece90;
+    
+    --modal-background-color: #000;
+
+    --screen-background-color: #000;
+
+    --svg-icons-color: #fff;
+    --background-modal: #fff;
+    --dropdown-hover-background: #222121;
+    --menu-icons-color: rgba(0, 0, 0, 0.55);
+    --menu-icons-active-color: rgb(0, 0, 0);
+    --filter-invert-color: 1;
+    --background-menu-right: #000;
+    --background-404: #000;
+    --background-root: #000;
+    --shadow-color-dropdown: rgb(65 65 65 / 12%);
+    --bs-dropdown-link-hover-color: #ffffffcd;
+    --btn-light-background: #96939326;
+    --background-notification-open: #96939326;
+    --btn-light-color: #fff;
+    --shadow-see-more-color: rgb(0 0 0 / 85%);
+    --see-more-color: rgb(0 0 0);
+    --background-modal: #ffffff0d;
+    --card-game: #96939326;
+
+    --input-color-text: #fff;
+    --red: #dc3545;
+}
+
+.dark .card-post{
+    border-bottom: 3px solid #cecece90!important;
+    margin: 0!important;
+    border-radius: 0!important;
+}
+
+.dark .space-view-post-dark{
+    height: 20px;
+}

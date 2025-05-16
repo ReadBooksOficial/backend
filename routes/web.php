@@ -26,6 +26,7 @@ Route::get('/compartilhar-livro/{user_id}', [LivroController::class, 'compartilh
 Route::get('/compartilhar-um-livro/{user_livro}', [LivroController::class, 'compartilharUmLivro'])->name('livros.compartilhar_um_livro');
 Route::get('/livros/filtrar', [LivroController::class, 'filtrar'])->name('livros.filtrar');
 Route::get('/como-compartilhar', [LivroController::class, 'comoCompartilhar'])->name('livros.como-compartilhar');
+Route::get('/download', [NavigationController::class, 'download'])->name('download');
 
 // NAVEGAÇÃO
 Route::get('/', [NavigationController::class, 'index'])->name('index'); //página Home

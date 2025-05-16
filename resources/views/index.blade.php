@@ -73,9 +73,10 @@
                     <h1 class="text-white text-center">Read Books</h1>
                     <p class="text-white">Cadastre os livros que você leu ou está lendo para manter um controle de todas as informações de todos os seus livros.</p>
 
-                    <div class="div-btn-home">
+                    <div class="div-btn-home-pc">
                         <a href="/register" class="btn-home btn btn-outline-light">Criar Conta</a>
-                        <a href="/login" class="btn-home btn btn-light" style="margin-left: 20px">Fazer Login</a>
+                        <a href="/login" class="btn-home btn btn-outline-light">Fazer Login</a>
+                        <a href="/download" class="btn-home btn btn-light">Baixar</a>
                     </div>
                 </div>
 

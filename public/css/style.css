@@ -293,6 +293,7 @@ label {
     display: grid;
     place-items: center;
     padding: 0 50px;
+    margin-right: 50px;
 }
 .col-index h1 {
     font-size: 90px;
@@ -595,6 +596,17 @@ img.img-escolher-capa {
 .div-btn-home{
     width: 100%;
 }
+.div-btn-home-pc{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.div-btn-home-pc .btn-home{
+    width: calc(50% - 10px);
+}
 .btn-home{
     width: 45%;
 }
@@ -610,6 +622,15 @@ img.img-escolher-capa {
     margin-top: 50px;
 }
 
+.container-container-index{
+    /* margin-left: 100px!important; */
+}
+
+@media (max-width: 1540px) {
+    .col-index {
+        margin-right: 30px;
+    }
+}
 @media (max-width: 1202px) {
     .container-container-index{
         min-width: 90%!important;
@@ -626,6 +647,13 @@ img.img-escolher-capa {
 
     .col-livro {
         margin: 0 10px;
+    }
+    .col-index {
+        margin-right: 0px;
+    }
+
+    .container-container-index{
+        max-width: 100%!important;
     }
 }
 

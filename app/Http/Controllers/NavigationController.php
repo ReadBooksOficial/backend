@@ -42,6 +42,9 @@ class NavigationController extends Controller
     public function pageNotFound(){
         return view('page_not_found');
     }
+    public function download(){
+        return view('download');
+    }
 
     public function politicaPrivacidade(){
         return view('politica_privacidade');
