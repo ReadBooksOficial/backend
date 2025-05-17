@@ -10,6 +10,10 @@ body{
     background-color: var(--background-login)!important;
 }
 
+.modal-footer, .modal-header, .modal-body{
+    background-color: var(--background-login)!important;
+}
+
 main{
     min-height: 100vh;
 }
