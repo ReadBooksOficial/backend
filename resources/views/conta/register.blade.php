@@ -44,7 +44,7 @@
                             </span>
                         @enderror
                     </div>
-                    <div id="passwordHelp" class="form-text">Deve começar com letra e conter apenas letras, números e sublinhados (_)</div>
+                    <div id="passwordHelp" class="form-text">Deve começar com letra e conter apenas letras, números, emojis e sublinhados (_)</div>
                 </div>
 
                 {{-- Email --}}

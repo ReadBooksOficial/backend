@@ -83,7 +83,7 @@ class UserApiController extends Controller
                     'string',
                     'max:20',
                     'unique:pacoca.users',
-                    'regex:/^[a-zA-Z0-9_-]+$/'
+                    'regex:/^[^@\s?#&%\/:;=\'"{}\[\]\\\\|+]+$/'
                 ],
     
                 'email' => ['required', 'string', 'email', 'max:50', 'unique:pacoca.users'],
