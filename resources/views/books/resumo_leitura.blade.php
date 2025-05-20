@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Resumo da leitura')
+@section('title', 'Read Books - Resumo da leitura')
 
 @section('meta_title', 'Read Books - Reumo da Leitura')
 @section('meta_description', 'Saiba quantos livros você já leu, quantos não finalizou e quantos estão na sua lista de desejos')
