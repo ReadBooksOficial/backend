@@ -22,7 +22,7 @@ class UserController extends Controller
                     'string',
                     'max:20',
                     Rule::unique('pacoca.users', 'user_name'),
-                    'regex:/^[a-zA-Z][a-zA-Z0-9_]*$/'
+                    'regex:/^[^@\s?#&%\/:;=\'"{}\[\]\\\\|+]+$/'
                 ],
                 'email' => ['required', 'string', 'email', 'max:50', Rule::unique('pacoca.users', 'email')],
                 'password' => ['required', 'string', 'min:8', 'max:50', 'confirmed'],
