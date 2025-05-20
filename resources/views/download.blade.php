@@ -15,7 +15,7 @@
 
             <div class="div-buttons gap-10">
                 <button class="download-btn">
-                    Baixar Paçoca Desktop
+                    Baixar Read Books Desktop
                     <div class="dropdown-content">
                         <div class="wrap">
 
