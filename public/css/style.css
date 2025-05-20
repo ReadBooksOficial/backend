@@ -6,6 +6,10 @@ nav.navbar *, a.download-btn div{
     color: #fff!important;
 }
 
+nav.navbar a.dropdown-item *, a.dropdown-item{
+    color: var(--color-input)!important;
+}
+
 body{
     background-color: var(--background-login)!important;
 }
