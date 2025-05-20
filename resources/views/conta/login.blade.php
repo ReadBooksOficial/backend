@@ -1,6 +1,12 @@
 @extends('layouts.main')
 @section('title', 'Read Books- Login')
 
+@section('meta_title', 'Read Books- Login')
+@section('meta_description', 'Faça login no Read Books')
+@section('meta_keywords', 'livros, leitura, rede social, Read Books, login')
+@section('meta_image', asset('img/pacoca-sem-braco-rounded.png'))
+@section('meta_url', url()->current())
+
 @section('content')
     <div class="container container-login">
         <div class="col-5 col-left-login" style="overflow:hidden" >

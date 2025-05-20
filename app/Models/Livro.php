@@ -25,4 +25,9 @@ class Livro extends Model
         'data_termino',
         'show_in_pacoca'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_usuario', 'id');
+    }
 }

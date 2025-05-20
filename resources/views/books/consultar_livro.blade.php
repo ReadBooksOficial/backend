@@ -7,6 +7,10 @@
         @include('components.message_danger')
         @include('components.message_success')
 
+        @section('meta_title', 'Read Books - Livro: ' . $livro->nome_livro . ' de ' . $livro->user->name)
+        @section('meta_description', 'Visualize as informações do livro ' . $livro->nome_livro . ' de ' . $livro->user->name)
+        @section('meta_image', asset('img/pacoca-sem-braco-rounded.png'))
+        @section('meta_url', url()->current())
 
         <div class="row">
             <div class="col-4">
