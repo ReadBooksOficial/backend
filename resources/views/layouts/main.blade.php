@@ -1,3 +1,12 @@
+<!--
+    "PRA QUE SERVE
+    TANTO CÓDIGO
+    SE A VIDA
+    NÃO É PROGRAMADA
+    E AS MELHORES COISAS
+    NÃO TEM LÓGICA".
+    Algúem (algum ano)
+-->
 {{-- VERIFICA SE É ADMINISTRADOR OU NÃO --}}
 @php
   $userController = new App\Http\Controllers\UserController();
