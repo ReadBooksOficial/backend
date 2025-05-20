@@ -67,6 +67,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.loading').style.display = "none"
         })
+
+        console.log('%cDesenvolvido pelo João Enrique', 'font-size: 30px; color: red;');
+        console.log(`%chttps://github.com/JoaoEnrique`, 'font-size: 20px; color: #5bb4ff;');
+        console.log(`%cRead Books ${new Date().getFullYear()}`, 'font-size: 30px; color: #5bb4ff;');
+
     </script>
 
 <div class="loading">
