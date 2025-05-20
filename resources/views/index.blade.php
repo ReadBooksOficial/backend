@@ -59,6 +59,7 @@
                     <div class="div-btn-home">
                         <a href="/register" class="btn-home btn btn-outline-light">Criar Conta</a>
                         <a href="/login" class="btn-home btn btn-light" style="margin-left: 20px">Fazer Login</a>
+                        <a href="/download" class="btn-home btn btn-home-download btn-outline-light">Baixar</a>
                     </div>
                 </div>
             </div>
@@ -188,7 +189,7 @@
 
     .img-index-mobile{
         display: flex;
-        gap: 5px;
+        gap: 3px;
         max-height: 150px;
     }
 
@@ -296,6 +297,10 @@
 
         main{
             background: #5bb4ff
+        }
+
+        h1{
+            margin-top: 20px!important;
         }
     }
 </style>

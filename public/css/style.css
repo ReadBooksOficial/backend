@@ -630,6 +630,10 @@ img.img-escolher-capa {
 
 .div-btn-home{
     width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 .div-btn-home-pc{
     width: 100%;
@@ -658,6 +662,12 @@ img.img-escolher-capa {
 .div-btn-home-pc .btn-home{
     width: calc(50% - 10px);
 }
+
+.div-btn-home .btn-home-download{
+    width: 100%;
+    margin-top: 10px;
+}
+
 .btn-home{
     width: 45%;
 }
