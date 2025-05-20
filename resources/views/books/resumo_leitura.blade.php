@@ -2,6 +2,12 @@
 
 @section('title', 'Resumo da leitura')
 
+@section('meta_title', 'Read Books - Reumo da Leitura')
+@section('meta_description', 'Saiba quantos livros você já leu, quantos não finalizou e quantos estão na sua lista de desejos')
+@section('meta_keywords', 'livros, leitura, rede social, Read Books, criar livro, resumo leitura, resumo, controle leitura, controle de leitura, estante virtual, estante de livros, estante de leitura, compartilhar livros, compartilhar leitura, gerenciar leitura')
+@section('meta_image', asset('img/estante_icon_fundo.png'))
+@section('meta_url', url()->current())
+
 @section('content')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
