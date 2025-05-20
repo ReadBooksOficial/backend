@@ -15,7 +15,7 @@
 
             <div class="div-buttons gap-10">
                 <button class="download-btn">
-                    Baixar Read Books Desktop
+                    Desktop (Windows)
                     <div class="dropdown-content">
                         <div class="wrap">
 
