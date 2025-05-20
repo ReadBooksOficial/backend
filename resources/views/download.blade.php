@@ -1,6 +1,12 @@
 @extends('layouts.main')
 @section('title', 'Baixar Read Books')
 
+@section('meta_title', 'Read Books - Download')
+@section('meta_description', 'Faça o download do Read Books - Android, iOS e Windows')
+@section('meta_keywords', 'livros, leitura, rede social, Read Books, download, baixar, readbooks, baixar read books, baixar readbooks, baixar read books android, baixar read books windows, baixar read books iOS')
+@section('meta_image', asset('img/estante_icon_fundo.png'))
+@section('meta_url', url()->current())
+
 @section('content')
     <div class="container-download">
         <div class="download-section">
