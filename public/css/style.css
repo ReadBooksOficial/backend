@@ -663,8 +663,8 @@ img.img-escolher-capa {
     width: calc(50% - 10px);
 }
 
-.div-btn-home .btn-home-download{
-    width: 100%;
+.btn-home-download{
+    width: 100%!important;
     margin-top: 10px;
 }
 

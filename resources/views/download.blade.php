@@ -50,6 +50,9 @@
         height: 100vh;
         background-color: var(--background-feed);
     }
+    main{
+        background-color: var(--background-feed);
+    }   
     .download-section {
         text-align: center;
     }
