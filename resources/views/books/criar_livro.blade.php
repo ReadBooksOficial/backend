@@ -1,6 +1,12 @@
 @extends('layouts.main')
 @section('title', 'Read Books - Criar Livro')
 
+@section('meta_title', 'Read Books - Cadastrar Livro')
+@section('meta_description', 'Cadastre um livro na sua estante virtual e gerencie sua leitura ou compartilhe com amigos')
+@section('meta_keywords', 'livros, leitura, rede social, Read Books, criar livro, cadastrar livro, adicionar livro, criar estante virtual, estante virtual, estante de livros, estante de leitura, compartilhar livros, compartilhar leitura, gerenciar leitura')
+@section('meta_image', asset('img/estante_icon_fundo.png'))
+@section('meta_url', url()->current())
+
 @section('content')
 
     <div class="container">
