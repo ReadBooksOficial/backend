@@ -4,7 +4,7 @@
 @section('meta_title', 'Read Books- Registre-se')
 @section('meta_description', 'Crie uma conta no Read Books')
 @section('meta_keywords', 'livros, leitura, rede social, Read Books, registro, criar conta, cadastro')
-@section('meta_image', asset('img/pacoca-sem-braco-rounded.png'))
+@section('meta_image', asset('img/estante_icon_fundo.png'))
 @section('meta_url', url()->current())
 
 @section('content')

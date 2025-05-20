@@ -14,7 +14,7 @@
      <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="{{asset('css/style.css?v=15')}}">
     <link rel="stylesheet" href="{{asset('css/vars.css?v=13')}}">
-    <link rel="shortcut icon" href="{{asset('img/estante_icon.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('img/estante_icon_fundo.png')}}" type="image/x-icon">
     <link href="{{asset('bootstrap-5.0.0/cdn.jsdelivr.net_npm_bootstrap@5.0.2_dist_css_bootstrap.min.css')}}" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="{{asset('bootstrap-5.0.0/cdn.jsdelivr.net_npm_@popperjs_core@2.9.2_dist_umd_popper.min.js')}}" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="{{asset('bootstrap-5.0.0/cdn.jsdelivr.net_npm_bootstrap@5.0.2_dist_js_bootstrap.min.js')}}" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
@@ -25,14 +25,14 @@
 
     <meta property="og:title" content="@yield('title', 'Read Books - Gerencie e compartilhe sua leitura')">
     <meta property="og:description" content="@yield('meta_description', 'Read Books é um sistema de gerenciamento de leitura, onde você pode compartilhar o status da sua leitura!')">
-    <meta property="og:image" content="@yield('meta_image', asset('img/pacoca-sem-braco-rounded.png'))">
+    <meta property="og:image" content="@yield('meta_image', asset('img/estante_icon_fundo.png'))">
     <meta property="og:url" content="@yield('meta_url', url()->current())">
     <meta property="og:type" content="website">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('meta_title', 'Read Books - Gerencie e compartilhe sua leitura')">
     <meta name="twitter:description" content="@yield('meta_description', 'Read Books é um sistema de gerenciamento de leitura, onde você pode compartilhar o status da sua leitura!')">
-    <meta name="twitter:image" content="@yield('meta_image', asset('img/pacoca-sem-braco-rounded.png'))">
+    <meta name="twitter:image" content="@yield('meta_image', asset('img/estante_icon_fundo.png'))">
 </head>
 <body>
 

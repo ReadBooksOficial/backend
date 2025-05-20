@@ -141,7 +141,7 @@ class TextController extends Controller
         $emojis = [
             ':pacoca:' => "<img src='/img/pacoca-sem-braco.png' class='emoji' alt=':pacoca:' data-title=':pacoca:' style='height: 22px; width: 22px'>",
             ':pacoca_corpo:' => "<img src='/img/pacoca-com-braco.png' class='emoji' alt=':pacoca_corpo:' data-title=':pacoca_corpo:' style='height: 22px; width: 22px'>",
-            ':pacoca_fundo:' => "<img src='/img/pacoca-sem-braco-rounded.png' class='emoji' alt=':pacoca_fundo:' data-title=':pacoca_fundo:' style='height: 22px; width: 22px'>",
+            ':pacoca_fundo:' => "<img src='/img/estante_icon_fundo.png' class='emoji' alt=':pacoca_fundo:' data-title=':pacoca_fundo:' style='height: 22px; width: 22px'>",
             ':pacoca_fundo_braco:' => "<img src='/img/pacoca-com-braco-rounded.png' class='emoji' alt=':pacoca_fundo_braco:' data-title=':pacoca_fundo_braco:' style='height: 22px; width: 22px'>",
             ':pacoca_cat:' => "<img src='/img/nyan-cat.gif' class='emoji' alt=':pacoca_cat:' data-title=':pacoca_cat:' style='height: 40px; width: 40px'>",
             ':pacoca_404:' => "<img src='/img/page-not-found.jpg' class='emoji' alt=':pacoca_404:' data-title=':pacoca_404:' style='height: 30px; width: 30px'>",

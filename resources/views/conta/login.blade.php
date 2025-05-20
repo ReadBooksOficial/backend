@@ -4,7 +4,7 @@
 @section('meta_title', 'Read Books- Login')
 @section('meta_description', 'Faça login no Read Books')
 @section('meta_keywords', 'livros, leitura, rede social, Read Books, login')
-@section('meta_image', asset('img/pacoca-sem-braco-rounded.png'))
+@section('meta_image', asset('img/estante_icon_fundo.png'))
 @section('meta_url', url()->current())
 
 @section('content')

@@ -8,7 +8,7 @@
             @section('meta_title', 'Read Books - Meus livros')
             @section('meta_description', 'Visualize todos os meus livros que estão cadastrados no Read Books')
             @section('meta_keywords', 'livros, leitura, rede social, Read Books, meus livros')
-            @section('meta_image', asset('img/pacoca-sem-braco-rounded.png'))
+            @section('meta_image', asset('img/estante_icon_fundo.png'))
             @section('meta_url', url()->current())
 
             @php
@@ -20,7 +20,7 @@
             @section('meta_title', 'Read Books - livros de ' . $user->name)
             @section('meta_description', 'Visualize todos os livros de ' . $user->name . ' que estão cadastrados no Read Books')
             @section('meta_keywords', 'livros, leitura, rede social, Read Books, ' . $user->name)
-            @section('meta_image', asset('img/pacoca-sem-braco-rounded.png'))
+            @section('meta_image', asset('img/estante_icon_fundo.png'))
             @section('meta_url', url()->current())
 
             @php
