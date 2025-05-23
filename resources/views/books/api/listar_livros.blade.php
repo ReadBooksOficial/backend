@@ -4,13 +4,13 @@
 @section('content')
     <div class="container">
 
-        <h1  class="text-center mb-5 mt-5">Selecione o Livro</h1>
+        <h1  class="text-center mb-5 mt-5">Adicionar Livro</h1>
 
         <form action="/create" method="post">
             @csrf
             <div class="row mb-5">
                 <div class="col-10 mb-3">
-                    <input placeholder="Nome do livro" value="{{$book_title}}" type="text" class="form-control @error('nome1') is-invalid @enderror" id="nome1" name="nome1">
+                    <input placeholder="Pesquisar meus livros" value="{{$book_title}}" type="text" class="form-control @error('nome1') is-invalid @enderror" id="nome1" name="nome1">
                     @error('nome1')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -19,21 +19,24 @@
                 </div>
 
                 <div class="col-2">
-                    <button type="submit" class="btn btn-blue" style="width: 100%">Pesquisar</button>
+                    <button class="btn btn-blue" type="submit">
+                      <img height="20px" src="{{asset('img/search.png')}}" alt="" srcset="">
+                    </button>
+                    {{-- <button type="submit" class="btn btn-blue" style="width: 100%">Pesquisar</button> --}}
                 </div>
             </div>
         </form>
 
         <div class="row row-list-livros">
-            <div class="col col-livro cursor-pointer">
-                <a class="link-livro" href="/create/outro-livro/{{$book_title}}">
-                    <div class="livro"  style="background-image:url('../img/book_transparent.png');">
-                        <h1>Outro</h1>
-                    </div>
-                </a>
-            </div>
-
             @if (!empty($livros))
+                <div class="col col-livro cursor-pointer">
+                    <a class="link-livro" href="/create/outro-livro/{{$book_title}}">
+                        <div class="livro"  style="background-image:url('../img/book_transparent.png');">
+                            <h1>Outro</h1>
+                        </div>
+                    </a>
+                </div>
+                
                 @foreach ($livros as $livro)
                     <div class="col col-livro">
                         <a class="link-livro" href="/google-livro/{{$livro['id']}}">

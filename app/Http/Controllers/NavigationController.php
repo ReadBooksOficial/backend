@@ -29,7 +29,10 @@ class NavigationController extends Controller
     }
 
     public function criarLivro(){
-        return view("books.criar_livro");
+        $livros = [];
+        $book_title = "";
+        return view("books.api.listar_livros", compact('livros', 'book_title'));
+        // return view("books.criar_livro");
     }
 
     //funcao que redireciona usuario para a conta

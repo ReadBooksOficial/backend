@@ -88,7 +88,7 @@
                     <div class="col">
                         <form class="d-flex" method="GET" action="/pesquisa">
                             @csrf
-                            <input class="form-control me-2" type="search" id="livro" name="livro" placeholder="Nome do Livro" aria-label="Search">
+                            <input class="form-control me-2" type="search" id="livro" name="livro" placeholder="Pesquisar meus livros" aria-label="Search">
                             <button class="btn" style="background: @if (auth()->check() && auth()->user()->primary_color) {{auth()->user()->primary_color}} @else #5bb4ff @endif!important; color: #fff; padding: 0; min-width: 50px;" type="submit">
                                 <img height="40px" src="{{asset('img/search.png')}}" alt="" srcset="">
                             </button>
