@@ -35,7 +35,7 @@ class GoogleBookApiController extends Controller
             foreach ($data->items as $item) {
                 $thumbnail = $item->volumeInfo->imageLinks->smallThumbnail ?? '../img/book_transparent.png';
                 $thumbnail = $item->volumeInfo->imageLinks->thumbnail ?? $thumbnail;
-                $thumbnail = $this->book_controller->verificarImagemLivro($thumbnail);// verifica se livro tem capa, se nao tive deixa padrao
+                $thumbnail = str_replace('http://books.google.com', "https://books.google.com", $thumbnail);
 
                 $book_info = [
                     'title' => $item->volumeInfo->title ?? 'Título não disponível',
