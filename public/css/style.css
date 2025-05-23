@@ -3,7 +3,8 @@
 }
 
 nav.navbar *, a.download-btn div{
-    color: #fff!important;
+    color: var(--color-menu) !important;
+    /* color: #fff!important; */
 }
 
 nav.navbar a.dropdown-item *, a.dropdown-item{
@@ -242,14 +243,54 @@ label {
     background-color: var(--background-input) !important;
 }
 
-.form-control#livro{
-    background-color: var(--background-search) !important;
+.navbar .form-control#livro{
+    background-color: var(--primary-blue) !important;
+    border-color: var(--color-menu);
+}
+
+.search-menu{
+    border-bottom-left-radius: 50px !important;
+    border-right: 0 !important;
+    border-top-left-radius: 50px !important;
+}
+
+.search-menu:focus, .btn-search-menu{
+    box-shadow: 0 0 0 0!important;
+}
+
+.search-menu::placeholder{
+    color: var(--color-menu)!important;
+    opacity: .5!important;
+}
+
+.btn-search-menu{
+    border: 1px solid var(--color-menu) !important;
+    border-bottom-right-radius: 50px !important;
+    border-left: 0 !important;
+    border-top-right-radius: 50px !important;
+    border-color: var(--color-menu);
+    margin-left: -5px !important;
+    padding-left: 0!important;
+}
+
+.dropdown-item:focus, .dropdown-item:hover{
+    background-color: var(--background-dropdown) !important;
+    color: var(--color-input)!important;
+    opacity: .7!important;
 }
 
 .col-input-login{
     margin-bottom: 20px;
 }
 
+
+/* se for modo noturno e capa padrão */
+.img-capa-default{
+    filter: invert(100%);
+}
+.img-capa-default h1{
+    filter: invert(100%);
+}
 
 
 
@@ -652,11 +693,11 @@ img.img-escolher-capa {
 }
 
 .mode-dark span{
-    color: #fff!important;
+    color: var(--color-menu)!important;
 }
 
 .mode-light span{
-    color: #fff!important;
+    color: var(--color-menu)!important;
 }
 
 .div-btn-home-pc .btn-home{

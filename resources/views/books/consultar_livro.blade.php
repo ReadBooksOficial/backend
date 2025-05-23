@@ -14,9 +14,9 @@
 
         <div class="row">
             <div class="col-4">
-                <div class="div-img-livro-selecionado" @if ($livro->img_livro == '../img/book_transparent.png')style="background-image: url('../img/book_transparent.png');" @endif>
+                <div class="div-img-livro-selecionado @if ($livro->img_livro == '../img/book_transparent.png') img-capa-default @endif" @if ($livro->img_livro == '../img/book_transparent.png')style="background-image: url('../img/book_transparent.png');" @endif>
                     @if ($livro->img_livro != '../img/book_transparent.png')
-                        <img src="{{ asset("$livro->img_livro") }}"  class="img-livro-selecionado">
+                        <img src="{{ asset("$livro->img_livro") }}" class="@if ($livro->img_livro == '../img/book_transparent.png') img-capa-default @endif img-livro-selecionado">
                     @else
                         <h1>{{ $livro->nome_livro }}</h1>
                     @endif

@@ -10,7 +10,7 @@
                 <h2 class="text-center">"{{$_GET['livro']}}"</h2>
                 <p class="text-center text-quantidade-livros">livros encontrados: {{count($livros)}}</p>
             @else
-                <h2 class="text-center" style="margin-bottom: 50px">Nenhum livro encontrado com: "{{$_GET['livro']}}"</h2>
+                <h2 class="text-center" style="font-size: 30px; margin-top: 20px; margin-bottom: 50px;">Nenhum livro encontrado com: "{{$_GET['livro']}}"</h2>
             @endif
 
             {{-- PESQUISA --}}
@@ -19,7 +19,7 @@
                     <form class="d-flex" method="GET" action="/pesquisa">
                         @csrf
                         <input class="form-control me-2" type="search" id="livro" name="livro" value="{{$_GET['livro']}}" placeholder="Nome do Livro" aria-label="Search">
-                        <button class="btn" style="background: @if (auth()->check()) {{auth()->user()->primary_color}} @else #5bb4ff @endif!important; color: #fff; padding: 0; min-width: 50px;" type="submit">
+                        <button class="btn" style="background: @if (auth()->check() && auth()->user()->primary_color) {{auth()->user()->primary_color}} @else #5bb4ff @endif!important; color: #fff; padding: 0; min-width: 50px;" type="submit">
                             <img height="40px" src="{{asset('img/search.png')}}" alt="" srcset="">
                         </button>
                     </form>

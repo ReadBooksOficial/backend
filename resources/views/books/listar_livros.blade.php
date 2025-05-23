@@ -122,7 +122,7 @@
 
                     <div class="col col-livro">
                         <a class="link-livro" href="{{$link}}">
-                            <div class="livro"  @if ($livro->img_livro != '../img/book_transparent.png') style="background-image:url('{{ asset($livro->img_livro) }}');" @else style="background-image:url('../img/book_transparent.png');" @endif>
+                            <div class="livro  @if ($livro->img_livro == '../img/book_transparent.png') img-capa-default @endif"  @if ($livro->img_livro != '../img/book_transparent.png') style="background-image:url('{{ asset($livro->img_livro) }}');" @else style="background-image:url('../img/book_transparent.png');" @endif>
                                 @if ($livro->img_livro == '../img/book_transparent.png')
                                     <h1>{{ $livro->nome_livro }}</h1>
                                 @endif

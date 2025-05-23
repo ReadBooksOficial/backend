@@ -6,6 +6,7 @@
     --background-search: #fff;
     --post-boxshadow-color: #cecece90;
     --background-light: #fff;
+    --color-menu: #fff;
     --color-text-post: #000;
     --container-screen: var(--background-feed);
     --color-input: #000 !important;
@@ -47,12 +48,13 @@
 
 
 .dark{
+    --color-menu: #000;
     --azul-principal: #5bb4ff;
     --background-feed: #0c0c0c;
     --background-login: #0c0c0c;
     --post-border-color: #000;
     --post-boxshadow-color: #000;
-    --background-input: #27232390 !important;
+    --background-input: #0c0c0c !important;
     --background-dropdown: #000;
     --color-input: #fff !important;
     --background-search: #0c0c0c;

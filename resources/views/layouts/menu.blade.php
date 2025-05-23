@@ -152,9 +152,9 @@
 
                     @csrf
 
-                    <input class="form-control me-2" type="search" id="livro" name="livro" placeholder="Pesquisar meus livros" aria-label="Search">
+                    <input class="form-control search-menu" type="text" id="livro" name="livro" placeholder="Pesquisar meus livros" aria-label="Search">
 
-                    <button class="btn btn-outline-blue" type="submit">
+                    <button class="btn btn-search-menu" type="submit">
                       <img height="30px" src="{{asset('img/search.png')}}" alt="" srcset="">
                     </button>
 
@@ -343,9 +343,9 @@
                  <form class="d-flex" method="GET" action="/pesquisa"> 
                    @csrf
 
-                   <input class="form-control me-2" type="search" id="livro" name="livro" placeholder="Nome do Livro" aria-label="Search">
-                   <button class="btn btn-outline-blue" type="submit">
-                    <img class="" height="30px" src="{{asset('img/search.png')}}" alt="" srcset="">
+                   <input class="form-control" type="search" id="livro" name="livro" placeholder="Nome do Livro" aria-label="Search">
+                   <button class="btn" type="submit">
+                      <img class="" height="30px" src="{{asset('img/search.png')}}" alt="" srcset="">
                    </button>
                  </form>
 
