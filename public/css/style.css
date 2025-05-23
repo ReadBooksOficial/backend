@@ -260,7 +260,7 @@ label {
 
 .search-menu::placeholder{
     color: var(--color-menu)!important;
-    opacity: .5!important;
+    opacity: .7!important;
 }
 
 .btn-search-menu{
