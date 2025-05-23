@@ -2,6 +2,11 @@
     color: var(--color-text-post);
 }
 
+* span.invalid-feedback, span.invalid-feedback strong {
+    color: #dc3545!important;
+}
+
+
 nav.navbar *, a.download-btn div{
     color: var(--color-menu) !important;
     /* color: #fff!important; */
@@ -87,12 +92,12 @@ h2.titulo-login, h2.titulo-register{
 }
 
 .input-group-text{
-    background: var(--background-input) !important;
+    background: var(--background-input-login) !important;
     color: var(--color-input)!important;
 }
 
-.input-login{
-    background: var(--background-input) !important;
+input.input-login{
+    background: var(--background-input-login) !important;
     color: var(--color-input)!important;
     border-radius: 8px !important;
     box-shadow: 0 0 0 0!important;
@@ -106,7 +111,6 @@ h2.titulo-login, h2.titulo-register{
     /* border-color: #dc3545!important; */
     border: 1px solid #dc3545!important;
 }
-
 
 
 .btn-adicionar-livro {

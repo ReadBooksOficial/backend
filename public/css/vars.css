@@ -14,6 +14,7 @@
     --small-menu-top: #fff;
     --background-input-search: #5bb4ff;
     --background-input: #F7F8F9!important;
+    --background-input-login: #F7F8F9 !important;
     --textarea-color-text: #000000c4;
     --textarea-background-color: #fff;
     --textarea-borer-color: #dee2e6;
@@ -55,6 +56,7 @@
     --post-border-color: #000;
     --post-boxshadow-color: #000;
     --background-input: #0c0c0c !important;
+    --background-input-login: #27232390 !important;
     --background-dropdown: #000;
     --color-input: #fff !important;
     --background-search: #0c0c0c;
