@@ -384,7 +384,7 @@ class LivroController extends Controller
             return redirect("/livro/$livro->id_livro")->with('success', 'Livro cadastrado');
         }
         catch(\Exception $e){
-            return back()->with('danger', 'Erro ao cadastrar livro');
+            return back()->with('danger', $e->getMessage());
         }
     }
 }

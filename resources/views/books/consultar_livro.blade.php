@@ -22,10 +22,14 @@
                     @endif
                 </div>
             </div>
-
+            @php
+                $textController = app(App\Http\Controllers\Api\TextController::class);
+            @endphp
             <div class="col-8 col-info-livro">
                 <h1 class="nome-livro-lido">{{  $livro->nome_livro  }}</h1>
-                <p>{!!  $livro->descricao_livro  !!}</p>
+                {{-- <p>{!!  $livro->descricao_livro  !!}</p> --}}
+                <p>{!! nl2br($textController->clearText($textController->censorText($livro->descricao_livro))) !!}</p>
+                
 
                 <div class="row row-livro-lido">
                     <div class="col">

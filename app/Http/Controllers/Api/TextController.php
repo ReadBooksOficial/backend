@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller\UserController;
 use Illuminate\Http\Request;
 use App\Jobs\SendNotificationEmail;
 
@@ -103,7 +104,7 @@ class TextController extends Controller
         $padraoHashtag = '/(?<!\S)(#[\wÀ-ÿ]+)/u';
     
         // Escapa as tags HTML
-        $textoFormatado = $this->escapeHtml($text);
+        $textoFormatado = $this->escapeHtmlWithAllowedTags($text);
     
         // Formata links como <a>
         $textoFormatado = preg_replace_callback($padraoLink, function ($matches) {
@@ -111,26 +112,11 @@ class TextController extends Controller
             return "<a href='{$url}' target='_blank' style='word-wrap: break-word;'>{$url}</a>";
         }, $textoFormatado);
     
-        // Formata menções de usuários
-        $textoFormatado = preg_replace_callback($padraoTagUser, function ($matches) {
-            $username = substr(trim($matches[0]), 1); // Remove o "@"
-
-            $user_controller = new UserController();
-            $user = $user_controller->getUserByUserName($username);
-
-            if ($user) {
-                return "<a href='/@{$username}' style='word-wrap: break-word;'>{$matches[0]}</a>";
-            } else {
-                // Se o usuário não existir, exibe apenas o texto sem formatação
-                return $matches[0];
-            }
-            
-        }, $textoFormatado);
     
         // Formata hashtags
         $textoFormatado = preg_replace_callback($padraoHashtag, function ($matches) {
             $hashtag = substr($matches[0], 1); // Remove o "#"
-            return "<a href='/hashtag/{$hashtag}' style='word-wrap: break-word;'>{$matches[0]}</a>";
+            return "<a href='" . config("app.pacoca_url") ."/hashtag/{$hashtag}' target='_blank' style='word-wrap: break-word;'>{$matches[0]}</a>";
         }, $textoFormatado);
     
         // return $textoFormatado;
@@ -139,29 +125,48 @@ class TextController extends Controller
 
     function substituirEmojis($texto) {
         $emojis = [
-            ':pacoca:' => "<img src='/img/pacoca-sem-braco.png' class='emoji' alt=':pacoca:' data-title=':pacoca:' style='height: 22px; width: 22px'>",
-            ':pacoca_corpo:' => "<img src='/img/pacoca-com-braco.png' class='emoji' alt=':pacoca_corpo:' data-title=':pacoca_corpo:' style='height: 22px; width: 22px'>",
-            ':pacoca_fundo:' => "<img src='/img/estante_icon_fundo.png' class='emoji' alt=':pacoca_fundo:' data-title=':pacoca_fundo:' style='height: 22px; width: 22px'>",
-            ':pacoca_fundo_braco:' => "<img src='/img/pacoca-com-braco-rounded.png' class='emoji' alt=':pacoca_fundo_braco:' data-title=':pacoca_fundo_braco:' style='height: 22px; width: 22px'>",
-            ':pacoca_cat:' => "<img src='/img/nyan-cat.gif' class='emoji' alt=':pacoca_cat:' data-title=':pacoca_cat:' style='height: 40px; width: 40px'>",
-            ':pacoca_404:' => "<img src='/img/page-not-found.jpg' class='emoji' alt=':pacoca_404:' data-title=':pacoca_404:' style='height: 30px; width: 30px'>",
-            ':pacoca_500:' => "<img src='/img/errors/pato.png' class='emoji' alt=':pacoca_500:' data-title=':pacoca_500:' style='height: 25px; width: 25px'>",
-            ':bochecha:' => "<img src='/img/emoji/bochecha.png' class='emoji' alt=':bochecha:' data-title=':bochecha:' style='height: 25px; width: 25px'>",
+            ':pacoca_coracao:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/coracao.png' class='emoji' alt=':pacoca_coracao:' data-title=':pacoca_coracao:' style='height: 27px;'>",
+            ':pacoca_lingua:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/lingua.png' class='emoji' alt=':pacoca_lingua:' data-title=':pacoca_lingua:' style='height: 27px;'>",
+            ':pacoca_mao:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/mao.png' class='emoji' alt=':pacoca_mao:' data-title=':pacoca_mao:' style='height: 27px;'>",
+            ':pacoca_oculos1:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/oculos1.png' class='emoji' alt=':pacoca_oculos1:' data-title=':pacoca_oculos1:' style='height: 27px;'>",
+            ':pacoca_vomito_arco_iris:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/vomito_arco_iris.png' class='emoji' alt=':pacoca_vomito_arco_iris:' data-title=':pacoca_vomito_arco_iris:' style='height: 27px;'>",
+            ':pacoca_sorriso:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/sorriso.png' class='emoji' alt=':pacoca_sorriso:' data-title=':pacoca_sorriso:' style='height: 27px;'>",
+            ':pacoca_palavrao:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/palavrao.png' class='emoji' alt=':pacoca_palavrao:' data-title=':pacoca_palavrao:' style='height: 27px;'>",
+            ':pacoca_duvida:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/duvida.png' class='emoji' alt=':pacoca_duvida:' data-title=':pacoca_duvida:' style='height: 29px;'>",
+            ':pacoca_choro1:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/choro.png' class='emoji' alt=':pacoca_choro1:' data-title=':pacoca_choro1:' style='height: 25px;'>",
+            ':pacoca_canto:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/canto.png' class='emoji' alt=':pacoca_canto:' data-title=':pacoca_canto:' style='height: 25px;'>",
+            ':pacoca_raiva1:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/raiva.png' class='emoji' alt=':pacoca_raiva1:' data-title=':pacoca_raiva1:' style='height: 25px;'>",
+            ':pacoca_beijo_coracao:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/beijo_coracao.png' class='emoji' alt=':pacoca_beijo_coracao:' data-title=':pacoca_beijo_coracao:' style='height: 25px;'>",
+            ':pacoca_uau:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/uau.png' class='emoji' alt=':pacoca_uau:' data-title=':pacoca_uau:' style='height: 25px;'>",
+            ':pacoca_tremendo:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/tremendo.png' class='emoji' alt=':pacoca_tremendo:' data-title=':pacoca_tremendo:' style='height: 25px;'>",
+            ':pacoca_dormindo:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/dormindo.png' class='emoji' alt=':pacoca_dormindo:' data-title=':pacoca_dormindo:' style='height: 25px;'>",
+            ':pacoca_baba:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/baba.png' class='emoji' alt=':pacoca_baba:' data-title=':pacoca_baba:' style='height: 25px;'>",
+            ':pacoca_lagrima:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/lagrima.png' class='emoji' alt=':pacoca_lagrima:' data-title=':pacoca_lagrima:' style='height: 25px;'>",
+            ':pacoca_diabinho1:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/diabinho.png' class='emoji' alt=':pacoca_diabinho1:' data-title=':pacoca_diabinho1:' style='height: 26px;'>",
+            ':pacoca_anjo1:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/anjo.png' class='emoji' alt=':pacoca_anjo1:' data-title=':pacoca_anjo1:' style='height: 26px;'>",
+            ':pacoca_choro_riso:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/zack/choro_riso.png' class='emoji' alt=':pacoca_choro_riso:' data-title=':pacoca_choro_riso:' style='height: 26px;'>",
 
-            ':pacoca_choro:' => "<img src='/img/emoji/choro.png' class='emoji' alt=':pacoca_choro:' data-title=':pacoca_choro:' style='height: 30px; width: 30px'>",
-            ':pacoca_fome:' => "<img src='/img/emoji/fome.png' class='emoji' alt=':pacoca_fome:' data-title=':pacoca_fome:' style='height: 30px; width: 30px'>",
-            ':pacoca_raiva:' => "<img src='/img/emoji/raiva.png' class='emoji' alt=':pacoca_raiva:' data-title=':pacoca_raiva:' style='height: 30px; width: 30px'>",
-            ':pacoca_beijo:' => "<img src='/img/emoji/beijo.png' class='emoji' alt=':pacoca_beijo:' data-title=':pacoca_beijo:' style='height: 30px; width: 30px'>",
+            ':pacoca:' => "<img src='" . config("app.pacoca_url") . "/img/pacoca-sem-braco.png' class='emoji' alt=':pacoca:' data-title=':pacoca:' style='height: 25px; width: 25px'>",
+            ':pacoca_corpo:' => "<img src='" . config("app.pacoca_url") . "/img/pacoca-com-braco.png' class='emoji' alt=':pacoca_corpo:' data-title=':pacoca_corpo:' style='height: 25px; width: 32px'>",
+            ':pacoca_fundo:' => "<img src='" . config("app.pacoca_url") . "/img/pacoca-sem-braco-rounded.png' class='emoji' alt=':pacoca_fundo:' data-title=':pacoca_fundo:' style='height: 25px; width: 25px'>",
+            ':pacoca_fundo_braco:' => "<img src='" . config("app.pacoca_url") . "/img/pacoca-com-braco-rounded.png' class='emoji' alt=':pacoca_fundo_braco:' data-title=':pacoca_fundo_braco:' style='height: 25px; width: 25px'>",
+            ':pacoca_cat:' => "<img src='" . config("app.pacoca_url") . "/img/nyan-cat.gif' class='emoji' alt=':pacoca_cat:' data-title=':pacoca_cat:' style='margin-right: -14px; height: 20px; width: 40px';>",
+            ':pacoca_404:' => "<img src='" . config("app.pacoca_url") . "/img/errors/page-not-found.jpg' class='emoji' alt=':pacoca_404:' data-title=':pacoca_404:' style='height: 30px; width: 30px'>",
+            ':pacoca_500:' => "<img src='" . config("app.pacoca_url") . "/img/errors/pato.png' class='emoji' alt=':pacoca_500:' data-title=':pacoca_500:' style='height: 25px; width: 25px'>",
+            ':bochecha:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/bochecha.png' class='emoji' alt=':bochecha:' data-title=':bochecha:' style='height: 25px; width: 25px'>",
 
-            ':pacoca_caveira:' => "<img src='/img/emoji/caveira.png' class='emoji' alt=':pacoca_caveira:' data-title=':pacoca_caveira:' style='height: 30px; width: 30px'>",
-            ':pacoca_palhaco:' => "<img src='/img/emoji/palhaco.png' class='emoji' alt=':pacoca_palhaco:' data-title=':pacoca_palhaco:' style='height: 30px; width: 30px'>",
-            ':pacoca_oculos:' => "<img src='/img/emoji/oculos.png' class='emoji' alt=':pacoca_oculos:' data-title=':pacoca_oculos:' style='height: 30px; width: 30px'>",
-            ':pacoca_diabinho:' => "<img src='/img/emoji/diabinho.png' class='emoji' alt=':pacoca_diabinho:' data-title=':pacoca_diabinho:' style='height: 30px; width: 30px'>",
-            ':pacoca_caveira:' => "<img src='/img/emoji/caveira.png' class='emoji' alt=':pacoca_caveira:' data-title=':pacoca_caveira:' style='height: 30px; width: 30px'>",
-            ':pacoca_anjo:' => "<img src='/img/emoji/anjo.png' class='emoji' alt=':pacoca_anjo:' data-title=':pacoca_anjo:' style='height: 28px; width: 35px'>",
-            ':pacoca_anjo:' => "<img src='/img/emoji/anjo.png' class='emoji' alt=':pacoca_anjo:' data-title=':pacoca_anjo:' style='height: 28px; width: 35px'>",
-            ':pacoca_assustado:' => "<img src='/img/emoji/assustado.png' class='emoji' alt=':pacoca_assustado:' data-title=':pacoca_assustado:' style='height: 30px;'>",
-            ':pacoca_derretendo:' => "<img src='/img/emoji/derretendo.png' class='emoji' alt=':pacoca_derretendo:' data-title=':pacoca_derretendo:' style='height: 30px;'>",
+            ':pacoca_choro:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/choro.png' class='emoji' alt=':pacoca_choro:' data-title=':pacoca_choro:' style='height: 30px; width: 30px'>",
+            ':pacoca_fome:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/fome.png' class='emoji' alt=':pacoca_fome:' data-title=':pacoca_fome:' style='height: 30px; width: 30px'>",
+            ':pacoca_raiva:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/raiva.png' class='emoji' alt=':pacoca_raiva:' data-title=':pacoca_raiva:' style='height: 30px; width: 30px'>",
+            ':pacoca_beijo:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/beijo.png' class='emoji' alt=':pacoca_beijo:' data-title=':pacoca_beijo:' style='height: 30px; width: 30px'>",
+
+            ':pacoca_caveira:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/caveira.png' class='emoji' alt=':pacoca_caveira:' data-title=':pacoca_caveira:' style='height: 30px; width: 30px'>",
+            ':pacoca_palhaco:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/palhaco.png' class='emoji' alt=':pacoca_palhaco:' data-title=':pacoca_palhaco:' style='height: 30px; width: 30px'>",
+            ':pacoca_oculos:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/oculos.png' class='emoji' alt=':pacoca_oculos:' data-title=':pacoca_oculos:' style='height: 30px; width: 30px'>",
+            ':pacoca_diabinho:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/diabinho.png' class='emoji' alt=':pacoca_diabinho:' data-title=':pacoca_diabinho:' style='height: 30px; width: 30px'>",
+            ':pacoca_anjo:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/anjo.png' class='emoji' alt=':pacoca_anjo:' data-title=':pacoca_anjo:' style='height: 28px; width: 35px'>",
+            ':pacoca_assustado:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/assustado.png' class='emoji' alt=':pacoca_assustado:' data-title=':pacoca_assustado:' style='height: 30px;'>",
+            ':pacoca_derretendo:' => "<img src='" . config("app.pacoca_url") . "/img/emoji/derretendo.png' class='emoji' alt=':pacoca_derretendo:' data-title=':pacoca_derretendo:' style='height: 30px;'>",
         ];
         
         
@@ -171,8 +176,19 @@ class TextController extends Controller
     
     
     // Função auxiliar para escapar HTML
-    function escapeHtml($text) {
-        return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+    function escapeHtmlWithAllowedTags($text, $allowed_tags = ['b', 'a', 'br', 'p']) {
+        // Primeiro, escapa tudo
+        $text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+
+        // Depois, para cada tag permitida, "desescapa"
+        foreach ($allowed_tags as $tag) {
+            // Abrindo tag
+            $text = str_replace("&lt;{$tag}&gt;", "<{$tag}>", $text);
+            // Fechando tag
+            $text = str_replace("&lt;/{$tag}&gt;", "</{$tag}>", $text);
+        }
+
+        return $text;
     }
 
     public function verifyUserNameAndSendNotification($text, $post){

@@ -4,6 +4,7 @@
 
     <div class="container container-livro">
         @include('components.message_danger')
+        @include('components.message_success')
         
         <div class="row">
             <div class="col-4">
