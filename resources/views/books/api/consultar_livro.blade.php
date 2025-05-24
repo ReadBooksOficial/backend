@@ -3,6 +3,8 @@
 @section('content')
 
     <div class="container container-livro">
+        @include('components.message_danger')
+        
         <div class="row">
             <div class="col-4">
                 <div class="div-img-livro-selecionado" @if ($img == '../img/book_transparent.png')style="background-image: url('../img/book_transparent.png');" @endif>
