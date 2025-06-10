@@ -129,7 +129,9 @@ input.input-login{
     font-size: 30px;
 }
 
-
+.btn-adicionar-livro svg, .btn-adicionar-livro svg path{
+    color: #fff;
+}
 
 .container-login {
     justify-content: start;
@@ -143,16 +145,12 @@ input.input-login{
     background: var(--background-login);
 }
 
-
-
 .row-login {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-
 
 .col-left-login {
     background: #5bb4ff !important;
@@ -283,6 +281,11 @@ label {
     opacity: .7!important;
 }
 
+.dropdown-menu{
+    background-color: var(--background-dropdown) !important;
+    color: var(--color-input)!important;
+}
+
 .col-input-login{
     margin-bottom: 20px;
 }
@@ -379,9 +382,26 @@ label {
 }
 .col-index h1 {
     font-size: 90px;
+    color: var(--color-menu)!important;
 }
 .col-index p {
     font-size: 17px;
+    color: var(--color-menu)!important;
+}
+
+.div-btn-home-pc .btn-home{
+    border-color: var(--color-menu)!important;
+    color: var(--color-menu)!important;
+}
+
+.div-btn-home-pc .btn-home:hover{
+    background-color: var(--color-menu)!important;
+    color: var(--color-text-post)!important;
+}
+
+.div-btn-home-pc .btn-home-download{
+    background-color: var(--color-menu)!important;
+    color: var(--color-text-post)!important;
 }
 
 .col-index-mobile {
@@ -479,7 +499,7 @@ label {
 .livro {
     background-position: center;
     background-size: cover;
-    background-color: #ccc;
+    background-color: var(--background-livro);
     /* width: 200px; */
     /* min-height: 290px; */
     background-repeat: no-repeat;
@@ -686,6 +706,10 @@ img.img-escolher-capa {
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
+}
+
+input.form-control{
+    border: 1px solid var(--input-border-color);
 }
 
 .dark .mode-dark{

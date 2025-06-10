@@ -58,8 +58,8 @@
 
                     <div class="div-btn-home">
                         <a href="/register" class="btn-home btn btn-outline-light">Criar Conta</a>
-                        <a href="/login" class="btn-home btn btn-light" style="margin-left: 20px">Fazer Login</a>
-                        <a href="/download" class="btn-home btn btn-home-download btn-outline-light">Baixar</a>
+                        <a href="/login" class="btn-home btn btn-outline-light" style="margin-left: 20px">Fazer Login</a>
+                        <a href="/download" class="btn-home btn btn-home-download btn-light">Baixar</a>
                     </div>
                 </div>
             </div>
@@ -194,7 +194,7 @@
     }
 
     .col-img-index:nth-child(1){
-        margin-top: -100px;
+        margin-top: -200px;
     }
 
     .col-img-index:nth-child(2){
@@ -202,14 +202,14 @@
     }
 
     .col-img-index:nth-child(3){
-        margin-top: -100px;
+        margin-top: -200px;
     }
 
     .col-img-index:nth-child(4){
         margin-top: -150px;
     }
     .col-img-index:nth-child(5){
-        margin-top: -100px;
+        margin-top: -200px;
     }
 
     .col-img-index:nth-child(6){
@@ -226,11 +226,35 @@
     .row-index, .container-index{
         /* overflow: hidden !important; */
         position: relative;
-    }
+}
 
     @media (max-width: 1580px) {
         .col-btn-home{
             margin-left: -70px!important;
+            width: 40%!important;
+        }
+
+        .col-img-index:nth-child(1){
+            margin-top: -250px;
+        }
+
+        .col-img-index:nth-child(2){
+            margin-top: -200px;
+        }
+
+        .col-img-index:nth-child(3){
+            margin-top: -250px;
+        }
+
+        .col-img-index:nth-child(4){
+            margin-top: -200px;
+        }
+        .col-img-index:nth-child(5){
+            margin-top: -250px;
+        }
+
+        .col-img-index:nth-child(6){
+            margin-top: -150px;
         }
     }
 

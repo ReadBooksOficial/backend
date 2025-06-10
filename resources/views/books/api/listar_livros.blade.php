@@ -31,7 +31,7 @@
             @if (!empty($livros))
                 <div class="col col-livro cursor-pointer">
                     <a class="link-livro" href="/create/outro-livro/{{$book_title}}">
-                        <div class="livro"  style="background-image:url('../img/book_transparent.png');">
+                        <div class="livro livro-outro"  style="background-image:url('../img/book_transparent.png');">
                             <h1>Outro</h1>
                         </div>
                     </a>
