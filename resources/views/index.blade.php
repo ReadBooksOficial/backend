@@ -67,10 +67,10 @@
     </main>
 
     <main class="main-index container-index">
-        <div class="container container-container-index">
-            <div class="row row-index">
+        <div class="">
+            <div class="row" style="margin: 0;">
                 {{-- <h1 class="text-center">Entre para cadastrar seus livros</h1> --}}
-                <div class="col-6 col-btn-home col-index col-index-pc">
+                <div class="col-6 col-novo-index-pc">
                     <h1 class="text-white text-center">Read Books</h1>
                     <p class="text-white">Cadastre os livros que você leu ou está lendo para manter um controle de todas as informações de todos os seus livros.</p>
 
@@ -81,7 +81,7 @@
                     </div>
                 </div>
 
-                <div class="col-6 col-index">
+                <div class="col-6">
                     <div class="div img-index">
                         <div class="col col-img-index">
                             <img class="img-index" src="{{asset('img_index/1984.webp')}}">
@@ -137,6 +137,21 @@
 @endsection
 
 <style>
+    .col-novo-index-pc{
+        margin-top: 400px;
+        padding: 200px 100px!important;
+        margin: 0;
+    }
+    .col-novo-index-pc p {
+        font-size: 17px;
+        color: var(--color-menu) !important;
+    }
+
+    .col-novo-index-pc h1 {
+        font-size: 90px;
+        color: var(--color-menu) !important;
+    }
+
     .container-index-mobile{
         display: none;
     }
@@ -161,9 +176,7 @@
     main{
         max-height: 100vh!important;
     }
-    .col-index-pc h1{
-        margin-top: 200px
-    }
+
     .col-btn-home{
         margin-left: -150px!important;
     }
@@ -193,28 +206,14 @@
         max-height: 150px;
     }
 
-    .col-img-index:nth-child(1){
-        margin-top: -200px;
+    .col-img-index:nth-child(1), .col-img-index:nth-child(3), .col-img-index:nth-child(5){
+        margin-top: -250px;
     }
 
-    .col-img-index:nth-child(2){
-        margin-top: -150px;
+    .col-img-index:nth-child(2), .col-img-index:nth-child(4), .col-img-index:nth-child(6){
+        margin-top: -100px;
     }
 
-    .col-img-index:nth-child(3){
-        margin-top: -200px;
-    }
-
-    .col-img-index:nth-child(4){
-        margin-top: -150px;
-    }
-    .col-img-index:nth-child(5){
-        margin-top: -200px;
-    }
-
-    .col-img-index:nth-child(6){
-        margin-top: -150px;
-    }
 
     .img-index{
         height: 250;
@@ -222,11 +221,13 @@
         display: flex;
         gap: 5px;
     }
+    .col-img-index{
+        width: 150px;
+    }
 
-    .row-index, .container-index{
-        /* overflow: hidden !important; */
+    .container-index{
         position: relative;
-}
+    }
 
     @media (max-width: 1580px) {
         .col-btn-home{
@@ -234,27 +235,16 @@
             width: 40%!important;
         }
 
-        .col-img-index:nth-child(1){
+        .col-img-index:nth-child(1), .col-img-index:nth-child(3), .col-img-index:nth-child(5){
             margin-top: -250px;
         }
 
-        .col-img-index:nth-child(2){
+        .col-img-index:nth-child(2), .col-img-index:nth-child(4), .col-img-index:nth-child(6){
             margin-top: -200px;
         }
 
-        .col-img-index:nth-child(3){
-            margin-top: -250px;
-        }
-
-        .col-img-index:nth-child(4){
-            margin-top: -200px;
-        }
-        .col-img-index:nth-child(5){
-            margin-top: -250px;
-        }
-
-        .col-img-index:nth-child(6){
-            margin-top: -150px;
+        .col-novo-index-pc {
+            padding: 200px 50px !important;
         }
     }
 
@@ -269,13 +259,6 @@
         .img-index-mobile{
             height: 250;
         }
-
-        .col-img-index:nth-child(3){
-            margin-top: -200px;
-        }
-        .col-img-index:nth-child(5){
-            margin-top: -200px;
-        }
     }
 
     @media (max-width: 1175px) {
@@ -284,6 +267,9 @@
         }
         .col-btn-home{
             margin-left: 0px!important;
+        }
+        .col-novo-index-pc {
+           padding: 100px 50px!important;
         }
     }
 

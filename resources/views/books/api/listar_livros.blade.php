@@ -6,7 +6,20 @@
 
         <h1  class="text-center mb-5 mt-5">Adicionar Livro</h1>
 
-        <form action="/create" method="post">
+        <form class="d-flex mb-5" method="POST" action="/create">
+            @csrf
+            <input class="form-control me-2 @error('nome1') is-invalid @enderror" type="text" id="nome1" name="nome1" value="{{$book_title}}" placeholder="Pesquisar novo livro" aria-label="Search">
+            <button class="btn" style="background: @if (auth()->check() && auth()->user()->primary_color) {{auth()->user()->primary_color}} @else #5bb4ff @endif!important; color: #fff; padding: 0; min-width: 50px;" type="submit">
+                <img height="40px" src="{{asset('img/search.png')}}" alt="" srcset="">
+            </button>
+        </form>
+        @error('nome1')
+            <span class="invalid-feedback" style="display: block!important" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+
+        {{-- <form action="/create" method="post">
             @csrf
             <div class="row mb-5">
                 <div class="col-10 mb-3">
@@ -22,10 +35,9 @@
                     <button class="btn btn-blue" type="submit">
                       <img height="20px" src="{{asset('img/search.png')}}" alt="" srcset="">
                     </button>
-                    {{-- <button type="submit" class="btn btn-blue" style="width: 100%">Pesquisar</button> --}}
                 </div>
             </div>
-        </form>
+        </form> --}}
 
         <div class="row row-list-livros">
             @if (!empty($livros))

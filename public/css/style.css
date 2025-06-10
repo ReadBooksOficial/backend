@@ -361,7 +361,7 @@ label {
 
 .main-index {
     background: #5bb4ff;
-    margin-top: -70px;
+    /* margin-top: -70px; */
 }
 
 .row-index, .container-index {
@@ -594,7 +594,7 @@ th {
 
 .form-cadastrar-livro {
     margin: 0 100px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--input-border-color);
     border-radius: 5px;
     padding: 20px 50px;
     margin-top: 100px;

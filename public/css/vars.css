@@ -1,12 +1,12 @@
 :root{
     --primary-blue: #5bb4ff;
     --primary-blue-shadow: #5bb4ff80;
-    --background-login: #fff;
+    --background-login: oklch(1 0 0);
     --background-feed: #F4F2EE;
-    --background-search: #fff;
+    --background-search: oklch(1 0 0);
     --post-boxshadow-color: #cecece90;
-    --background-light: #fff;
-    --color-menu: #fff;
+    --background-light: oklch(1 0 0);
+    --color-menu: oklch(1 0 0);
     --color-text-post: oklch(0 0 0);
     --container-screen: var(--background-feed);
     --color-input: oklch(0 0 0) !important;
@@ -52,14 +52,14 @@
 .dark{
     --color-menu: oklch(0 0 0);
     --azul-principal: #5bb4ff;
-    --background-feed: oklch(0 0 0);
-    --background-login: oklch(0 0 0);
+    --background-feed: oklch(0.145 0 0);
+    --background-login: oklch(0.145 0 0);
     --post-border-color: oklch(0 0 0);
     --post-boxshadow-color: oklch(0 0 0);
     --background-input: oklch(0 0 0) !important;
     --background-livro: oklch(0.200 0 0) ;
-    --background-input-login: oklch(0.200 0 0) !important;
-    --background-dropdown: oklch(0 0 0);
+    --background-input-login: oklch(0 0 0) !important;
+    --background-dropdown: oklch(0.269 0 0);
     --color-input: #fff !important;
     --background-search: oklch(0.145 0 0);
     --background-light: #fff;
@@ -73,7 +73,7 @@
     --textarea-background-color: oklch(0 0 0);
     --textarea-borer-color: #dee2e6;
 
-    --input-border-color: oklch(0.300 0 0);
+    --input-border-color: oklch(0.200 0 0);
     
     --modal-background-color: oklch(0 0 0);
 
