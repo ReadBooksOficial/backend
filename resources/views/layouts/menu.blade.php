@@ -4,199 +4,177 @@
   $isAdmin =  $userController->isAdmin();
 @endphp
 
+
 {{-- <nav class="navbar navbar-expand-lg navbar-dark" style="width: 100%; background: @if (auth()->check()) {{auth()->user()->primary_color}} @else #5bb4ff @endif!important;"> --}}
-<nav class="navbar navbar-expand-lg navbar-dark" style="width: 100%; background: #5bb4ff!important;">
+<nav class="navbar navbar-pc navbar-dark user-select-none navbar-expand-md">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/"><img src="{{asset('img/estante_icon.png')}}" height="50" class="log-menu"> Read Books</a>
+      <a class="navbar-brand" href="/"><img src="{{asset('img/estante_icon.png')}}" height="50" class="log-menu"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
-
       <ul class="navbar-nav navbar-nav-pc me-auto mb-2 mb-lg-0" style="align-items: center;">
+          <form class=" d-flex" method="GET" action="/pesquisa"> 
+              @csrf
+
+              <input class="form-control search-menu" type="text" id="livro" name="livro" placeholder="Pesquisar meus livros" aria-label="Search">
+              <button class="btn btn-search-menu" type="submit">
+                <img height="30px" src="{{asset('img/search.png')}}" alt="" srcset="">
+              </button>
+            </form>
+          </div>
+        </div>
+        
+
+      <div class="d-flex div-icons-nav" role="search">
+      <ul class="navbar-nav me-auto mb-lg-0 content-menu">
         @if (auth()->check() || (!auth()->check() && !Route::currentRouteName() == 'index')) {{-- CASO ESTEJA LOGADO OU SEJA A PAGINA INICIAL --}}
-        <li style="margin-left: 30px!important" class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">
-            {{-- <img class="logo-home-menu-cel" height="50px" src="{{asset('img/home.png')}}" alt="" srcset=""> --}}
-            {{-- <img class="logo-home-menu-cel" height="30px" src="{{asset('img/home_white_24dp.svg')}}" alt="" srcset=""> --}}
-            <i data-lucide="home"></i>
-            Home
-          </a>
-        </li>
-      @endif
+          <li class="nav-item">
+            <a class="nav-link nav-link-pc active" aria-current="page" href="/">
+              <i data-lucide="home"></i>
+              {{-- Home --}}
+            </a>
+          </li>
+        @endif
 
-
-        @if (auth()->check()) {{-- CASO ESTEJA LOGADO--}}
-          <li style="margin-left: 30px!important" class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{-- <img class="logo-books-menu-cel" height="25px" src="{{asset('img/book.svg')}}" alt="" srcset=""> --}}
-              <i data-lucide="book-open"></i>
-              Livros
+        <li class="nav-item dropdown">
+            <a class="nav-link nav-link-pc dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i data-lucide="layout-grid"></i>
+              {{-- Apps --}}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
-                <a class="dropdown-item" href="/criar">
-                  <i data-lucide="circle-plus"></i>
+                <a class="dropdown-item d-flex align-items-center" target="_blank" href="{{ config("app.rita_url") }}">
+                  <i style="height: 19px; margin-right: 3px" data-lucide="clipboard"></i>
+                  Rita
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center" target="_blank" href="{{ config("app.cronos_url") }}">
+                  <i style="height: 19px; margin-right: 3px" data-lucide="clock"></i>
+                  Cronos
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center" target="_blank" href="{{ config("app.pacoca_url") }}">
+                  <i style="height: 19px; margin-right: 3px" data-lucide="contact-round"></i>
+                  Paçoca
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+        @if (auth()->check()) {{-- CASO ESTEJA LOGADO--}}
+          <li class="nav-item dropdown">
+            <a class="nav-link nav-link-pc dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{-- <img class="logo-books-menu-cel" height="25px" src="{{asset('img/book.svg')}}" alt="" srcset=""> --}}
+              <i data-lucide="book-open"></i>
+              {{-- Livros --}}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="/criar">
+                  <i style="height: 19px; margin-right: 3px" data-lucide="circle-plus"></i>
                   Novo livro
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="/resumo-leitura">
-                  <i data-lucide="layout-dashboard"></i>
+                <a class="dropdown-item d-flex align-items-center" href="/resumo-leitura">
+                  <i style="height: 19px; margin-right: 3px" data-lucide="layout-dashboard"></i>
                   Resumo da Leitura
                 </a>
               </li>
             </ul>
           </li>
 
-          {{-- @if ($isAdmin)
-            <li style="margin-left: 30px!important;" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                 <i data-lucide="shield-ellipsis"></i>
-                Gerenciar
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <a class="dropdown-item" href="/admins">
-                    <img class="logo-books-menu-cel" height="30px" src="{{asset('img/list_black.svg')}}" alt="" srcset="">
-                    Administradores
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/users">
-                    <img class="logo-books-menu-cel" height="30px" src="{{asset('img/list_black.svg')}}" alt="" srcset="">
-                    Usuários
-                  </a>
-                </li>
-              </ul>
-            </li>
-          @endif --}}
-
-          <li style="margin-left: 30px!important;" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                 <i data-lucide="circle-user"></i>
-                {{ explode(" ", auth()->user()->name)[0] }}
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <a class="dropdown-item" href="/conta">
-                    <i data-lucide="user"></i>
-                    Conta
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/logout">
-                    <i data-lucide="log-out"></i>
-                    Sair
-                  </a>
-                </li>
-              </ul>
-          </li>
-
-          <span style="cursor: pointer; margin-left: 30px;" onClick="toggleDarkMode()" id="darkModeToggle" className="cursor-pointer link-menu-right dropdown-item d-flex align-items-center justify-content-start">
-             <div class="mode-dark">
+          <span style="cursor: pointer;" onClick="toggleDarkMode()" id="darkModeToggle" className="cursor-pointer link-menu-right dropdown-item d-flex align-items-center justify-content-start">
+             <div class="nav-link nav-link-pc mode-dark">
                <i style="color: #fff" data-lucide="sun"></i>
-                <span>Dark</span>
+                {{-- <span>Dark</span> --}}
              </div>
-              <div class="mode-light">
+              <div class="nav-link nav-link-pc mode-light">
                 <i style="color: #fff" data-lucide="moon"></i>
-                <span>Light</span>
+                {{-- <span>Light</span> --}}
               </div>
            </span>
+        @endif
 
-          {{-- <li style="margin-left: 30px!important" class="nav-item">
-            <a class="nav-link" aria-current="page" href="/conta">
-              <img class="logo-books-menu-cel" height="30px" src="{{asset('img/person.svg')}}" alt="" srcset="">
+        {{-- <li class="nav-item dropdown">
+              <a class="nav-link nav-link-pc dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i data-lucide="circle-user"></i>
               {{ explode(" ", auth()->user()->name)[0] }}
             </a>
-          </li> --}}
-          
-          @else
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="/conta">
+                  <i data-lucide="user"></i>
+                  Conta
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/logout">
+                  <i data-lucide="log-out"></i>
+                  Sair
+                </a>
+              </li>
+            </ul>
+        </li> --}}
 
+        <li class="nav-item cursor-pointer">
+          <a class="nav-link nav-link-pc active" href="/conta">
+            <img
+              id="userImage"
+              class="cursor-pointer img-perfil-menu"
+              src="{{ config("app.pacoca_api_url") }}/{{auth()->user()->img_account}}"
+              alt="Perfil"
+              style="cursor: pointer!important"
+              onerror="this.src='/img/img-account.png';"
+            />
+          </a>
+        </li>
+
+        @if (!auth()->check())
           @if (Route::currentRouteName() != 'index') 
             <ul class="navbar-nav navbar-nav-pc me-auto mb-2 mb-lg-0" style="align-items: center;">
-              <li style="margin-left: 30px!important" class="nav-item">
-              <a class="nav-link active" href="/login">
+              <li class="nav-item">
+              <a class="nav-link nav-link-pc active" href="/login">
                 <i data-lucide="log-in"></i>
                 Login
               </a>
             </li>
             <ul class="navbar-nav navbar-nav-pc me-auto mb-2 mb-lg-0" style="align-items: center;">
-              <li style="margin-left: 30px!important" class="nav-item">
-              <a class="nav-link active" href="/register">
+              <li class="nav-item">
+              <a class="nav-link nav-link-pc active" href="/register">
                 <i data-lucide="user-plus"></i>
                 Criar conta
               </a>
             </li>
           @endif
-
-           <span style="cursor: pointer; margin-left: 20px;" onClick="toggleDarkMode()" id="darkModeToggle" className="cursor-pointer link-menu-right dropdown-item d-flex align-items-center justify-content-start">
-             <div class="mode-dark">
-               <i style="color: #fff" data-lucide="sun"></i>
-                <span>Dark</span>
-             </div>
-              <div class="mode-light">
-                <i style="color: #fff" data-lucide="moon"></i>
-                <span>Light</span>
-              </div>
-           </span>
       </span>
           
           @endif
       </ul>
-
           @if (auth()->check()) {{-- CASO ESTEJA LOGADO--}}
-
-            <div class="navbar-nav-pc">
-
-                <form class=" d-flex" method="GET" action="/pesquisa"> 
-
-                    @csrf
-
-                    <input class="form-control search-menu" type="text" id="livro" name="livro" placeholder="Pesquisar meus livros" aria-label="Search">
-
-                    <button class="btn btn-search-menu" type="submit">
-                      <img height="30px" src="{{asset('img/search.png')}}" alt="" srcset="">
-                    </button>
-
-                  </form>
-
-            </div>
-
-
-
+            
           @else{{-- CASO NÃO ESTEJA LOGADO--}}
 
           <div class="navbar-nav-pc">
-
                 <div class="d-flex">
-
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
                     <li class="nav-item">
-
-                    {{-- <a class="nav-link" aria-current="page" href="/register"><Button class="btn btn-criar-conta">Criar Conta</Button></a> --}}
-
+                    {{-- <a class="nav-link nav-link-pc" aria-current="page" href="/register"><Button class="btn btn-criar-conta">Criar Conta</Button></a> --}}
                     </li>
-
                     <li class="nav-item">
-
-                    {{-- <a class="nav-link" aria-current="page" href="/login"><Button class="btn btn-fazer-login">Fazer Login</Button></a> --}}
-
+                    {{-- <a class="nav-link nav-link-pc" aria-current="page" href="/login"><Button class="btn btn-fazer-login">Fazer Login</Button></a> --}}
                     </li>
-
                 </ul>
-
                 </div>
-
             </div>
-
           @endif
-
    </div>
-
 </div>
 
-{{-- MOBILE --}}
+    {{-- MOBILE --}}
     {{-- <div class="offcanvas text-bg-dark offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background: @if (auth()->check()) {{auth()->user()->primary_color}} @else #5bb4ff @endif!important; max-width: 80%!important; border-radius: 15px 0 0 15px"> --}}
     <div class="offcanvas text-bg-dark offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background: #5bb4ff!important; max-width: 80%!important; border-radius: 15px 0 0 15px">
 
@@ -209,26 +187,15 @@
         </button>
 
         </div>
-
         <div class="nav-bar offcanvas-body">
-
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-             <li class="nav-item">
-
-               {{-- <a class="nav-link active" aria-current="page" href="/">
-                <img class="logo-home-menu-cel" height="30px" src="{{asset('img/home_white_24dp.svg')}}" alt="" srcset="">
-                Home
-              </a> --}}
-
-             </li>
 
              @if (auth()->check()) {{-- CASO ESTEJA LOGADO--}}
 
              <li class="nav-item dropdown">
 
               <li>
-                <a class="nav-link" href="/livros" style="color: #fff">
+                <a class="nav-link active" href="/livros" style="color: #fff">
                   <i data-lucide="home"></i>
                   Home
                 </a>
@@ -275,31 +242,6 @@
                </ul>
              </li>
 
-             {{-- @if ($isAdmin)
-               <li class="nav-item dropdown">
-                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img class="logo-books-menu-cel" height="30px" src="{{asset('img/admin.svg')}}" alt="" srcset="">
-                   Gerenciar
-                 </a>
-
-                 <ul class="dropdown-menu menu-mobile" aria-labelledby="navbarDropdown" style="background: #00000029; border:0">
-                   <li>
-                    <a class="dropdown-item" href="/admins" style="color: #fff">
-                    <img class="logo-books-menu-cel" height="30px" src="{{asset('img/list.svg')}}" alt="" srcset="">
-                      Administradores
-                    </a>
-                  </li>
-
-                   <li>
-                    <a class="dropdown-item" href="/users" style="color: #fff">
-                      <img class="logo-books-menu-cel" height="30px" src="{{asset('img/list.svg')}}" alt="" srcset="">
-                      Usuários
-                    </a>
-                  </li>
-                 </ul>
-               </li>
-             @endif --}}
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i data-lucide="circle-user"></i>
@@ -343,10 +285,10 @@
                  <form class="d-flex" method="GET" action="/pesquisa"> 
                    @csrf
 
-                   <input class="form-control" type="search" id="livro" name="livro" placeholder="Nome do Livro" aria-label="Search">
-                   <button class="btn" type="submit">
-                      <img class="" height="30px" src="{{asset('img/search.png')}}" alt="" srcset="">
-                   </button>
+                   <input class="form-control search-menu" type="search" id="livro" name="livro" placeholder="Nome do Livro" aria-label="Search">
+                   <button class="btn btn-search-menu" type="submit">
+                <img height="30px" src="{{asset('img/search.png')}}" alt="" srcset="">
+              </button>
                  </form>
 
                @else{{-- CASO NÃO ESTEJA LOGADO--}}

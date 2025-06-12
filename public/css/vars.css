@@ -6,7 +6,7 @@
     --background-search: oklch(1 0 0);
     --post-boxshadow-color: #cecece90;
     --background-light: oklch(1 0 0);
-    --color-menu: oklch(1 0 0);
+    --color-menu: #fff;
     --color-text-post: oklch(0 0 0);
     --container-screen: var(--background-feed);
     --color-input: oklch(0 0 0) !important;

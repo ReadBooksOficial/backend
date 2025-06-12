@@ -16,7 +16,10 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'pacoca_api_url' => env('PACOCA_API_URL', 'https://laravel.pacoca.net'),
     'pacoca_url' => env('PACOCA_URL', 'https://pacoca.net'),
+    'cronos_url' => env('CRONOS_URL', 'https://cronos.pacoca.site'),
+    'rita_url' => env('RITA_URL', 'https://rita.pacoca.site'),
 
     /*
     |--------------------------------------------------------------------------
