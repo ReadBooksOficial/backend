@@ -99,39 +99,35 @@
            </span>
         @endif
 
-        {{-- <li class="nav-item dropdown">
-              <a class="nav-link nav-link-pc dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i data-lucide="circle-user"></i>
-              {{ explode(" ", auth()->user()->name)[0] }}
+
+        <li class="nav-item dropdown">
+            <a class="nav-link nav-link-pc dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img
+                  id="userImage"
+                  class="cursor-pointer img-perfil-menu"
+                  src="{{ config("app.pacoca_api_url") }}/{{auth()->user()->img_account}}"
+                  alt="Perfil"
+                  style="cursor: pointer!important"
+                  onerror="this.src='/img/img-account.png';"
+                />
+              </a>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
-                <a class="dropdown-item" href="/conta">
-                  <i data-lucide="user"></i>
+                <a class="dropdown-item d-flex align-items-center" href="/conta">
+                  <i style="height: 19px; margin-right: 3px" data-lucide="user"></i>
                   Conta
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="/logout">
-                  <i data-lucide="log-out"></i>
+                <a class="dropdown-item d-flex align-items-center" href="/logout">
+                  <i style="height: 19px; margin-right: 3px" data-lucide="log-out"></i>
                   Sair
                 </a>
               </li>
             </ul>
-        </li> --}}
+          </li>
 
-        <li class="nav-item cursor-pointer">
-          <a class="nav-link nav-link-pc active" href="/conta">
-            <img
-              id="userImage"
-              class="cursor-pointer img-perfil-menu"
-              src="{{ config("app.pacoca_api_url") }}/{{auth()->user()->img_account}}"
-              alt="Perfil"
-              style="cursor: pointer!important"
-              onerror="this.src='/img/img-account.png';"
-            />
-          </a>
-        </li>
 
         @if (!auth()->check())
           @if (Route::currentRouteName() != 'index') 
