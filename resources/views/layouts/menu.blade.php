@@ -6,7 +6,7 @@
 
 
 {{-- <nav class="navbar navbar-expand-lg navbar-dark" style="width: 100%; background: @if (auth()->check()) {{auth()->user()->primary_color}} @else #5bb4ff @endif!important;"> --}}
-<nav class="navbar navbar-pc navbar-dark user-select-none navbar-expand-md">
+<nav class="navbar navbar-pc navbar-dark user-select-none navbar-expand-md @if(auth()->check()) menu-radius @endif">
     <div class="container-fluid">
       <a class="navbar-brand" href="/"><img src="{{asset('img/estante_icon.png')}}" height="50" class="log-menu"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -99,7 +99,7 @@
            </span>
         @endif
 
-
+      @if(auth()->check())
         <li class="nav-item dropdown">
             <a class="nav-link nav-link-pc dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img
@@ -127,6 +127,7 @@
               </li>
             </ul>
           </li>
+        @endif
 
 
         @if (!auth()->check())
@@ -135,14 +136,14 @@
               <li class="nav-item">
               <a class="nav-link nav-link-pc active" href="/login">
                 <i data-lucide="log-in"></i>
-                Login
+                {{-- Login --}}
               </a>
             </li>
             <ul class="navbar-nav navbar-nav-pc me-auto mb-2 mb-lg-0" style="align-items: center;">
               <li class="nav-item">
               <a class="nav-link nav-link-pc active" href="/register">
                 <i data-lucide="user-plus"></i>
-                Criar conta
+                {{-- Criar conta --}}
               </a>
             </li>
           @endif
@@ -290,7 +291,7 @@
                @else{{-- CASO NÃO ESTEJA LOGADO--}}
                  <div class="d-flex">
                    <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0" style="width: 100%">
-                    <a class="nav-link" href="#" style="color: #fff">
+                    <a class="nav-link " href="#" style="color: #fff">
                         <span style="cursor: pointer; margin-top: -20px;" onClick="toggleDarkMode()" id="darkModeToggle" className="cursor-pointer link-menu-right dropdown-item d-flex align-items-center justify-content-start">
                           <div  class="mode-dark">
                             <i style="color: #fff" data-lucide="sun"></i>
