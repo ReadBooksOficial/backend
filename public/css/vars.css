@@ -108,6 +108,14 @@
     background-color: #fff!important;
 }
 
+.dark p, .dark label{
+    color: oklch(0.708 0 0);
+}
+
+.dark .container-livro p{
+    color: #fff;
+}
+
 .dark img.img-escolher-capa{
     /* background-color: oklch(0.145 0 0)!important; */
     color: #fff!important;
