@@ -6,11 +6,6 @@
     color: #dc3545!important;
 }
 
-nav.navbar-pc.navbar-expand-md{
-    padding-left: 100px;
-    padding-right: 100px;
-}
-
 /* nav.navbar *, a.download-btn div{
     color: var(--color-menu) !important;
     transition: .2s !important;
@@ -826,11 +821,6 @@ input.form-control{
 
 
 @media (max-width: 1065px) {
-    nav.navbar-pc.navbar-expand-md{
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
     .navbar-nav-pc {
         display: none !important;
     }

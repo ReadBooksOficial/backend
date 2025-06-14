@@ -63,7 +63,7 @@
 
         @if(empty($compartilhado))
             <div class="btn-group dropup" style="border: 0">
-                <button style="border: 0; z-index: 999" type="button" class="btn-adicionar-livro" data-bs-toggle="dropdown" aria-expanded="false">
+                <button style="border: 0; z-index: 1" type="button" class="btn-adicionar-livro" data-bs-toggle="dropdown" aria-expanded="false">
                     <svg id="svg-adicionar-livro" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
                         <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
                     </svg>

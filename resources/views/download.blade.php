@@ -106,7 +106,7 @@
         position: absolute;
         transform: translateX(-50%);
         width: 100%;
-        z-index: 99999;
+        z-index: 1;
         max-width: 500px;
     }
     .dropdown-content a {
