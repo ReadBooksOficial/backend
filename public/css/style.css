@@ -821,10 +821,6 @@ input.form-control{
 
 
 @media (max-width: 1065px) {
-    .navbar-nav-pc {
-        display: none !important;
-    }
-
     .navbar-nav-cel {
         display: block !important;
     }
@@ -908,8 +904,17 @@ input.form-control{
         font-size: 20px;
         text-align: left!important;
     }
+    
 }
 
+@media (max-width: 850px) {
+    .navbar-nav-pc {
+        display: none !important;
+    }
+    .navbar-expand-md .navbar-toggler {
+        display: flex!important;
+    }
+}
 @media (max-width: 750px) {
     .col-left-login, .col-right-register{
         display: none!important;
