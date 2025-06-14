@@ -748,6 +748,13 @@ input.form-control{
     display: none;
 }
 
+.dropdown-item{
+    display: flex!important;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+}
+
 .light .mode-light{
     display: none;
 }
