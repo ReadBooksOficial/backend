@@ -21,7 +21,7 @@
     <title>@yield('title')</title>
      <script src="https://unpkg.com/feather-icons"></script>
      <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="{{asset('css/style.css?v=20')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css?v=21')}}">
 <link rel="stylesheet" href="{{asset('css/navbar-pc.css?v=2')}}">
     <link rel="stylesheet" href="{{asset('css/vars.css?v=16')}}">
     <link rel="shortcut icon" href="{{asset('img/estante_icon_fundo.png')}}" type="image/x-icon">
