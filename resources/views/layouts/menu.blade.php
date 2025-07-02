@@ -110,7 +110,7 @@
             <a class="nav-link nav-link-pc dropdown-toggle" href="#" id="navbarDropdown" role="button"
             data-bs-toggle="dropdown" aria-expanded="false">
             <img id="userImage" class="cursor-pointer img-perfil-menu"
-              src="{{ config("app.pacoca_api_url") }}/{{auth()->user()->img_account}}" alt="Perfil"
+              src="{{ config("app.pacoca_backend_url") }}/{{auth()->user()->img_account}}" alt="Perfil"
               style="cursor: pointer!important" onerror="this.src='/img/img-account.png';" />
             </a>
             </a>

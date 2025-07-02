@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => explode(',', config('app.frontend_urls')),
 
     'allowed_origins_patterns' => [],
 

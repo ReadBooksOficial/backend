@@ -2,9 +2,8 @@ nav{
     background: var(--primary-blue)!important;
 }
 
-nav.menu-radius{
-    margin: 0 20px 20px;
-    border-radius: 15px;
+nav.menu-radius {
+    padding-left: 45px!important;
 }
 
 .navbar-brand img{
@@ -97,9 +96,10 @@ button.btn-search{
 }
 
 nav.navbar-pc.navbar-expand-md{
-    padding-left: 100px;
-    padding-right: 100px;
+    /* padding-left: 100px;
+    padding-right: 100px; */
     z-index: 9;
+    padding: 0;
 }
 
 nav.navbar-cel{

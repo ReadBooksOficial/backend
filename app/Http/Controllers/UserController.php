@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 
 class UserController extends Controller
 {
@@ -174,5 +176,30 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('conta')->with('conta-choose-color-success', '');
+    }
+
+    public static function verifyTokenInternal($token)
+    {
+        if(App::environment('local')){
+            return [
+                'valid' => false
+            ];
+        }
+        $record = DB::table('user_tokens')->where('token', $token)->first();
+        $user = User::find($record->user_id);
+
+        if (!$record) {
+            return [
+                'valid' => false
+            ];
+        }
+
+        return [
+            'valid' => true,
+            'id' => $record->user_id,
+            'name' => $user->name ?? null,
+            'email' => $email->email ?? null,
+            'token_id' => $record->id,
+        ];
     }
 }

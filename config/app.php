@@ -16,7 +16,11 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-    'pacoca_api_url' => env('PACOCA_API_URL', 'https://laravel.pacoca.net'),
+    'frontend_urls' => env('FRONTEND_URLS', 'http://localhost:3001'),
+
+    'read_books_backend_url' => env('READ_BOOKS_BACKEND_URL', 'http://127.0.0.1:8000'),
+    'pacoca_api_url' => env('PACOCA_API_URL', 'https://laravel.pacoca.net/api'),
+    'pacoca_backend_url' => env('PACOCA_API_URL', 'https://laravel.pacoca.net'),
     'pacoca_url' => env('PACOCA_URL', 'https://pacoca.net'),
     'cronos_url' => env('CRONOS_URL', 'https://cronos.pacoca.site'),
     'rita_url' => env('RITA_URL', 'https://rita.pacoca.site'),
