@@ -25,7 +25,7 @@ jobs:
         port: ${{ secrets.REMOTE_PORT }}
         script: |
             cd ${{secrets.TARGET_PRODUCTION}}
-            ./composer.phar install --no-interaction --prefer-dist --optimize-autoloader
+            ./composer.phar install --no-interaction --prefer-dist --optimize-autoloader 
 
     - name: Copiar arquivos para VPS
       uses: easingthemes/ssh-deploy@main
