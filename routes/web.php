@@ -19,8 +19,6 @@ use Illuminate\Support\Facades\Gate;
 |
 */
 
-
-
 Route::get('/politica-privacidade', [NavigationController::class, 'politicaPrivacidade']);
 Route::get('/compartilhar-livro/{user_id}', [LivroController::class, 'compartilharLivros'])->name('livros.compartilhar');
 Route::get('/compartilhar-um-livro/{user_livro}', [LivroController::class, 'compartilharUmLivro'])->name('livros.compartilhar_um_livro');
