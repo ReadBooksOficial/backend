@@ -15,6 +15,17 @@ jobs:
     steps:
     - name: Checkout do repositório
       uses: actions/checkout@v2
+      
+    - name: Copiar arquivos para VPS
+      uses: easingthemes/ssh-deploy@main
+      with:
+        SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+        ARGS: "-avz"
+        SOURCE: "./"
+        REMOTE_HOST: ${{secrets.REMOTE_HOST}}
+        REMOTE_USER: ${{secrets.REMOTE_USER}}
+        REMOTE_PORT: ${{secrets.REMOTE_PORT}}
+        TARGET: ${{secrets.TARGET_PRODUCTION}}
 
     - name: Install dependencies
       uses: appleboy/ssh-action@v1.2.0
@@ -26,17 +37,6 @@ jobs:
         script: |
             cd ${{secrets.TARGET_PRODUCTION}}
             ./composer.phar install --no-interaction --prefer-dist --optimize-autoloader 
-
-    - name: Copiar arquivos para VPS
-      uses: easingthemes/ssh-deploy@main
-      with:
-        SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
-        ARGS: "-avz"
-        SOURCE: "./"
-        REMOTE_HOST: ${{secrets.REMOTE_HOST}}
-        REMOTE_USER: ${{secrets.REMOTE_USER}}
-        REMOTE_PORT: ${{secrets.REMOTE_PORT}}
-        TARGET: ${{secrets.TARGET_PRODUCTION}}
 
     - name: "Limpar cache"
       uses: appleboy/ssh-action@v1.2.0
