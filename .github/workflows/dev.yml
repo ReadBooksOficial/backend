@@ -1,0 +1,44 @@
+name: dev
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+
+jobs:
+  build-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Setup PHP e Composer 2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'  # ajuste a versão conforme seu projeto
+          tools: composer
+
+      - name: Ensure composer 2
+        run: composer --version
+
+      # Instala dependências PHP
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Create SQLite database file
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
+
+      - name: Run migrations (incluindo cache table)
+        run: php artisan migrate --force
+
+      # Rodar migrations (opcional)
+      - name: "Clean Cache"
+        run: |
+              php artisan cache:clear
+              php artisan config:clear
+              php artisan route:clear
+              php artisan view:clear

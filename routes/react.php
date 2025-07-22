@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\BooksController;
+use App\Http\Controllers\V2\BooksController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\ApiController;
@@ -25,7 +25,8 @@ use App\Http\Controllers\Api\GoogleBookApiController;
 
 Route::middleware(['check_user_token_api'])->group(function () {
     Route::group(['prefix' => 'books'], function(){
-        Route::get('/', [BooksController::class, 'index']);//deletar conta
+        Route::get('/', [BooksController::class, 'index']);
+        Route::get('/{id}', [BooksController::class, 'getBookById']);
     });
 });
 

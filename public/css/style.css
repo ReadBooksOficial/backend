@@ -752,7 +752,7 @@ input.form-control{
     display: flex!important;
     align-items: center;
     gap: 10px;
-    font-size: 20px;
+    /* font-size: 20px; */
 }
 
 .light .mode-light{
