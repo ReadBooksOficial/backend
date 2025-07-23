@@ -81,7 +81,7 @@ class BooksController extends Controller
         return response()->json(['book' => $book], 200);
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $uuid){
         $request->validate([
             'nome_livro' => ['required', 'string'],
             'descricao_livro' => ['required', 'string'],
@@ -92,17 +92,10 @@ class BooksController extends Controller
             // 'data_inicio' => ['required'],
         ]);
 
-        // if($request->total_paginas == $request->paginas_lidas){
-        //     $lido = 'sim';
-        // }else if($request->paginas_lidas < $request->total_paginas || $request->paginas_lidas == 0){
-        //     $lido = 'não';
-        // }else if($request->paginas_lidas > $request->total_paginas){
-        //     return back()->withErrors(['paginas_lidas' => 'A número de páginas que você leu não pode ser maior que a quantidade total de páginas'])->withInput();
-        // }
-
-        $book = Livro::where('id_livro', $id)->first();
+        $book = Livro::where('uuid', $uuid)->first();
         $user = $request->get('user');
 
+        if(!$book) return response()->json(['message' => 'Livro não encontrado'], 404);
         if($book->id_usuario != $user["id"]) return response()->json(['message' => 'Acesso negado'], 403);
         if(!$book) return response()->json(['message' => 'Livro não encontrado'], 404);
 
