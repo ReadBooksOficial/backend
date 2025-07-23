@@ -55,7 +55,6 @@ class BooksController extends Controller
 
         return response()->json(compact('books', 'totalBooks', 'totalReadBooks', "totalNotReadBooks", 'totalWishList'));
     }
-
     public function verifyImgBook($img_livro){
         $path = str_replace('../', "", $img_livro);
         $img_livro = str_replace('http://books.google.com', "https://books.google.com", $path);
@@ -72,7 +71,7 @@ class BooksController extends Controller
             return '../img/book_transparent.png';
     }
 
-    public function getBookById($id)
+    public function find($id)
     {
         try {
             $book = Livro::where('id_livro', $id)->first();
@@ -82,5 +81,48 @@ class BooksController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message'=> $e->getMessage()],500);
         }
+    }
+
+    public function update(Request $request, $id){
+        $request->validate([
+            'nome_livro' => ['required', 'string'],
+            'descricao_livro' => ['required', 'string'],
+            'total_paginas' => ['required'],
+            'paginas_lidas' => ['required'],
+            'tempo_lido' => ['required'],
+            'lido' => ['required'],
+            // 'data_inicio' => ['required'],
+        ]);
+
+        // if($request->total_paginas == $request->paginas_lidas){
+        //     $lido = 'sim';
+        // }else if($request->paginas_lidas < $request->total_paginas || $request->paginas_lidas == 0){
+        //     $lido = 'não';
+        // }else if($request->paginas_lidas > $request->total_paginas){
+        //     return back()->withErrors(['paginas_lidas' => 'A número de páginas que você leu não pode ser maior que a quantidade total de páginas'])->withInput();
+        // }
+
+        $book = Livro::where('id_livro', $id)->first();
+        $user = $request->get('user');
+
+        if($book->id_usuario != $user["id"]) return response()->json(['message' => 'Acesso negado'], 403);
+        if(!$book) return response()->json(['message' => 'Livro não encontrado'], 404);
+
+        Livro::where('id_livro', $request->id_livro)
+        ->update([
+            'nome_livro' => $request->nome_livro,
+            'img_livro' => $request->img_livro,
+            'lido' => $request->lido,
+            'total_paginas' => $request->total_paginas,
+            'tempo_lido' => $request->tempo_lido,
+            'paginas_lidas' => $request->paginas_lidas,
+            'descricao_livro' => $request->descricao_livro,
+            'data_inicio' => $request->data_inicio,
+            'data_termino' => $request->data_termino,
+            'show_in_pacoca' => $request->has("show_in_pacoca"),
+        ]);
+
+        return response()->json(['message' => 'Livro atualizado'], 200);
+
     }
 }

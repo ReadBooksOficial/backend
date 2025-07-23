@@ -26,7 +26,8 @@ use App\Http\Controllers\Api\GoogleBookApiController;
 Route::middleware(['check_user_token_api'])->group(function () {
     Route::group(['prefix' => 'books'], function(){
         Route::get('/', [BooksController::class, 'index']);
-        Route::get('/{id}', [BooksController::class, 'getBookById']);
+        Route::get('/{id}', [BooksController::class, 'find']);
+        Route::post('/{id}', [BooksController::class, 'update']);
     });
 });
 
