@@ -11,7 +11,7 @@ class BooksController extends Controller
     public function index(Request $request){
         $user = $request->get('user');
         $page = $request->input('page', 1); // Pega o número da página a partir da requisição
-        $limit = 18;
+        $limit = 100;
         $offset = ($page - 1) * $limit;
         $search = $request->input('search');
         $filter = $request->input('filter');
