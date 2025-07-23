@@ -71,16 +71,14 @@ class BooksController extends Controller
             return '../img/book_transparent.png';
     }
 
-    public function find($id)
+    public function find($uuid)
     {
-        try {
-            $book = Livro::where('id_livro', $id)->first();
-            $book->img_livro = $this->verifyImgBook($book->img_livro);// verifica se livro tem capa, se nao tive deixa padrao
+        $book = Livro::where('uuid', $uuid)->first();
+        if(!$book)return response()->json(['message' => 'Livro não encontrado'], 404);
 
-            return response()->json(['book' => $book], 200);//busca livro pelo id
-        } catch (\Exception $e) {
-            return response()->json(['message'=> $e->getMessage()],500);
-        }
+        $book->img_livro = $this->verifyImgBook($book->img_livro);
+
+        return response()->json(['book' => $book], 200);
     }
 
     public function update(Request $request, $id){
@@ -119,7 +117,7 @@ class BooksController extends Controller
             'descricao_livro' => $request->descricao_livro,
             'data_inicio' => $request->data_inicio,
             'data_termino' => $request->data_termino,
-            'show_in_pacoca' => $request->has("show_in_pacoca"),
+            'show_in_pacoca' => $request->show_in_pacoca,
         ]);
 
         return response()->json(['message' => 'Livro atualizado'], 200);
