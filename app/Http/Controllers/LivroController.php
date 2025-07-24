@@ -225,7 +225,6 @@ class LivroController extends Controller
 
     //funcao para editar livro
     public function update(Request $request){
-        try{
             $dados = $request->validate([
                 'nome_livro' => ['required', 'string'],
                 'descricao_livro' => ['required', 'string'],
@@ -284,10 +283,6 @@ class LivroController extends Controller
 
             return redirect("/livro/$request->id_livro")->with('success', 'Livro editado com sucesso');
 
-        }
-        catch(\Exception $e){
-            return redirect("/livro/$request->id_livro")->with('danger', 'Não foi possível editar livro');
-        }
     }
 
     //apaga livro
