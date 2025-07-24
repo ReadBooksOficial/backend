@@ -17,8 +17,6 @@ class BooksController extends Controller
         $search = $request->input('search');
         $filter = $request->input('filter');
 
-        // $books = Livro::where('id_usuario', $user["id"])->orderBy('data_inicio', 'desc')->get(); //busca livro pelo usuario
-
         $books = Livro::where('id_usuario', $user["id"]);
 
         
@@ -49,11 +47,6 @@ class BooksController extends Controller
         $totalReadBooks = Livro::where('lido', 'sim')->where('id_usuario', $user["id"])->count();
         $totalNotReadBooks = Livro::where('lido', 'não')->where('id_usuario', $user["id"])->count();
 
-        // verifica se livro tem capa, se nao tive deixa padrao
-        // foreach ($books as $livro) {
-        //     $livro->img_livro = $this->verifyImgBook($livro->img_livro);
-        // }
-
         return response()->json(compact('books', 'totalBooks', 'totalReadBooks', "totalNotReadBooks", 'totalWishList'));
     }
     public function verifyImgBook($img_livro){
@@ -72,12 +65,11 @@ class BooksController extends Controller
             return '../img/book_transparent.png';
     }
 
-    public function find($uuid)
+    public function find(Request $request, $uuid)
     {
+        $user = $request->get('user');
         $book = Livro::where('uuid', $uuid)->first();
-        if(!$book)return response()->json(['message' => 'Livro não encontrado'], 404);
-
-        // $book->img_livro = $this->verifyImgBook($book->img_livro);
+        if(!$book)return response()->json(['message' => 'Livro não encontrado' . (isMyLove($user["id"]) ? ", meu amor" : "")], 404);
 
         return response()->json(['book' => $book], 200);
     }
@@ -96,7 +88,7 @@ class BooksController extends Controller
         $book = Livro::where('uuid', $uuid)->first();
         $user = $request->get('user');
 
-        if(!$book) return response()->json(['message' => 'Livro não encontrado'], 404);
+        if(!$book) return response()->json(['message' => 'Livro não encontrado' . (isMyLove($user["id"]) ? ", meu amor" : "")], 404);
         if($book->id_usuario != $user["id"]) return response()->json(['message' => 'Acesso negado'], 403);
 
         Livro::where('id_livro', $request->id_livro)
@@ -112,7 +104,7 @@ class BooksController extends Controller
             'show_in_pacoca' => $request->show_in_pacoca,
         ]);
 
-        return response()->json(['message' => 'Livro atualizado'], 200);
+        return response()->json(['message' => 'Livro atualizado' . (isMyLove($user["id"]) ? ", meu amor" : "")], 200);
     }
 
     public function delete(Request $request, $uuid)
@@ -121,7 +113,7 @@ class BooksController extends Controller
         $book = Livro::where('uuid', $uuid)->first();
         
         if(!$book) return response()->json(['message' => 'Livro não encontrado'], 404);
-        if($book->id_usuario != $user["id"]) return response()->json(['message' => 'Acesso negado'], 403);
+        if($book->id_usuario != $user["id"]) return response()->json(['message' => 'Acesso negado' . (isMyLove($user["id"]) ? ", meu amor" : "")], 403);
 
         $book->delete();
         $img_livro = 'img_livros/' . $book->id_livro . '.png';
@@ -129,7 +121,7 @@ class BooksController extends Controller
         if (Storage::exists($img_livro))
             Storage::delete($img_livro);
 
-        return response()->json(['message' => "Livro Apagado"], 200);//busca livro pelo id
+        return response()->json(['message' => "Livro Apagado" . (isMyLove($user["id"]) ? ", meu amor" : "")], 200);//busca livro pelo id
     }
 
 }

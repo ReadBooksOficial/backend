@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dcf15844480490a097a39aea8715b8b9",
+    "content-hash": "6ac537e150bdbf5ced58488e032dbc44",
     "packages": [
         {
             "name": "barryvdh/laravel-cors",
@@ -1124,6 +1124,44 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
+        },
+        {
+            "name": "joao-alves/global-components",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:PacocaOficial/php-global-components.git",
+                "reference": "2c74e258415e581281808725d5d336a77de9d14c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PacocaOficial/php-global-components/zipball/2c74e258415e581281808725d5d336a77de9d14c",
+                "reference": "2c74e258415e581281808725d5d336a77de9d14c",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JoaoAlves\\GlobalComponents\\GlobalComponentsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JoaoAlves\\GlobalComponents\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Componentes globais Laravel compartilhados entre projetos.",
+            "support": {
+                "source": "https://github.com/PacocaOficial/php-global-components/tree/main",
+                "issues": "https://github.com/PacocaOficial/php-global-components/issues"
+            },
+            "time": "2025-07-24T16:58:18+00:00"
         },
         {
             "name": "laravel/framework",
@@ -8518,7 +8556,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "joao-alves/global-components": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

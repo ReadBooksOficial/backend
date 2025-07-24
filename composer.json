@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "barryvdh/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.8",
+        "joao-alves/global-components": "dev-main",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
@@ -62,6 +63,12 @@
             "pestphp/pest-plugin": true
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:PacocaOficial/php-global-components.git"
+        }
+    ],
     "minimum-stability": "stable",
     "prefer-stable": true
 }
