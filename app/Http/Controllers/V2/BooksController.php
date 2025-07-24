@@ -50,9 +50,9 @@ class BooksController extends Controller
         $totalNotReadBooks = Livro::where('lido', 'não')->where('id_usuario', $user["id"])->count();
 
         // verifica se livro tem capa, se nao tive deixa padrao
-        foreach ($books as $livro) {
-            $livro->img_livro = $this->verifyImgBook($livro->img_livro);
-        }
+        // foreach ($books as $livro) {
+        //     $livro->img_livro = $this->verifyImgBook($livro->img_livro);
+        // }
 
         return response()->json(compact('books', 'totalBooks', 'totalReadBooks', "totalNotReadBooks", 'totalWishList'));
     }
@@ -77,7 +77,7 @@ class BooksController extends Controller
         $book = Livro::where('uuid', $uuid)->first();
         if(!$book)return response()->json(['message' => 'Livro não encontrado'], 404);
 
-        $book->img_livro = $this->verifyImgBook($book->img_livro);
+        // $book->img_livro = $this->verifyImgBook($book->img_livro);
 
         return response()->json(['book' => $book], 200);
     }
@@ -102,7 +102,6 @@ class BooksController extends Controller
         Livro::where('id_livro', $request->id_livro)
         ->update([
             'nome_livro' => $request->nome_livro,
-            'img_livro' => $request->img_livro,
             'lido' => $request->lido,
             'total_paginas' => $request->total_paginas,
             'tempo_lido' => $request->tempo_lido,
