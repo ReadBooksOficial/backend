@@ -28,6 +28,7 @@ Route::middleware(['check_user_token_api'])->group(function () {
         Route::get('/', [BooksController::class, 'index']);
         Route::get('/{uuid}', [BooksController::class, 'find']);
         Route::post('/{uuid}', [BooksController::class, 'update']);
+        Route::delete('/{uuid}', [BooksController::class, 'delete']);
     });
 });
 

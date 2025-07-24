@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V2;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Livro;
+use Illuminate\Support\Facades\Storage;
 
 class BooksController extends Controller
 {
@@ -97,7 +98,6 @@ class BooksController extends Controller
 
         if(!$book) return response()->json(['message' => 'Livro não encontrado'], 404);
         if($book->id_usuario != $user["id"]) return response()->json(['message' => 'Acesso negado'], 403);
-        if(!$book) return response()->json(['message' => 'Livro não encontrado'], 404);
 
         Livro::where('id_livro', $request->id_livro)
         ->update([
@@ -114,6 +114,23 @@ class BooksController extends Controller
         ]);
 
         return response()->json(['message' => 'Livro atualizado'], 200);
-
     }
+
+    public function delete(Request $request, $uuid)
+    {
+        $user = $request->get('user');
+        $book = Livro::where('uuid', $uuid)->first();
+        
+        if(!$book) return response()->json(['message' => 'Livro não encontrado'], 404);
+        if($book->id_usuario != $user["id"]) return response()->json(['message' => 'Acesso negado'], 403);
+
+        $book->delete();
+        $img_livro = 'img_livros/' . $book->id_livro . '.png';
+
+        if (Storage::exists($img_livro))
+            Storage::delete($img_livro);
+
+        return response()->json(['message' => "Livro Apagado"], 200);//busca livro pelo id
+    }
+
 }
