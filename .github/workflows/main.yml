@@ -37,6 +37,8 @@ jobs:
         script: |
             cd ${{secrets.TARGET_PRODUCTION}}
             ./composer.phar install --no-interaction --prefer-dist --optimize-autoloader 
+            ./composer.phar require joao-alves/global-components:dev-main
+
 
     - name: "Limpar cache"
       uses: appleboy/ssh-action@v1.2.0
