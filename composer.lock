@@ -1124,7 +1124,7 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
-        },
+        }, 
         {
             "name": "joao-alves/global-components",
             "version": "dev-main",

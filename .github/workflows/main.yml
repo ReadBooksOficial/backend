@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Checkout do repositório
       uses: actions/checkout@v2
-      
+
     - name: Copiar arquivos para VPS
       uses: easingthemes/ssh-deploy@main
       with:
