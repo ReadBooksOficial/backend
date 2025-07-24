@@ -89,7 +89,7 @@ class BooksController extends Controller
         $user = $request->get('user');
 
         if(!$book) return response()->json(['message' => 'Livro não encontrado' . (isMyLove($user["id"]) ? ", meu amor" : "")], 404);
-        if($book->id_usuario != $user["id"]) return response()->json(['message' => 'Acesso negado'], 403);
+        if($book->id_usuario != $user["id"]) return response()->json(['message' => 'Acesso negado'. (isMyLove($user["id"]) ? ", meu amor" : "")], 403);
 
         Livro::where('id_livro', $request->id_livro)
         ->update([
