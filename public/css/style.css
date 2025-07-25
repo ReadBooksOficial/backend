@@ -251,12 +251,6 @@ input.input-login{
     margin-bottom: 40px !important;
 }
 
-
-
-label {
-    font-size: 20px !important;
-}
-
 .dropdown-menu{
     background-color: var(--background-login)!important;
 }

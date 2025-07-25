@@ -1,12 +1,8 @@
 <?php
 
 use App\Http\Controllers\V2\BooksController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\V2\GoogleBooksController;
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\ApiController;
-use App\Http\Controllers\Api\UserApiController;
-use App\Http\Controllers\Api\LivroApiController;
-use App\Http\Controllers\Api\GoogleBookApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,42 +20,16 @@ use App\Http\Controllers\Api\GoogleBookApiController;
 // });
 
 Route::middleware(['check_user_token_api'])->group(function () {
-    Route::group(['prefix' => 'books'], function(){
-        Route::get('/', [BooksController::class, 'index']);
-        Route::get('/{uuid}', [BooksController::class, 'find']);
-        Route::post('/{uuid}', [BooksController::class, 'update']);
-        Route::delete('/{uuid}', [BooksController::class, 'delete']);
+    Route::group(['prefix' => 'google-books'], function(){
+        Route::get('/by-name/{name}', [GoogleBooksController::class, 'getBooksByName']);
+        Route::get('/{id}', [GoogleBooksController::class, 'getBookById']);
+        Route::get('/add-to-read/{id}', [GoogleBooksController::class, 'addToRead'])->middleware('auth:api', 'check_user_token');
     });
 });
 
-
-// Route::post('/login', [UserApiController::class, 'login']);
-// Route::post('/user', [UserApiController::class, 'register']);
-// // Route::put('/user', [UserApiController::class, 'update'])->middleware('auth:api');
-
-// Route::get('/users/pacoca/{user_name}', [LivroApiController::class, 'getBooksByUserIdToPacoca']);
-
-// Route::group(['prefix' => 'books'], function(){
-//     Route::get('/', [BooksController::class, 'index']);//deletar conta
-//     Route::get('/by-user-id/{id}', [LivroApiController::class, 'getBooksByUserId']);
-//     Route::get('/by-name/{name}', [LivroApiController::class, 'getBooksByName'])->middleware('auth:api', 'check_user_token');
-//     Route::get('/{id}', [LivroApiController::class, 'getBookById'])->middleware('auth:api', 'check_user_token');
-//     Route::delete('/{id}', [LivroApiController::class, 'delete'])->middleware('auth:api', 'check_user_token');
-//     Route::patch('/{id}', [LivroApiController::class, 'update'])->middleware('auth:api', 'check_user_token');
-// });
-
-// Route::group(['prefix' => 'google-books'], function(){
-//     Route::get('/by-name/{name}', [GoogleBookApiController::class, 'getBooksByName']);
-//     Route::get('/{id}', [GoogleBookApiController::class, 'getBookById']);
-//     Route::get('/add-to-read/{id}', [GoogleBookApiController::class, 'addToRead'])->middleware('auth:api', 'check_user_token');
-// });
-
-// Route::get('/', function(){
-//     return response()->json("Ola Mundo",200);
-// });
-
-
-// Route::fallback(function(){
-//     return response()->json(['error' => 'Rota não encontrada.'], 404);
-// });
-
+Route::group(['prefix' => 'books'], function(){
+    Route::get('/', [BooksController::class, 'index'])->middleware('check_user_token_api');
+    Route::get('/{uuid}', [BooksController::class, 'find']);
+    Route::post('/{uuid}', [BooksController::class, 'update'])->middleware('check_user_token_api');
+    Route::delete('/{uuid}', [BooksController::class, 'delete'])->middleware('check_user_token_api');
+});
