@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Se a requisição não for para /public, redireciona
+    RewriteCond %{REQUEST_URI} !^/public
+    RewriteRule ^(.*)$ laravel/public/$1 [L]
+</IfModule>
