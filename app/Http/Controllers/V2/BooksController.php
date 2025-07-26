@@ -96,7 +96,7 @@ class BooksController extends Controller
         $user = $request->get('user');
         $book = Livro::where('uuid', $uuid)->first();
         
-        if(!$book) return response()->json(['message' => 'Livro não encontrado'], 404);
+        if(!$book) return response()->json(['message' => 'Livro não encontrado' . (isMyLove($user["id"]) ? ", meu amor" : "")], 404);
         if($book->id_usuario != $user["id"]) return response()->json(['message' => 'Acesso negado' . (isMyLove($user["id"]) ? ", meu amor" : "")], 403);
 
         $book->delete();
@@ -108,4 +108,12 @@ class BooksController extends Controller
         return response()->json(['message' => "Livro Apagado" . (isMyLove($user["id"]) ? ", meu amor" : "")], 200);//busca livro pelo id
     }
 
+    public function getUserId(Request $request, $id_user)
+    {
+        $user = $request->get('user');
+        if(!$id_user) return response()->json(['message' => 'Informe o id do usuário' . (isMyLove($user["id"]) ? ", meu amor" : "")], 404);
+        $books = Livro::where('id_usuario', $request->id_user)->orderBy('data_inicio', 'desc')->where("show_in_pacoca", true)->get(); //busca livro pelo usuario
+
+        return response()->json(['books' => $books]);//busca livro pelo usuario
+    }
 }

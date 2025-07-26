@@ -38,7 +38,7 @@ class RouteServiceProvider extends ServiceProvider
                 
                 Route::middleware('web')
                 ->prefix('api/v2')
-                ->group(base_path('routes/react.php'));
+                ->group(base_path('routes/v2.php'));
         });
     }
 
