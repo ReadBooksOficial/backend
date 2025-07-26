@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\V2;
 
 use App\Http\Controllers\Controller;
+use App\Models\Livro;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class GoogleBooksController extends Controller
 {
     public $langRestrict = 'pt-BR';
     private $key = 'AIzaSyDG9HavA17iFwucNnObsHy4qWzwMGhz9ME';
-    public BooksController $book_controller; //livro controller
 
     public function getBooksByName($book_title) {
         // Codifica o título do livro para ser usado como parâmetro na URL da API
@@ -27,54 +28,50 @@ class GoogleBooksController extends Controller
     }
 
     public function addToRead(Request $request, $id){
-        try{
-            $user = $request->user();
-            if(!$user) 
-                return response()->json(['message' => "Usuário não encontrado"], 401);
+        $request->validate([
+            'thumbnail' => 'nullable|string',
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'is_read' => 'nullable|boolean',
+            'time_read' => 'nullable|string',
+            'pages_read' => 'nullable|integer',
+            'total_pages' => 'nullable|integer',
+            'start_date' => 'nullable|date',
+        ]);
 
-            
-            list($book, $img) = $this->getBookById($id); // controller da api do google
+        $user = $request->user();
+        if(!$user) 
+            return response()->json(['message' => "Usuário não encontrado". (isMyLove($user["id"]) ? ", meu amor" : "")], 401);
 
-            if(!$book)
-                return response()->json(['message' => "Livro não encontrado"], 404);
+        $livro = Livro::create([
+            'img_livro' => $request->thumbnail,
+            'id_livro_google' => $id,
+            'id_usuario' => $user["id"],
+            'lido' => $request->is_read ? 'sim' : 'não',
+            'nome_livro' => $request->name,
+            'descricao_livro' => $request->description,
+            'tempo_lido' => $request->time_read ?? "0 dias",
+            'paginas_lidas' => $request->pages_read ?? 0,
+            'total_paginas' => $request?->total_pages,
+            'data_inicio' => $request->start_date,
+        ]);
 
-            $livro = Livro::create([
-                'img_livro' => $img,
-                'id_livro_google' => $book?->id,
-                'id_usuario' => $user->id,
-                'nome_livro' => $book?->volumeInfo?->title ?? "Sem título",
-                'descricao_livro' => $book?->volumeInfo?->description ?? "",
-                'lido' => 'não',
-                'tempo_lido' => '0 dias',
-                'paginas_lidas' => 0,
-                'total_paginas' => $book?->volumeInfo?->pageCount ?? 0,
-                'data_inicio' => now(),
-            ]);
-
-            return response()->json(['message' => 'Livro Cadastrado'], 200);
-        }
-        catch(Exception $e){
-            return response()->json(['message' => $e->getMessage()], 500);
-        }
+        return response()->json(['message' => 'Livro cadastrado' . (isMyLove($user["id"]) ? ", meu amor" : ""), "book" => $livro], 200);
+        
     }
 
    //busca livro pelo id
-   public function getBookById($id){
-        $this->book_controller = new BooksController();
-
+   public function getBookById(Request $request, $id){
+        $user = $request->user();
         $url = "https://www.googleapis.com/books/v1/volumes/$id";
         $json_data = file_get_contents($url);
 
         $livro = json_decode($json_data);
 
-        if ($livro === null)
-            die('Error decoding JSON data.');
-        
-        // $thumbnail = $livro->volumeInfo->imageLinks->smallThumbnail ?? '/img/book_transparent.png';
-        // $thumbnail = $livro->volumeInfo->imageLinks->thumbnail ?? $thumbnail;
-        
-        // $img = $this->book_controller->verificarImagemLivro($thumbnail);// verifica se livro tem capa, se nao tive deixa padrao
+        if (!$livro)
+            return response()->json(['message' => "Livro não encontrado" . (isMyLove($user["id"]) ? ", meu amor" : "")], 404);
 
         return response()->json($livro, 200);
     }
+
 }

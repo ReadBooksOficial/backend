@@ -49,22 +49,6 @@ class BooksController extends Controller
 
         return response()->json(compact('books', 'totalBooks', 'totalReadBooks', "totalNotReadBooks", 'totalWishList'));
     }
-    public function verifyImgBook($img_livro){
-        $path = str_replace('../', "", $img_livro);
-        $img_livro = str_replace('http://books.google.com', "https://books.google.com", $path);
-
-        // img contem http (api)
-        if (strpos($img_livro, 'books.google.com') != false)
-            return str_replace("zoom=5", "zoom=6", $img_livro);
-        
-        // não tem https
-        if (strpos($img_livro, 'https') == false)
-            return config("app.read_books_backend_url")  . "/$img_livro";
-
-        if(!file_exists($path) || !$path)
-            return '../img/book_transparent.png';
-    }
-
     public function find(Request $request, $uuid)
     {
         $user = $request->get('user');
