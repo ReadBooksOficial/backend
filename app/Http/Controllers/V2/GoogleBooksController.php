@@ -39,9 +39,9 @@ class GoogleBooksController extends Controller
             'start_date' => 'nullable|date',
         ]);
 
-        $user = $request->user();
+        $user = $request->get('user');
         if(!$user) 
-            return response()->json(['message' => "Usuário não encontrado". (isMyLove($user["id"]) ? ", meu amor" : "")], 401);
+            return response()->json(['message' => "Usuário não encontrado"], 401);
 
         $livro = Livro::create([
             'img_livro' => $request->thumbnail,
@@ -62,7 +62,7 @@ class GoogleBooksController extends Controller
 
    //busca livro pelo id
    public function getBookById(Request $request, $id){
-        $user = $request->user();
+        $user = $request->get('user');
         $url = "https://www.googleapis.com/books/v1/volumes/$id";
         $json_data = file_get_contents($url);
 
