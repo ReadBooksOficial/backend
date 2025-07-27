@@ -23,7 +23,7 @@ Route::middleware(['check_user_token_api'])->group(function () {
     Route::group(['prefix' => 'google-books'], function(){
         Route::get('/by-name/{name}', [GoogleBooksController::class, 'getBooksByName']);
         Route::get('/{id}', [GoogleBooksController::class, 'getBookById']);
-        Route::post('/add-to-read/{id}', [GoogleBooksController::class, 'addToRead'])->middleware('auth:api', 'check_user_token');
+        Route::post('/add-to-read/{id}', [GoogleBooksController::class, 'addToRead']);
     });
 });
 
