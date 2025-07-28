@@ -53,7 +53,7 @@ class BooksController extends Controller
     {
         $user = $request->get('user');
         $book = Livro::where('uuid', $uuid)->first();
-        if(!$book)return response()->json(['message' => 'Livro não encontrado' . (isMyLove($user["id"]) ? ", meu amor" : "")], 404);
+        if(!$book)return response()->json(['message' => 'Livro não encontrado' . ($user && isMyLove($user["id"]) ? ", meu amor" : "")], 404);
 
         return response()->json(['book' => $book], 200);
     }

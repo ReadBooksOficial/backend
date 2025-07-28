@@ -62,16 +62,19 @@ class GoogleBooksController extends Controller
 
    //busca livro pelo id
    public function getBookById(Request $request, $id){
-        $user = $request->get('user');
-        $url = "https://www.googleapis.com/books/v1/volumes/$id";
-        $json_data = file_get_contents($url);
+        try {
+            $user = $request->get('user');
+            $url = "https://www.googleapis.com/books/v1/volumes/$id";
+            $json_data = file_get_contents($url);
 
-        $livro = json_decode($json_data);
+            $livro = json_decode($json_data);
 
-        if (!$livro)
-            return response()->json(['message' => "Livro não encontrado" . (isMyLove($user["id"]) ? ", meu amor" : "")], 404);
+            if (!$livro) return response()->json(['message' => "Livro não encontrado" . ($user && isMyLove($user["id"]) ? ", meu amor" : "")], 404);
 
-        return response()->json($livro, 200);
+            return response()->json($livro, 200);
+        } catch (\Throwable $th) {
+            return response()->json(["message" => "Livro não encontrado"], 404);
+        }
     }
 
 }
