@@ -32,5 +32,6 @@ Route::group(['prefix' => 'books'], function(){
     Route::get('/{uuid}', [BooksController::class, 'find']);
     Route::post('/{uuid}', [BooksController::class, 'update'])->middleware('check_user_token_api');
     Route::get('/by-user-id/{id_user}', [BooksController::class, 'getUserId']);
+    Route::get('/by-username/{username}', [BooksController::class, 'getByUsername']);
     Route::delete('/{uuid}', [BooksController::class, 'delete'])->middleware('check_user_token_api');
 });

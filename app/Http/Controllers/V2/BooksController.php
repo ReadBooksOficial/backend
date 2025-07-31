@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Livro;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 
 class BooksController extends Controller
 {
@@ -106,6 +107,57 @@ class BooksController extends Controller
             Storage::delete($img_livro);
 
         return response()->json(['message' => "Livro Apagado" . (isMyLove($user["id"]) ? ", meu amor" : "")], 200);//busca livro pelo id
+    }
+
+    public function getByUsername(Request $request, $username){
+        $user = $request->get('user');
+        $token = $request->bearerToken();
+        if(!$username) return response()->json(['message' => 'Informe o nome de usuário' . (isMyLove($user["id"]) ? ", meu amor" : "")], 404);
+
+        // Busca os dados do usuário via API
+        $response = Http::withToken($token)->acceptJson()->get(config("constants.urls.pacoca_api") . "/users/$username");
+
+        if ($response->failed())
+            return response()->json(['message' => 'Usuário não encontrado'], 404);
+        
+        $user = collect($response->json())->first();
+
+        $page = $request->input('page', 1); // Pega o número da página a partir da requisição
+        $limit = 100;
+        $offset = ($page - 1) * $limit;
+        $search = $request->input('search');
+        $filter = $request->input('filter');
+
+        $books = Livro::where('id_usuario', $user["id"]);
+
+        if (!empty($search)) {
+            $books->where(function ($q) use ($search) {
+                $q->where('nome_livro', 'like', '%' . $search . '%')
+                ->orWhere('descricao_livro', 'like', '%' . $search . '%');
+            });
+        }
+        
+        if ($filter) {
+            if ($filter == "read")
+                $books->where('lido', 'sim');
+            elseif ($filter == "not_read")
+                $books->where('lido', 'não');
+            elseif ($filter == "wish_list")
+                $books->whereNull('data_inicio');
+        }
+
+        
+        $books = $books->orderBy('data_inicio', "desc")
+            ->offset($offset)
+            ->limit($limit)->get();
+
+
+        $totalBooks = Livro::where('id_usuario', $user["id"])->where('data_inicio', '!=', null)->count();
+        $totalWishList = Livro::where('id_usuario', $user["id"])->where('lido', 'não')->where('data_inicio', null)->count();
+        $totalReadBooks = Livro::where('lido', 'sim')->where('id_usuario', $user["id"])->count();
+        $totalNotReadBooks = Livro::where('lido', 'não')->where('id_usuario', $user["id"])->count();
+
+        return response()->json(compact('books', 'totalBooks', 'totalReadBooks', "totalNotReadBooks", 'totalWishList'));
     }
 
     public function getUserId(Request $request, $id_user)
