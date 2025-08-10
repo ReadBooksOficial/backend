@@ -40,8 +40,8 @@ class GoogleBooksController extends Controller
         ]);
 
         $user = $request->get('user');
-        if(!$user) 
-            return response()->json(['message' => "Usuário não encontrado"], 401);
+        // if(!$user) 
+        //     return response()->json(['message' => "Usuário não encontrado"], 401);
 
         $livro = Livro::create([
             'img_livro' => $request->thumbnail,
