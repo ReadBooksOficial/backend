@@ -17,7 +17,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
     'frontend_urls' => env('FRONTEND_URLS', 'http://localhost:3001'),
-
+    'readbooks_api_keys' => env('READBOOKS_API_KEYS', ''),
+    
     'read_books_backend_url' => env('READ_BOOKS_BACKEND_URL', 'http://127.0.0.1:8000'),
     'pacoca_api_url' => env('PACOCA_API_URL', 'https://laravel.pacoca.net/api'),
     'pacoca_backend_url' => env('PACOCA_API_URL', 'https://laravel.pacoca.net'),
