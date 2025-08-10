@@ -18,8 +18,11 @@ class Cors
     {
         $allowedOrigins = explode(',', config('app.frontend_urls'));
         $allowedIps = explode(',', config('app.allowed_ips'));
+        $validApiKeys = explode(',', config('app.readbooks_api_keys')); // várias chaves separadas por vírgula
+        
         $origin = $request->headers->get('Origin');
         $clientIp = $request->ip(); // Obtém o IP do cliente
+        $apiKey = $request->headers->get('X-Api-Key');
 
         // se não tiver origin (navegador/postman) não permite fazer a menos que esteja com ip permitido
         if (!$origin && !in_array($clientIp, $allowedIps)) {
@@ -28,7 +31,7 @@ class Cors
         
         $response = $next($request);
         if($origin){
-            if (in_array($origin, $allowedOrigins)) {
+            if (in_array($origin, $allowedOrigins) && !in_array($apiKey, $validApiKeys)) {
                 $response->header('Access-Control-Allow-Origin', $origin);
             }else{
                 return response()->json(['message' => "CORS: Seu site nao esta aqui" . $origin], 403);
